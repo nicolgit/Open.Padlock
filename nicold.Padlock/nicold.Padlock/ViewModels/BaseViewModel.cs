@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 
 using nicold.Padlock.Models;
-using nicold.Padlock.Services;
+using nicold.Padlock.Models.Services;
 
 namespace nicold.Padlock.ViewModels
 {

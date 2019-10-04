@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace nicold.Padlock.Services
+namespace nicold.Padlock.Models.Services
 {
     public interface IDataStore<T>
     {

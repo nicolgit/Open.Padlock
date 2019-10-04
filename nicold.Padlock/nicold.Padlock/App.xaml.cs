@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using nicold.Padlock.Services;
+using nicold.Padlock.Models.Services;
 using nicold.Padlock.Views;
 
 namespace nicold.Padlock

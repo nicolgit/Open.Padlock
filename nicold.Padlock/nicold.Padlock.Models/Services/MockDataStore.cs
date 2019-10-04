@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using nicold.Padlock.Models;
 
-namespace nicold.Padlock.Services
+namespace nicold.Padlock.Models.Services
 {
     public class MockDataStore : IDataStore<Item>
     {
