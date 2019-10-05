@@ -44,6 +44,14 @@ namespace nicold.Padlock.Views
             await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
         }
 
+        async void SignOut_Clicked(object sender, EventArgs e)
+        {
+            if (await DisplayAlert("Sign out", "Are you sure?", "Yes", "No"))
+            {
+                viewModel.SignOutCommand.Execute(null);
+            }
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();

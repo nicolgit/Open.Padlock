@@ -10,9 +10,15 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
+        <ToolbarItem Text="Sign out" Command="{Binding SignOutCommand}" />
     </ContentPage.ToolbarItems>
-
     <StackLayout>
+        <Button x:Name="buttonSignin" 
+                HorizontalOptions="CenterAndExpand"  
+                Text="Sign In" 
+                IsVisible="{Binding IsNotAuthenticated, Mode=OneWay}"
+                Command="{Binding SignInCommand}"
+                />
         <ListView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
                 VerticalOptions="FillAndExpand"
@@ -21,10 +27,11 @@
                 IsPullToRefreshEnabled="true"
                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
                 CachingStrategy="RecycleElement"
+                IsVisible="{Binding IsAuthenticated, Mode=OneWay}"
                 ItemSelected="OnItemSelected">
             <d:ListView.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
-                    <x:String>First Item</x:String>
+                    <x:String>ha ha ha</x:String>
                     <x:String>Second Item</x:String>
                     <x:String>Third Item</x:String>
                     <x:String>Forth Item</x:String>

@@ -7,19 +7,22 @@ using Xamarin.Forms;
 
 using nicold.Padlock.Models;
 using nicold.Padlock.Views;
+using nicold.Padlock.Models.Services;
+using System.Windows.Input;
 
 namespace nicold.Padlock.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
-        public Command LoadItemsCommand { get; set; }
-
         public ItemsViewModel()
         {
             Title = "Browse";
             Items = new ObservableCollection<Item>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+
+            LoadItemsCommand = new Command(async () => await LoadItemsCommandImplementation());
+            SignInCommand = new Command(async () => await SignInCommandImplementation());
+            SignOutCommand = new Command(async () => await SignOutCommandImplementation(), () => { return IsAuthenticated; });
+
 
             MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
             {
@@ -27,9 +30,28 @@ namespace nicold.Padlock.ViewModels
                 Items.Add(newItem);
                 await DataStore.AddItemAsync(newItem);
             });
+
         }
 
-        async Task ExecuteLoadItemsCommand()
+        #region PROPERTIES
+        public ObservableCollection<Item> Items { get; set; }
+
+        public bool IsAuthenticated
+        {
+            get { return Globals.AccessToken != null; }
+        }
+
+        public bool IsNotAuthenticated => !IsAuthenticated;
+        #endregion
+
+        #region COMMANDS
+        public Command LoadItemsCommand { get; set; }
+        public Command SignInCommand { get; set;  }
+        public Command SignOutCommand { get; set; }
+        #endregion
+
+        #region COMMANDSIMPLEMENTATION
+        private async Task LoadItemsCommandImplementation()
         {
             if (IsBusy)
                 return;
@@ -54,5 +76,25 @@ namespace nicold.Padlock.ViewModels
                 IsBusy = false;
             }
         }
+
+        private async Task SignInCommandImplementation()
+        {
+            Globals.AccessToken = await Models.Globals.CloudSignin.AcquireTokenAsync();
+
+            OnPropertyChanged("IsAuthenticated");
+            OnPropertyChanged("IsNotAuthenticated");
+            SignOutCommand.ChangeCanExecute();
+        }
+        private async Task SignOutCommandImplementation()
+        {
+            Globals.AccessToken = null;
+            await Globals.CloudSignin.SignOut();
+
+            OnPropertyChanged("IsAuthenticated");
+            OnPropertyChanged("IsNotAuthenticated");
+            SignOutCommand.ChangeCanExecute();
+        }
+
+        #endregion
     }
 }

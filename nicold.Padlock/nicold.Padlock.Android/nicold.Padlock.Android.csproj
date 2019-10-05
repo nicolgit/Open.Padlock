@@ -102,6 +102,10 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\nicold.Padlock.Models\nicold.Padlock.Models.csproj">
+      <Project>{25bfce1e-69fe-40f1-8a25-33066f3dd4d1}</Project>
+      <Name>nicold.Padlock.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\nicold.Padlock\nicold.Padlock.csproj">
       <Project>{34D58585-E08C-4C0F-8B6B-CB891422B7F7}</Project>
       <Name>nicold.Padlock</Name>
