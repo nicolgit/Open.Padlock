@@ -14,39 +14,44 @@ namespace nicold.Padlock.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ItemsViewModel()
+        public ItemsViewModel(INavigation navigation)
         {
+            Navigation = navigation;
             Title = "Browse";
             Items = new ObservableCollection<Item>();
 
             LoadItemsCommand = new Command(async () => await LoadItemsCommandImplementation());
-            SignInCommand = new Command(async () => await SignInCommandImplementation());
-            SignOutCommand = new Command(async () => await SignOutCommandImplementation(), () => { return IsAuthenticated; });
+            SignOutCommand = new Command(async () => await SignOutCommandImplementation());
 
-
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
+            MessagingCenter.Subscribe<NewItemPage, Item>(this, Messages.ADDITEM, async (obj, item) =>
             {
                 var newItem = item as Item;
                 Items.Add(newItem);
                 await DataStore.AddItemAsync(newItem);
             });
 
+            MessagingCenter.Subscribe<SignInViewModel, string>(this, Messages.SIGNIN, async (obj, item) =>
+            {
+                if (IsAuthenticated)
+                {
+                    
+                }
+                else
+                {
+
+                }
+
+            });
         }
 
         #region PROPERTIES
         public ObservableCollection<Item> Items { get; set; }
-
-        public bool IsAuthenticated
-        {
-            get { return Globals.AccessToken != null; }
-        }
-
-        public bool IsNotAuthenticated => !IsAuthenticated;
+        public bool IsAuthenticated => Globals.AccessToken != null;
+        public INavigation Navigation;
         #endregion
 
         #region COMMANDS
         public Command LoadItemsCommand { get; set; }
-        public Command SignInCommand { get; set;  }
         public Command SignOutCommand { get; set; }
         #endregion
 
@@ -77,22 +82,10 @@ namespace nicold.Padlock.ViewModels
             }
         }
 
-        private async Task SignInCommandImplementation()
-        {
-            Globals.AccessToken = await Models.Globals.CloudSignin.AcquireTokenAsync();
-
-            OnPropertyChanged("IsAuthenticated");
-            OnPropertyChanged("IsNotAuthenticated");
-            SignOutCommand.ChangeCanExecute();
-        }
         private async Task SignOutCommandImplementation()
         {
             Globals.AccessToken = null;
             await Globals.CloudSignin.SignOut();
-
-            OnPropertyChanged("IsAuthenticated");
-            OnPropertyChanged("IsNotAuthenticated");
-            SignOutCommand.ChangeCanExecute();
         }
 
         #endregion

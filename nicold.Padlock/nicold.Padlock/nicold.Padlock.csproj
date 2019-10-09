@@ -17,4 +17,10 @@
   <ItemGroup>
     <ProjectReference Include="..\nicold.Padlock.Models\nicold.Padlock.Models.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\SignIn.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

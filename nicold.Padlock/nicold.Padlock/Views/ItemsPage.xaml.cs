@@ -18,19 +18,21 @@ namespace nicold.Padlock.Views
     [DesignTimeVisible(false)]
     public partial class ItemsPage : ContentPage
     {
-        ItemsViewModel viewModel;
+        readonly ItemsViewModel viewModel;
 
         public ItemsPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel();
+            BindingContext = viewModel = new ItemsViewModel(Navigation);
+            
+            if (!viewModel.IsAuthenticated)
+                Navigation.PushModalAsync(new NavigationPage(new SignIn()));
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as Item;
-            if (item == null)
+            if (!(args.SelectedItem is Item item))
                 return;
 
             await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
@@ -49,6 +51,7 @@ namespace nicold.Padlock.Views
             if (await DisplayAlert("Sign out", "Are you sure?", "Yes", "No"))
             {
                 viewModel.SignOutCommand.Execute(null);
+                await Navigation.PushModalAsync(new NavigationPage(new SignIn()));
             }
         }
 

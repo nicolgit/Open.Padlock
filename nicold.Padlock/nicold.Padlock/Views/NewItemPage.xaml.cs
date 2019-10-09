@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using nicold.Padlock.Models;
+using nicold.Padlock.ViewModels;
 
 namespace nicold.Padlock.Views
 {
@@ -30,7 +31,7 @@ namespace nicold.Padlock.Views
 
         async void Save_Clicked(object sender, EventArgs e)
         {
-            MessagingCenter.Send(this, "AddItem", Item);
+            MessagingCenter.Send(this, Messages.ADDITEM, Item);
             await Navigation.PopModalAsync();
         }
 
