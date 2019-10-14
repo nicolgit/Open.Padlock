@@ -12,6 +12,13 @@ namespace nicold.Padlock.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        protected INavigation Navigation;
+
+        public BaseViewModel(INavigation navigation)
+        {
+            Navigation = navigation;
+        }
+
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
 
         bool isBusy = false;

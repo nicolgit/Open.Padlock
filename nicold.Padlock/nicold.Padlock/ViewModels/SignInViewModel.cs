@@ -9,7 +9,7 @@ namespace nicold.Padlock.ViewModels
 {
     public class SignInViewModel: BaseViewModel
     {
-        public SignInViewModel()
+        public SignInViewModel(INavigation navigation) : base (navigation)
         {
             SignInCommand = new Command(async () => await SignInCommandImplementation());
         }
@@ -20,7 +20,7 @@ namespace nicold.Padlock.ViewModels
 
         private async Task SignInCommandImplementation()
         {
-            Globals.AccessToken = await Models.Globals.CloudSignin.AcquireTokenAsync();
+            Globals.AccessToken = await Models.Globals.CloudStorage.AcquireTokenAsync();
             
             if (IsAuthenticated)
             {
@@ -30,6 +30,5 @@ namespace nicold.Padlock.ViewModels
         }
 
         public bool IsAuthenticated => Globals.AccessToken != null;
-        public INavigation Navigation;
     }
 }

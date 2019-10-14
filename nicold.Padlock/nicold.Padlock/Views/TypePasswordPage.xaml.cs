@@ -11,20 +11,15 @@ using Xamarin.Forms.Xaml;
 namespace nicold.Padlock.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignIn : ContentPage
+    public partial class TypePasswordPage : ContentPage
     {
-        private readonly SignInViewModel viewModel;
+        private readonly TypePasswordViewModel viewModel;
 
-        public SignIn()
+        public TypePasswordPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new SignInViewModel(Navigation);
-        }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
+            BindingContext = viewModel = new TypePasswordViewModel(Navigation);
         }
-
     }
 }

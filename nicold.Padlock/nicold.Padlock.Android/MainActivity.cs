@@ -26,9 +26,9 @@ namespace nicold.Padlock.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
 
-            Models.Globals.CloudSignin = new Models.Services.OneDrive();
-            Models.Globals.CloudSignin.Initialize();
-            Models.Globals.CloudSignin.ParentWindow = this;
+            Models.Globals.CloudStorage = new Models.Services.OneDrive();
+            Models.Globals.CloudStorage.Initialize();
+            Models.Globals.CloudStorage.ParentWindow = this;
 
             // string token = await Models.Globals.CloudSignin.AcquireTokenAsync();
             // string a = token;

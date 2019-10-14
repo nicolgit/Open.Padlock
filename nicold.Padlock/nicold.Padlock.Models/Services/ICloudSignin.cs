@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 
 namespace nicold.Padlock.Models.Services
 {
-    public interface ICloudSignin
+    public interface ICloudStorage
     {
         void Initialize();
 
         Task<string> AcquireTokenAsync();
         Task<bool> SignOut();
+        Task<byte[]> GetPadlockFile();
 
         Object ParentWindow { get; set; }
     }

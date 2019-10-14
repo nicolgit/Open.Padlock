@@ -7,7 +7,7 @@ namespace nicold.Padlock.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {
-        public AboutViewModel()
+        public AboutViewModel(INavigation navigation): base (navigation)
         {
             Title = "About";
 

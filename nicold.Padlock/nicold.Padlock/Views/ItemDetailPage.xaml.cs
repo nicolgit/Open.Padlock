@@ -13,7 +13,7 @@ namespace nicold.Padlock.Views
     [DesignTimeVisible(false)]
     public partial class ItemDetailPage : ContentPage
     {
-        ItemDetailViewModel viewModel;
+        readonly ItemDetailViewModel viewModel;
 
         public ItemDetailPage(ItemDetailViewModel viewModel)
         {
@@ -32,7 +32,7 @@ namespace nicold.Padlock.Views
                 Description = "This is an item description."
             };
 
-            viewModel = new ItemDetailViewModel(item);
+            viewModel = new ItemDetailViewModel(Navigation, item);
             BindingContext = viewModel;
         }
     }

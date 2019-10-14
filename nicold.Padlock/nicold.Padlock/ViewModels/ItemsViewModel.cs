@@ -14,9 +14,8 @@ namespace nicold.Padlock.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ItemsViewModel(INavigation navigation)
+        public ItemsViewModel(INavigation navigation): base (navigation)
         {
-            Navigation = navigation;
             Title = "Browse";
             Items = new ObservableCollection<Item>();
 
@@ -34,7 +33,8 @@ namespace nicold.Padlock.ViewModels
             {
                 if (IsAuthenticated)
                 {
-                    
+                    Globals.FileContent = await Globals.CloudStorage.GetPadlockFile();
+                    await Navigation.PushModalAsync(new NavigationPage(new TypePasswordPage()));
                 }
                 else
                 {
@@ -47,7 +47,6 @@ namespace nicold.Padlock.ViewModels
         #region PROPERTIES
         public ObservableCollection<Item> Items { get; set; }
         public bool IsAuthenticated => Globals.AccessToken != null;
-        public INavigation Navigation;
         #endregion
 
         #region COMMANDS
@@ -85,7 +84,7 @@ namespace nicold.Padlock.ViewModels
         private async Task SignOutCommandImplementation()
         {
             Globals.AccessToken = null;
-            await Globals.CloudSignin.SignOut();
+            await Globals.CloudStorage.SignOut();
         }
 
         #endregion
