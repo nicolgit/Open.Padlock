@@ -21,5 +21,17 @@ namespace nicold.Padlock.Views
 
             BindingContext = viewModel = new TypePasswordViewModel(Navigation);
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // https://github.com/xamarin/Xamarin.Forms/issues/2094
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await System.Threading.Tasks.Task.Delay(250);
+                EntryPassword.Focus();
+            });
+        }
     }
 }
