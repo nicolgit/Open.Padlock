@@ -33,7 +33,7 @@ namespace nicold.Padlock.ViewModels
             {
                 if (IsAuthenticated)
                 {
-                    Globals.FileContent = await Globals.CloudStorage.GetPadlockFile();
+                    Globals.FileEncrypted = await Globals.CloudStorage.GetPadlockFile();
                     await Navigation.PushModalAsync(new NavigationPage(new TypePasswordPage()));
                 }
                 else

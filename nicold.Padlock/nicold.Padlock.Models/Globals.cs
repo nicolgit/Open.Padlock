@@ -9,7 +9,8 @@ namespace nicold.Padlock.Models
     {
         public static Object  ParentWindow { get; set; }
         public static string AccessToken { get; set; }
-        public static byte[] FileContent { get; set; }
+        public static byte[] FileEncrypted { get; set; }
+        public static string FileReadable { get; set; }
 
         public static ICloudStorage CloudStorage;
     }

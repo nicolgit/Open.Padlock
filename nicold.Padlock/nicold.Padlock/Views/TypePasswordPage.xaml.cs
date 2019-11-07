@@ -30,7 +30,7 @@ namespace nicold.Padlock.Views
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await System.Threading.Tasks.Task.Delay(250);
-                EntryPassword.Focus();
+                EntryPassword.Focus();  
             });
         }
     }

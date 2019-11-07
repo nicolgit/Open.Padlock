@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace nicold.Padlock.Models
 {
-    public class PazDocument
+    public class PazDocumentLegacy
     {
 
         #region PRIVATE
@@ -14,7 +14,7 @@ namespace nicold.Padlock.Models
         private const string PASSWORD_PROTECTED = "PASSWORD-";
 
         // string used to verify if the password is correct.
-        // Da: "L'amore ai tempi del colera - Gabriel Garc�a Marquez"
+        // Da: "L'amore ai tempi del colera - Gabriel Garcia Marquez"
         private const string C_VERIFYTEXT = "Era invevitabile: l'odore delle mandorle amare gli ricordava " +
             "sempre il destino degli amori contrastati. Il dottor Juvenal " +
             "Urbino lo sent� appena entrato nella casa ancora in penombra, " +
@@ -53,7 +53,7 @@ namespace nicold.Padlock.Models
         public bool BackupNoPassword { get; set; }
         public bool Changed { get; set; }
 
-        public PazDocument()
+        public PazDocumentLegacy()
         {
             DocNew();
         }
@@ -61,7 +61,7 @@ namespace nicold.Padlock.Models
         public void DocNew()
         {
             szFullfile = null;
-            FileName = PazDocument.NEWDOCUMENTNAME;
+            FileName = PazDocumentLegacy.NEWDOCUMENTNAME;
             crypt_iv = crypt_key = null;
             unlockPassword = null;
             Changed = false;
@@ -146,7 +146,7 @@ namespace nicold.Padlock.Models
         /// <param name="parent">xmlnode parent under root/nodes</param>
         public void Text2Xml(string text, System.Xml.XmlNode parent)
         {
-            System.Xml.XmlNode xmlParent = FindXmlNodeByGuid(GetAttributeByName(parent, PazDocument.TAG_GUID));
+            System.Xml.XmlNode xmlParent = FindXmlNodeByGuid(GetAttributeByName(parent, PazDocumentLegacy.TAG_GUID));
 
             System.Xml.XmlDocumentFragment frag = xmlDoc.CreateDocumentFragment();
             frag.InnerXml = text;
@@ -162,7 +162,7 @@ namespace nicold.Padlock.Models
         public System.Xml.XmlNode FindXmlNodeByGuid(string guid)
         {
             System.Xml.XmlElement root = xmlDoc.DocumentElement;
-            string s = "/root/nodes/node[@" + PazDocument.TAG_GUID + "='" + guid + "']";
+            string s = "/root/nodes/node[@" + PazDocumentLegacy.TAG_GUID + "='" + guid + "']";
 
             return root.SelectSingleNode(s);
         }
@@ -183,7 +183,7 @@ namespace nicold.Padlock.Models
         public System.Xml.XmlNodeList FindXmlNodeByParentGuid(string guid)
         {
             System.Xml.XmlElement root = xmlDoc.DocumentElement;
-            string s = "/root/nodes/node[@" + PazDocument.TAG_PARENTGUID + "='" + guid + "']";
+            string s = "/root/nodes/node[@" + PazDocumentLegacy.TAG_PARENTGUID + "='" + guid + "']";
 
             return root.SelectNodes(s);
         }
@@ -195,7 +195,7 @@ namespace nicold.Padlock.Models
         public string GetMorefield(string guid)
         {
             System.Xml.XmlElement root = xmlDoc.DocumentElement;
-            string s = "/root/nodes/node[@" + PazDocument.TAG_GUID + "='" + guid + "']/moreinfo";
+            string s = "/root/nodes/node[@" + PazDocumentLegacy.TAG_GUID + "='" + guid + "']/moreinfo";
 
             if (root.SelectNodes(s).Count > 0)
             {
@@ -220,7 +220,7 @@ namespace nicold.Padlock.Models
         public void SetMorefield(string guid, string[] value)
         {
             System.Xml.XmlElement root = xmlDoc.DocumentElement;
-            string s = "/root/nodes/node[@" + PazDocument.TAG_GUID + "='" + guid + "']/moreinfo";
+            string s = "/root/nodes/node[@" + PazDocumentLegacy.TAG_GUID + "='" + guid + "']/moreinfo";
 
             System.Xml.XmlNode xMore;
 
@@ -264,11 +264,11 @@ namespace nicold.Padlock.Models
             xml = node.OuterXml;
             if (recursive)
             {
-                System.Xml.XmlNodeList nodes = FindXmlNodeByParentGuid(GetAttributeByName(node, PazDocument.TAG_GUID));
+                System.Xml.XmlNodeList nodes = FindXmlNodeByParentGuid(GetAttributeByName(node, PazDocumentLegacy.TAG_GUID));
 
                 foreach (System.Xml.XmlNode nd in nodes)
                 {
-                    xml += GetXMLfromGUID(GetAttributeByName(nd, PazDocument.TAG_GUID), true);
+                    xml += GetXMLfromGUID(GetAttributeByName(nd, PazDocumentLegacy.TAG_GUID), true);
                 }
             }
             return xml;
@@ -284,11 +284,11 @@ namespace nicold.Padlock.Models
             System.Xml.XmlNode node = FindXmlNodeByGuid(guidRoot);
 
             // remove childs first
-            System.Xml.XmlNodeList nodes = FindXmlNodeByParentGuid(GetAttributeByName(node, PazDocument.TAG_GUID));
+            System.Xml.XmlNodeList nodes = FindXmlNodeByParentGuid(GetAttributeByName(node, PazDocumentLegacy.TAG_GUID));
 
             foreach (System.Xml.XmlNode nd in nodes)
             {
-                removeItemByGUID(GetAttributeByName(nd, PazDocument.TAG_GUID));
+                removeItemByGUID(GetAttributeByName(nd, PazDocumentLegacy.TAG_GUID));
             }
 
             // remove node
@@ -300,7 +300,7 @@ namespace nicold.Padlock.Models
             System.Xml.XmlDocumentFragment fragdoc = xmlDoc.CreateDocumentFragment();
             fragdoc.InnerXml = newxml;
 
-            string guid = GetAttributeByName(fragdoc.FirstChild, PazDocument.TAG_GUID);
+            string guid = GetAttributeByName(fragdoc.FirstChild, PazDocumentLegacy.TAG_GUID);
             System.Xml.XmlNode node = FindXmlNodeByGuid(guid);
 
             node.ParentNode.ReplaceChild(fragdoc.FirstChild, node);
@@ -546,9 +546,9 @@ namespace nicold.Padlock.Models
             {
                 System.Xml.XmlNode node = (System.Xml.XmlNode)ie.Current;
 
-                string OldGUID = GetAttributeByName(node, PazDocument.TAG_GUID);
+                string OldGUID = GetAttributeByName(node, PazDocumentLegacy.TAG_GUID);
                 string NewGUID = Guid.NewGuid().ToString();
-                string ParentGUID = GetAttributeByName(node, PazDocument.TAG_PARENTGUID);
+                string ParentGUID = GetAttributeByName(node, PazDocumentLegacy.TAG_PARENTGUID);
 
                 if (strFirstGUID == null)
                 {
@@ -559,11 +559,11 @@ namespace nicold.Padlock.Models
 
                 if (listGUID.Contains(ParentGUID))
                 {
-                    SetAttributeByName(node, PazDocument.TAG_PARENTGUID, (string)listGUID.GetByIndex(listGUID.IndexOfKey(ParentGUID)));
+                    SetAttributeByName(node, PazDocumentLegacy.TAG_PARENTGUID, (string)listGUID.GetByIndex(listGUID.IndexOfKey(ParentGUID)));
                 }
 
-                SetAttributeByName(node, PazDocument.TAG_GUID, NewGUID);
-                SetAttributeByName(node, PazDocument.TAG_TIMESTAMP, DateTime.Now.Ticks.ToString());
+                SetAttributeByName(node, PazDocumentLegacy.TAG_GUID, NewGUID);
+                SetAttributeByName(node, PazDocumentLegacy.TAG_TIMESTAMP, DateTime.Now.Ticks.ToString());
                 xmlString += node.OuterXml;
             }
 
@@ -577,12 +577,12 @@ namespace nicold.Padlock.Models
         public void SetLastusedTime(string guid)
         {
             System.Xml.XmlNode node = FindXmlNodeByGuid(guid);
-            SetAttributeByName(node, PazDocument.TAG_USEDTIME, DateTime.Now.Ticks.ToString());
+            SetAttributeByName(node, PazDocumentLegacy.TAG_USEDTIME, DateTime.Now.Ticks.ToString());
 
-            string uc = (System.Convert.ToInt32("0" + GetAttributeByName(node, PazDocument.TAG_USEDCOUNTER).Trim()) + 1).ToString();
-            SetAttributeByName(node, PazDocument.TAG_USEDCOUNTER, String.Format("{0,10}", uc));
+            string uc = (System.Convert.ToInt32("0" + GetAttributeByName(node, PazDocumentLegacy.TAG_USEDCOUNTER).Trim()) + 1).ToString();
+            SetAttributeByName(node, PazDocumentLegacy.TAG_USEDCOUNTER, String.Format("{0,10}", uc));
 
-            SetAttributeByName(node, PazDocument.TAG_TIMESTAMP, DateTime.Now.Ticks.ToString());
+            SetAttributeByName(node, PazDocumentLegacy.TAG_TIMESTAMP, DateTime.Now.Ticks.ToString());
         }
 
         /// <summary>
@@ -641,12 +641,12 @@ namespace nicold.Padlock.Models
 
             foreach (System.Xml.XmlNode xNode in root.SelectNodes(s))
             {
-                String uc = GetAttributeByName(xNode, PazDocument.TAG_USEDCOUNTER);
+                String uc = GetAttributeByName(xNode, PazDocumentLegacy.TAG_USEDCOUNTER);
 
                 if (uc != "")
                 {
                     uc = String.Format("{0,10}", uc);
-                    SetAttributeByName(xNode, PazDocument.TAG_USEDCOUNTER, uc);
+                    SetAttributeByName(xNode, PazDocumentLegacy.TAG_USEDCOUNTER, uc);
                 }
             }
 
