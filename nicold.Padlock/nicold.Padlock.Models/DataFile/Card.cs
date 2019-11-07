@@ -6,6 +6,13 @@ namespace nicold.Padlock.Models.DataFile
 {
     public class Card
     {
+        public Card()
+        {
+            Id = Guid.NewGuid();
+            Tags = new List<string>();
+            Rows = new List<Attribute>();
+        }
+
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Notes { get; set; }
