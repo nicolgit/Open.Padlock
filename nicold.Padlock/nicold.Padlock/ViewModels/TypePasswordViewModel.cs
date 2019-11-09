@@ -29,7 +29,7 @@ namespace nicold.Padlock.ViewModels
         #region COMMANDS_IMPLEMENTATION
         private async Task SubmitCommandImplementation()
         {
-            Globals.FileReadable = PadlockFileReader.OpenFile(Globals.FileEncrypted, Password);
+            Globals.File = PadlockFileReader.OpenFile(Globals.FileEncrypted, Password);
 
         }
         #endregion

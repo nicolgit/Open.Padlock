@@ -7,6 +7,11 @@ namespace nicold.Padlock.Models.DataFile
 {
     public class Attribute
     {
+        public Attribute()
+        {
+            Type = AttributeType.TYPE_STRING; 
+        }
+
         public string Name { get; set; }
         public string Value { get; set; }
         public AttributeType Type { get; set; }

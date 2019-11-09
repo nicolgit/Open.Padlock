@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using nicold.Padlock.Models.DataFile;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -11,7 +12,7 @@ namespace nicold.Padlock.Models.Services
 {
     public static class PadlockFileReader
     {
-        public static string OpenFile(byte[] source, string unlockPassword)
+        public static DataFile.PadlockFile OpenFile(byte[] source, string unlockPassword)
         {
             EncrDecr ed;
             ed = new EncrDecr();
@@ -76,15 +77,91 @@ namespace nicold.Padlock.Models.Services
                             xml.Append(element, 0, element.Length);
                         }
 
-                        //XmlDocument doc = new XmlDocument();
-                        //doc.LoadXml(xml.ToString());
+                        PadlockFile pf = ParsePazwordFile(xml.ToString());
 
-                        string json = JsonConvert.SerializeXNode(XDocument.Parse(xml.ToString()));
+                        //string json = JsonConvert.SerializeObject(pf);
+                        //PadlockFile pf2 = JsonConvert.DeserializeObject<PadlockFile>(json);
 
-                        return json;
+                        return pf;
                     }
                 }
             }
+        }
+
+        private static PadlockFile ParsePazwordFile(string file)
+        {
+            var xdoc = XDocument.Parse(file);
+
+            PadlockFile pf = new PadlockFile();
+
+            try
+            {
+                var info = xdoc.Root.Element("info");
+                var guid = info.Attribute("guid").Value;
+                var parse = Guid.Parse(guid);
+
+                pf.Id = Guid.Parse(xdoc.Root.Element("info").Attribute("guid").Value);
+                foreach (var node in xdoc.Root.Element("nodes").Elements("node"))
+                {
+                    var card = new DataFile.Card();
+
+                    card.Id = Guid.Parse(node.Attribute("guid").Value);
+                    card.Title = node.Attribute("title").Value;
+                    card.IsFavotire = node.Attribute("favorite")!= null ? node.Attribute("favorite").Value.Equals("1") : false;
+                    card.UsedCounter = node.Attribute("usedcounter") != null ? int.Parse((node.Attribute("usedcounter").Value)) : 0;
+                    card.Notes = "";
+
+                    if (node.Element("moreinfo") != null)
+                    {
+                        foreach (var row in node.Element("moreinfo").Elements("line"))
+                        {
+                            card.Notes += row.Value + "\r\n";
+                        }
+                    }
+
+                    foreach (var attr in node.Elements("attribute"))
+                    {
+                        DataFile.Attribute attribute = new DataFile.Attribute();
+
+                        if (attr.Attribute("value").Value == "")
+                        {
+                            attribute.Type = AttributeType.TYPE_HEADER;
+                        }
+                        else
+                        {
+                            if (attr.Attribute("type") != null)
+                            {
+                                if (attr.Attribute("type").Value == "password")
+                                {
+                                    attribute.Type = AttributeType.TYPE_PASSWORD;
+                                }
+                                if (attr.Attribute("type").Value == "generic")
+                                {
+                                    attribute.Type = AttributeType.TYPE_STRING;
+                                }
+                                if (attr.Attribute("type").Value == "URL")
+                                {
+                                    attribute.Type = AttributeType.TYPE_URL;
+                                }
+                            }
+                        }
+                        
+                        attribute.Name = attr.Attribute("name").Value;
+                        attribute.Value= attr.Attribute("value").Value;
+
+                        card.Rows.Add(attribute);
+                    }
+
+                    pf.Cards.Add(card);
+                }
+            }
+            catch 
+            {
+
+                
+            }     
+
+            return pf;
         }
 
         #region ENCRYPTION-DECRIPTION STUFF

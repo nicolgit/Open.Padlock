@@ -16,6 +16,6 @@ namespace nicold.Padlock.Models.DataFile
         public Guid Id { get; set; }
         public int Version { get; set; }
 
-        List<Card> Cards { get; set; }
+        public List<Card> Cards { get; set; }
     }
 }
