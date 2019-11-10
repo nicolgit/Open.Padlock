@@ -6,12 +6,12 @@
              mc:Ignorable="d"
              x:Class="nicold.Padlock.Views.ItemDetailPage"
              Title="{Binding Title}">
+    <ScrollView>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Name" FontSize="Small" />
+            <Label Text="{Binding Title}" d:Text="Item name" FontSize="Medium"/>
+            <Label Text="{Binding Description}" d:Text="Item description" FontSize="Small" LineBreakMode="WordWrap"/>
 
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Item.Description}" d:Text="Item description" FontSize="Small"/>
-    </StackLayout>
-    
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
