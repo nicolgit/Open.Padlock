@@ -62,5 +62,12 @@ namespace nicold.Padlock.Models.Services
         {
             return await Task.FromResult(items);
         }
+
+        public async Task<bool> ClearAllItemAsync()
+        {
+            items.Clear();
+
+            return await Task.FromResult(true);
+        }
     }
 }

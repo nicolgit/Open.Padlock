@@ -8,5 +8,6 @@ namespace nicold.Padlock.ViewModels
     {
         public static string ADDITEM = "AddItem";
         public static string SIGNIN = "SignIn";
+        public static string FILEOPEN = "FileOpen";
     }
 }

@@ -31,6 +31,17 @@ namespace nicold.Padlock.ViewModels
         {
             Globals.File = PadlockFileReader.OpenFile(Globals.FileEncrypted, Password);
 
+            if (Globals.File != null)
+            {
+                MessagingCenter.Send(this, Messages.FILEOPEN, "");
+                await Navigation.PopModalAsync();
+            }
+            else
+            {
+                // wrong password
+
+            }
+
         }
         #endregion
     }

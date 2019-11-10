@@ -22,16 +22,24 @@ namespace nicold.Padlock.ViewModels
             LoadItemsCommand = new Command(async () => await LoadItemsCommandImplementation());
             SignOutCommand = new Command(async () => await SignOutCommandImplementation());
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, Messages.ADDITEM, async (obj, item) =>
-            {
-                var newItem = item as Item;
-                Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
-            });
+            MessagingCenter.Subscribe<NewItemPage, Item>(this, Messages.ADDITEM, OnAddItem);
+            MessagingCenter.Subscribe<SignInViewModel, string>(this, Messages.SIGNIN, OnSignInSuccessfully);
+            MessagingCenter.Subscribe<TypePasswordViewModel, string>(this, Messages.FILEOPEN, OnFileOpened);
+        }
+        
+        #region EVENTS
+        private async void OnAddItem(NewItemPage arg1, Item item)
+        {
+            var newItem = item as Item;
+            Items.Add(newItem);
+            await DataStore.AddItemAsync(newItem);
+        }
 
-            MessagingCenter.Subscribe<SignInViewModel, string>(this, Messages.SIGNIN, async (obj, item) =>
+        private async void OnSignInSuccessfully(SignInViewModel arg1, string arg2)
+        {
+            if (IsAuthenticated)
             {
-                if (IsAuthenticated)
+                if (Globals.File == null)
                 {
                     Globals.FileEncrypted = await Globals.CloudStorage.GetPadlockFile();
                     await Navigation.PushModalAsync(new NavigationPage(new TypePasswordPage()));
@@ -40,10 +48,38 @@ namespace nicold.Padlock.ViewModels
                 {
 
                 }
-
-            });
+            }
+            else
+            {
+                // not authenticated
+            }
         }
 
+        private async void OnFileOpened(TypePasswordViewModel arg1, string arg2)
+        {
+            //await DataStore.ClearAllItemAsync();
+            Items.Clear();
+
+            foreach (var card in Globals.File.Cards)
+            {
+                string FAV = card.IsFavotire ? "FAVORITE" : "";
+
+                //await DataStore.AddItemAsync(new Item()
+                //{
+                //    Id = card.Id.ToString(),
+                //    Text = card.Title,
+                //    Description= $"used {card.UsedCounter} - {FAV}"
+                //});
+
+                Items.Add(new Item()
+                {
+                    Id = card.Id.ToString(),
+                    Text = card.Title,
+                    Description = $"used {card.UsedCounter} - {FAV}"
+                });
+            }
+        }
+        #endregion
         #region PROPERTIES
         public ObservableCollection<Item> Items { get; set; }
         public bool IsAuthenticated => Globals.AccessToken != null;
@@ -84,6 +120,9 @@ namespace nicold.Padlock.ViewModels
         private async Task SignOutCommandImplementation()
         {
             Globals.AccessToken = null;
+            Globals.File = null;
+            Globals.FileEncrypted = null;
+            Globals.FileReadable = null;
             await Globals.CloudStorage.SignOut();
         }
 
