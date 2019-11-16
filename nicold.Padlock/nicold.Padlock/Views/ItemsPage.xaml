@@ -9,10 +9,15 @@
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Search" Clicked="ShowSearchBar_Clicked" />
         <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
         <ToolbarItem Text="Sign out" Clicked="SignOut_Clicked"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
+        <SearchBar x:Name="searchBar"
+                   SearchCommand="{Binding SearchCommand}"
+                   SearchCommandParameter="{Binding SearchBarText}}"
+                   IsVisible="{Binding SearchBarIsVisible}"/>
         <ListView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
                 VerticalOptions="FillAndExpand"

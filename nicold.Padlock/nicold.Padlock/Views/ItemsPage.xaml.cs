@@ -55,6 +55,11 @@ namespace nicold.Padlock.Views
             }
         }
 
+        void ShowSearchBar_Clicked(object sender, EventArgs e)
+        {
+            viewModel.ToggleSearchBar.Execute(null);
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
