@@ -23,5 +23,15 @@ namespace nicold.Padlock.Models.DataFile
         public List<string> Tags { get; set; }
 
         public List<Attribute> Rows { get; set; }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(Title);
+            sb.Append(" ");
+            sb.Append(Notes);
+            return sb.ToString().ToLower();
+        }
     }
 }

@@ -23,7 +23,9 @@ namespace nicold.Padlock.ViewModels
             LoadItemsCommand = new Command(async () => await LoadItemsCommandImplementation());
             SignOutCommand = new Command(async () => await SignOutCommandImplementation());
             SearchCommand = new Command(async () => await SearchCommandImplementation());
-
+            
+            searchBarText = "";
+            
             MessagingCenter.Subscribe<NewItemPage, Item>(this, Messages.ADDITEM, OnAddItem);
             MessagingCenter.Subscribe<SignInViewModel, string>(this, Messages.SIGNIN, OnSignInSuccessfully);
             MessagingCenter.Subscribe<TypePasswordViewModel, string>(this, Messages.FILEOPEN, OnFileOpened);
@@ -141,35 +143,42 @@ namespace nicold.Padlock.ViewModels
         {
             SearchBarIsVisible = !SearchBarIsVisible;
         }
-
         #endregion
 
         #region PRIVATE
+        private bool stopLoading;
         private SemaphoreSlim semaphoreList = new SemaphoreSlim(1, 1);
         private async Task RefreshList()
         {
-            IsBusy = false;
+            stopLoading = true;
 
             await semaphoreList.WaitAsync();
             try
             {
+                stopLoading = false;
                 IsBusy = true;
                 Items.Clear();
 
+                string filter = searchBarText.Trim().ToLower();
+                filter = filter.Length > 0 ? filter : null;
+
                 foreach (var card in Globals.File.Cards)
                 {
-                    string FAV = card.IsFavotire ? "FAVORITE" : "";
-
-                    Items.Add(new Item()
+                    if ( filter == null || card.ToString().Contains(searchBarText))
                     {
-                        Id = card.Id.ToString(),
-                        Text = card.Title,
-                        Description = $"used {card.UsedCounter} - {FAV}"
-                    });
+                        string FAV = card.IsFavotire ? "FAVORITE" : "";
 
-                    await Task.Delay(50);
+                        Items.Add(new Item()
+                        {
+                            Id = card.Id.ToString(),
+                            Text = card.Title,
+                            Description = $"used {card.UsedCounter} - {FAV}"
+                        });
 
-                    if (!IsBusy) break;
+                        await Task.Delay(50);
+                    }
+
+                    if (stopLoading) break;
                 }
             }
             catch (Exception ex)

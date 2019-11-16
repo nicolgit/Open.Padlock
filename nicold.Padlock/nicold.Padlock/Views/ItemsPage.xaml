@@ -16,7 +16,9 @@
     <StackLayout>
         <SearchBar x:Name="searchBar"
                    SearchCommand="{Binding SearchCommand}"
-                   SearchCommandParameter="{Binding SearchBarText}}"
+                   SearchButtonPressed="searchBar_SearchButtonPressed"
+                   TextChanged="searchBar_TextChanged"
+                   Text="{Binding SearchBarText}"
                    IsVisible="{Binding SearchBarIsVisible}"/>
         <ListView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"

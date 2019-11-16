@@ -64,5 +64,15 @@ namespace nicold.Padlock.Views
         {
             base.OnAppearing();
         }
+
+        private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            viewModel.SearchCommand.Execute(this);
+        }
+
+        private void searchBar_SearchButtonPressed(object sender, EventArgs e)
+        {
+            viewModel.SearchCommand.Execute(this);
+        }
     }
 }
