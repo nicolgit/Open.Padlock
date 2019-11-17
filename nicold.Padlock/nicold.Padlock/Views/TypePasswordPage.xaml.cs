@@ -33,5 +33,10 @@ namespace nicold.Padlock.Views
                 EntryPassword.Focus();  
             });
         }
+
+        private void EntryPassword_Completed(object sender, EventArgs e)
+        {
+            viewModel.SubmitCommand.Execute(this);
+        }
     }
 }

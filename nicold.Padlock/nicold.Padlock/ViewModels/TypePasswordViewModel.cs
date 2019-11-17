@@ -18,8 +18,19 @@ namespace nicold.Padlock.ViewModels
         }
 
         #region PROPERTIES
-        public bool ShowWrongPasswordMessage { get; set; }
-        public string Password { get; set; }
+        private bool showWrongPasswordMessage;
+        public bool ShowWrongPasswordMessage
+        {
+            get { return showWrongPasswordMessage; }
+            set { SetProperty(ref showWrongPasswordMessage, value); }
+        }
+
+        private string password;
+        public string Password
+        {
+            get { return password; }
+            set { SetProperty(ref password, value); }
+        }
         #endregion
 
         #region COMMANDS
@@ -38,8 +49,7 @@ namespace nicold.Padlock.ViewModels
             }
             else
             {
-                // wrong password
-
+                ShowWrongPasswordMessage = true;
             }
 
         }
