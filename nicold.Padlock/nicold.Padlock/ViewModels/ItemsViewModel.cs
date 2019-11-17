@@ -142,6 +142,7 @@ namespace nicold.Padlock.ViewModels
         private async Task ToggleSearchBarCommandImplementation()
         {
             SearchBarIsVisible = !SearchBarIsVisible;
+            await Task.Delay(100);
         }
         #endregion
 

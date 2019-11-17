@@ -50,6 +50,7 @@ namespace nicold.Padlock.ViewModels
             else
             {
                 ShowWrongPasswordMessage = true;
+                MessagingCenter.Send(this, Messages.WRONGPASSWORD, "");
             }
 
         }

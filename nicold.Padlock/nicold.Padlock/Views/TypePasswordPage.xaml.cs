@@ -22,6 +22,11 @@ namespace nicold.Padlock.Views
             BindingContext = viewModel = new TypePasswordViewModel(Navigation);
         }
 
+        private void EntryPassword_Completed(object sender, EventArgs e)
+        {
+            viewModel.SubmitCommand.Execute(this);
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -32,11 +37,24 @@ namespace nicold.Padlock.Views
                 await System.Threading.Tasks.Task.Delay(250);
                 EntryPassword.Focus();  
             });
+
+            MessagingCenter.Subscribe<TypePasswordViewModel, string>(viewModel, Messages.WRONGPASSWORD, OnWrongPasswordEntered);
         }
 
-        private void EntryPassword_Completed(object sender, EventArgs e)
+        private void OnWrongPasswordEntered(TypePasswordViewModel arg1, string arg2)
         {
-            viewModel.SubmitCommand.Execute(this);
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await System.Threading.Tasks.Task.Delay(250);
+                EntryPassword.Focus();
+            });
+        }
+
+        protected override void OnDisappearing()
+        {
+            MessagingCenter.Unsubscribe<TypePasswordViewModel>(viewModel, Messages.WRONGPASSWORD);
+
+            base.OnDisappearing();
         }
     }
 }
