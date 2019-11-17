@@ -1,4 +1,5 @@
-﻿using System;
+﻿using nicold.Padlock.ViewModels;
+using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,9 +11,13 @@ namespace nicold.Padlock.Views
     [DesignTimeVisible(false)]
     public partial class AboutPage : ContentPage
     {
+        readonly AboutViewModel viewModel;
+
         public AboutPage()
         {
             InitializeComponent();
+
+            BindingContext = viewModel = new AboutViewModel(Navigation);
         }
     }
 }
