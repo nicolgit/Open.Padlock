@@ -99,6 +99,8 @@ namespace nicold.Padlock.ViewModels
         #region COMMANDSIMPLEMENTATION
         private async Task LoadItemsCommandImplementation()
         {
+            await RefreshList();
+            /*
             if (IsBusy)
                 return;
 
@@ -120,7 +122,7 @@ namespace nicold.Padlock.ViewModels
             finally
             {
                 IsBusy = false;
-            }
+            }*/
         }
 
         private async Task SignOutCommandImplementation()
