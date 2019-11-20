@@ -145,6 +145,9 @@ namespace nicold.Padlock.ViewModels
         private async Task ToggleSearchBarCommandImplementation()
         {
             SearchBarIsVisible = !SearchBarIsVisible;
+            if (SearchBarIsVisible) 
+                MessagingCenter.Send(this, Messages.SEARCHOPEN, "");
+
             await Task.Delay(100);
         }
         #endregion
@@ -163,13 +166,13 @@ namespace nicold.Padlock.ViewModels
                 IsBusy = true;
                 Items.Clear();
 
-                string []filter = searchBarText.Trim().ToLower().Split(' ');
-                filter = filter.Length > 0 ? filter : null;
+                string []filter = searchBarText.Trim().Split(' '); 
+                filter = filter.Length > 0 && filter[0]!="" ? filter : null;
 
                 foreach (var card in Globals.File.Cards.OrderBy(a => a.Title))
                 {
                     // https://stackoverflow.com/questions/500925/check-if-a-string-contains-an-element-from-a-list-of-strings
-                    if ( filter == null || filter.All(card.ToString().Contains)) // card.ToString().Contains(filter))
+                    if ( filter == null || filter.All(s => card.AdvancedCompare(s)) ) 
                     {
                         string FAV = card.IsFavotire ? "FAVORITE" : "";
 

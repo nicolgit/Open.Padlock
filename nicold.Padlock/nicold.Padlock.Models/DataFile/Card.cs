@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace nicold.Padlock.Models.DataFile
@@ -56,7 +57,33 @@ namespace nicold.Padlock.Models.DataFile
                 sb.Append(" ");
             }
 
-            return sb.ToString().ToLower();
+            return sb.ToString(); //.ToLower();
+        }
+
+        public bool AdvancedCompare(string s)
+        {
+            var me = RemoveDiacritics(this.ToString()).ToLower();
+            s = RemoveDiacritics(s).ToLower();
+
+            return me.Contains(s);
+        }
+
+        // https://stackoverflow.com/questions/249087/how-do-i-remove-diacritics-accents-from-a-string-in-net
+        string RemoveDiacritics(string text)
+        {
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var c in normalizedString)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
     }
 }

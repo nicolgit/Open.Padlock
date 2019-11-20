@@ -63,8 +63,19 @@ namespace nicold.Padlock.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            MessagingCenter.Subscribe<ItemsViewModel, string>(viewModel, Messages.SEARCHOPEN, OnSearchOpen);
         }
 
+        private void OnSearchOpen(ItemsViewModel arg1, string arg2)
+        {
+            searchBar.Focus();
+        }
+
+        protected override void OnDisappearing()
+        {
+            MessagingCenter.Unsubscribe<ItemsViewModel>(viewModel, Messages.SEARCHOPEN);
+            base.OnDisappearing();
+        }
         private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             viewModel.SearchCommand.Execute(this);
