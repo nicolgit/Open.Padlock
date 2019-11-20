@@ -167,7 +167,7 @@ namespace nicold.Padlock.ViewModels
 
                 foreach (var card in Globals.File.Cards)
                 {
-                    if ( filter == null || card.ToString().Contains(searchBarText))
+                    if ( filter == null || card.ToString().Contains(filter))
                     {
                         string FAV = card.IsFavotire ? "FAVORITE" : "";
 

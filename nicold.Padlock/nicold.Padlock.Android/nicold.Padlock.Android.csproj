@@ -15,7 +15,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -107,7 +106,7 @@
       <Name>nicold.Padlock.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\nicold.Padlock\nicold.Padlock.csproj">
-      <Project>{34D58585-E08C-4C0F-8B6B-CB891422B7F7}</Project>
+      <Project>{07AA81DB-DD2D-49B1-9F87-C26147837D4E}</Project>
       <Name>nicold.Padlock</Name>
     </ProjectReference>
   </ItemGroup>
