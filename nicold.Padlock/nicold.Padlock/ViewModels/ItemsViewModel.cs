@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Linq;
 
 using Xamarin.Forms;
 
@@ -165,7 +166,7 @@ namespace nicold.Padlock.ViewModels
                 string filter = searchBarText.Trim().ToLower();
                 filter = filter.Length > 0 ? filter : null;
 
-                foreach (var card in Globals.File.Cards)
+                foreach (var card in Globals.File.Cards.OrderBy(a => a.Title))
                 {
                     if ( filter == null || card.ToString().Contains(filter))
                     {
