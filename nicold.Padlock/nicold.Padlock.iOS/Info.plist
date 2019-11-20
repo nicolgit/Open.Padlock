@@ -25,13 +25,13 @@
 	<key>CFBundleDisplayName</key>
 	<string>nicold.Padlock</string>
 	<key>CFBundleIdentifier</key>
-	<string>C8U62YMR6U</string>
+	<string>nicold.Padlock.iOS</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
-	<string>nicold.Padlock</string>
+	<string>nicold.Padlock.iOS</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleURLTypes</key>
@@ -40,7 +40,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.nicold.Padlock</string>
+			<string>nicold.Padlock.iOS</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>msaldaec7b73-0f47-4ec7-b7b2-058f8d3a1f11</string>
