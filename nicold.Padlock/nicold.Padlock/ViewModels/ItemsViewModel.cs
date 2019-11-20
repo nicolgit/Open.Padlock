@@ -163,12 +163,13 @@ namespace nicold.Padlock.ViewModels
                 IsBusy = true;
                 Items.Clear();
 
-                string filter = searchBarText.Trim().ToLower();
+                string []filter = searchBarText.Trim().ToLower().Split(' ');
                 filter = filter.Length > 0 ? filter : null;
 
                 foreach (var card in Globals.File.Cards.OrderBy(a => a.Title))
                 {
-                    if ( filter == null || card.ToString().Contains(filter))
+                    // https://stackoverflow.com/questions/500925/check-if-a-string-contains-an-element-from-a-list-of-strings
+                    if ( filter == null || filter.All(card.ToString().Contains)) // card.ToString().Contains(filter))
                     {
                         string FAV = card.IsFavotire ? "FAVORITE" : "";
 
