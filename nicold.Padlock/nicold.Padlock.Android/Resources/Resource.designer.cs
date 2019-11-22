@@ -6451,7 +6451,10 @@ namespace nicold.Padlock.Droid
 			public const int tooltip_frame_light = 2131165500;
 			
 			// aapt resource value: 0x7F07013D
-			public const int xamarin_logo = 2131165501;
+			public const int twotone_search_black_18 = 2131165501;
+			
+			// aapt resource value: 0x7F07013E
+			public const int xamarin_logo = 2131165502;
 			
 			static Drawable()
 			{

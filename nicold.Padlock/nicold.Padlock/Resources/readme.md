@@ -1,1 +1,0 @@
-Search by Landan Lloyd from the Noun Project
