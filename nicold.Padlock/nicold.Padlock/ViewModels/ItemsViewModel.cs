@@ -180,8 +180,9 @@ namespace nicold.Padlock.ViewModels
                         {
                             Id = card.Id.ToString(),
                             Text = card.Title,
-                            Description = $"used {card.UsedCounter} - {FAV}"
-                        });
+                            Description = $"used {card.UsedCounter} times",
+                            Description2 = FAV
+                        }) ;
 
                         await Task.Delay(50);
                     }

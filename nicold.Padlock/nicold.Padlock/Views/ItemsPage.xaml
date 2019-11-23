@@ -56,29 +56,63 @@
                                 FontSize="13" />
                         </StackLayout>
                         -->
-                        <Frame BackgroundColor="White" Padding="1" HasShadow="{OnPlatform Android=true, iOS=false, UWP=true, WPF=true}">
-                            <Grid>
+                        <Grid x:Name="grid" RowSpacing="0" ColumnSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="1" />
+                            </Grid.RowDefinitions>
+                            <Grid RowSpacing="0" ColumnSpacing="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="{OnPlatform Android={OnIdiom Phone=0.30*, Tablet=0.20*}, iOS={OnIdiom Phone=0.30*, Tablet=0.10*}, UWP={OnIdiom Desktop=auto, Phone=auto, Tablet=0.55*}, macOS=0.15*, WPF=auto}" />
-                                    <ColumnDefinition Width="{OnPlatform Android={OnIdiom Phone=0.70*, Tablet=0.80*}, iOS={OnIdiom Phone=0.70*, Tablet=0.90*}, UWP={OnIdiom Desktop=*, Phone=*, Tablet=0.15*}, macOS=*, WPF=*}" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <!--local:SfImage Source="{Binding CategoryImage}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" /-->
+                                <!--local:SfImage Source="{Binding SongThumbnail}"
+                   HeightRequest="35"
+                   WidthRequest="35"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/-->
 
-                                <StackLayout Grid.Column="1" Padding="10,0,0,0">
-                                    <StackLayout.VerticalOptions>
-                                        <OnPlatform x:TypeArguments="LayoutOptions">
-                                            <On Platform="macOS" Value="CenterAndExpand"/>
-                                        </OnPlatform>
-                                    </StackLayout.VerticalOptions>
+                                <Grid Grid.Column="1"
+                  RowSpacing="1"
+                  Padding="10,0,0,0"
+                  VerticalOptions="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
 
-                                    <Label Text="{Binding Text}" LineBreakMode="WordWrap" FontAttributes="Bold"
-                                           FontSize="{OnPlatform Android={OnIdiom Phone=18, Tablet=22}, iOS={OnIdiom Phone=18, Tablet=22}, UWP={OnIdiom Phone=16, Tablet=26, Desktop=26}, macOS=22, WPF=26}" />
-                                    <Label Grid.Row="1" LineBreakMode="WordWrap" Text="{Binding Description}"
-                                           FontSize="{OnPlatform Android={OnIdiom Phone=11, Tablet=13}, iOS={OnIdiom Phone=11, Tablet=13}, UWP={OnIdiom Phone=10, Tablet=14, Desktop=16}, macOS=13, WPF=16}" />
-                                </StackLayout>
+                                    <Label LineBreakMode="NoWrap"
+                     TextColor="#474747"
+                     Text="{Binding Text}" 
+                               FontSize="{OnPlatform Android={OnIdiom Phone=16, Tablet=18}, iOS={OnIdiom Phone=18, Tablet=20}, macOS=20, UWP={OnIdiom Phone=18, Tablet=20, Desktop=20}, WPF=20}" />
+                                    <Grid RowSpacing="0"
+                    ColumnSpacing="0"
+                    Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label TextColor="#474747"
+                       LineBreakMode="NoWrap"
+                       Text="{Binding Description}"
+                               FontSize="{OnPlatform Android={OnIdiom Phone=10, Tablet=14}, iOS={OnIdiom Phone=12, Tablet=14}, macOS=14, UWP={OnIdiom Phone=12, Tablet=12, Desktop=12}, WPF=12}" />
+                                        <Label TextColor="#474747"
+                       Margin="0,0,10,0"
+                       Grid.Column="1"
+                       LineBreakMode="NoWrap"
+                       HorizontalTextAlignment="End"
+                       Text="{Binding Description2}"
+                               FontSize="{OnPlatform Android={OnIdiom Phone=10, Tablet=14}, iOS={OnIdiom Phone=12, Tablet=14}, macOS=14, UWP={OnIdiom Phone=12, Tablet=12, Desktop=12}, WPF=12}" />
+                                    </Grid>
+                                </Grid>
+
+                                
                             </Grid>
-                        </Frame>
+                            <StackLayout Grid.Row="1" BackgroundColor="#E4E4E4" HeightRequest="1"/>
+                        </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
