@@ -42,18 +42,43 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
+                        <!--
                         <StackLayout Padding="10">
                             <Label Text="{Binding Text}" 
                                 d:Text="{Binding .}"
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
+                                FontSize="24" FontAttributes="Bold"/>
                             <Label Text="{Binding Description}" 
                                 d:Text="Item description"
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 FontSize="13" />
                         </StackLayout>
+                        -->
+                        <Frame BackgroundColor="White" Padding="1" HasShadow="{OnPlatform Android=true, iOS=false, UWP=true, WPF=true}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{OnPlatform Android={OnIdiom Phone=0.30*, Tablet=0.20*}, iOS={OnIdiom Phone=0.30*, Tablet=0.10*}, UWP={OnIdiom Desktop=auto, Phone=auto, Tablet=0.55*}, macOS=0.15*, WPF=auto}" />
+                                    <ColumnDefinition Width="{OnPlatform Android={OnIdiom Phone=0.70*, Tablet=0.80*}, iOS={OnIdiom Phone=0.70*, Tablet=0.90*}, UWP={OnIdiom Desktop=*, Phone=*, Tablet=0.15*}, macOS=*, WPF=*}" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--local:SfImage Source="{Binding CategoryImage}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" /-->
+
+                                <StackLayout Grid.Column="1" Padding="10,0,0,0">
+                                    <StackLayout.VerticalOptions>
+                                        <OnPlatform x:TypeArguments="LayoutOptions">
+                                            <On Platform="macOS" Value="CenterAndExpand"/>
+                                        </OnPlatform>
+                                    </StackLayout.VerticalOptions>
+
+                                    <Label Text="{Binding Text}" LineBreakMode="WordWrap" FontAttributes="Bold"
+                                           FontSize="{OnPlatform Android={OnIdiom Phone=18, Tablet=22}, iOS={OnIdiom Phone=18, Tablet=22}, UWP={OnIdiom Phone=16, Tablet=26, Desktop=26}, macOS=22, WPF=26}" />
+                                    <Label Grid.Row="1" LineBreakMode="WordWrap" Text="{Binding Description}"
+                                           FontSize="{OnPlatform Android={OnIdiom Phone=11, Tablet=13}, iOS={OnIdiom Phone=11, Tablet=13}, UWP={OnIdiom Phone=10, Tablet=14, Desktop=16}, macOS=13, WPF=16}" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
