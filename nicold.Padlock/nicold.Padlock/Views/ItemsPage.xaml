@@ -63,21 +63,17 @@
                             </Grid.RowDefinitions>
                             <Grid RowSpacing="0" ColumnSpacing="0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="40" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Image Source="twotone_chrome_reader_mode_black_36.png" HeightRequest="36" WidthRequest="36" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                <!--local:SfImage Source="{Binding SongThumbnail}"
-                                   HeightRequest="35"
-                                   WidthRequest="35"
-                                   VerticalOptions="Center"
-                                   HorizontalOptions="Center"/-->
+                                <!--Image Source="twotone_chrome_reader_mode_black_36.png" HeightRequest="36" WidthRequest="36" VerticalOptions="Center" HorizontalOptions="Center"/-->
+                                <ImageButton Source="twotone_chrome_reader_mode_black_36.png" BackgroundColor="Yellow" Padding="6" Margin="2" CornerRadius="15" HeightRequest="30" WidthRequest="30" VerticalOptions="Center" HorizontalOptions="Center"/>
 
                                 <Grid Grid.Column="1"
                                       RowSpacing="1"
-                                      Padding="10,0,0,0"
+                                      Padding="5,0,0,0"
                                       VerticalOptions="Center">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />

@@ -120,6 +120,12 @@
     <BundleResource Include="Resources\xamarin_logo.png" />
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
+    <ImageAsset Include="Assets.xcassets\twotone_chrome_reader_mode_white_36.png.imageset\chrome_reader_mode-24px.svg">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\twotone_chrome_reader_mode_white_36.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\twotone_chrome_reader_mode_black_36.png.imageset\chrome_reader_mode-24px.svg">
       <Visible>false</Visible>
     </ImageAsset>
@@ -133,6 +139,15 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\twotone_chrome_reader_mode_black_36.png.imageset\twotone_chrome_reader_mode_black_36pt_3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\twotone_chrome_reader_mode_white_36.png.imageset\twotone_chrome_reader_mode_white_36pt_1x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\twotone_chrome_reader_mode_white_36.png.imageset\twotone_chrome_reader_mode_white_36pt_2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\twotone_chrome_reader_mode_white_36.png.imageset\twotone_chrome_reader_mode_white_36pt_3x.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\twotone_search_black_18.png.imageset\Contents.json">
