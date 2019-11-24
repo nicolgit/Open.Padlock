@@ -10,7 +10,7 @@ namespace nicold.Padlock.ViewModels
         public AboutViewModel(INavigation navigation): base (navigation)
         {
             Title = "About";
-            OpenWebCommand = new Command(() => Device.OpenUri(new Uri("https://xamarin.com/platform")));
+            OpenWebCommand = new Command(() => Launcher.OpenAsync("https://xamarin.com/platform"));
         }
 
         public string Version => AppInfo.VersionString;
