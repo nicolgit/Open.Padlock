@@ -68,16 +68,17 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
+                                <Image Source="twotone_chrome_reader_mode_black_36.png" HeightRequest="36" WidthRequest="36" VerticalOptions="Center" HorizontalOptions="Center"/>
                                 <!--local:SfImage Source="{Binding SongThumbnail}"
-                   HeightRequest="35"
-                   WidthRequest="35"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"/-->
+                                   HeightRequest="35"
+                                   WidthRequest="35"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"/-->
 
                                 <Grid Grid.Column="1"
-                  RowSpacing="1"
-                  Padding="10,0,0,0"
-                  VerticalOptions="Center">
+                                      RowSpacing="1"
+                                      Padding="10,0,0,0"
+                                      VerticalOptions="Center">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="*" />
