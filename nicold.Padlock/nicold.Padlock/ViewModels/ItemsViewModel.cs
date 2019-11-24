@@ -184,7 +184,7 @@ namespace nicold.Padlock.ViewModels
                             Description2 = FAV
                         }) ;
 
-                        await Task.Delay(40);
+                        await Task.Delay(50);
                     }
 
                     if (stopLoading) break;
