@@ -120,7 +120,7 @@
     <BundleResource Include="Resources\xamarin_logo.png" />
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
-    <ImageAsset Include="Assets.xcassets\twotone_chrome_reader_mode_black_36.png.imageset\chrome_reader_mode-24px.svg">
+    <ImageAsset Include="Assets.xcassets\Test.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\twotone_chrome_reader_mode_black_36.png.imageset\Contents.json">
@@ -136,9 +136,6 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\twotone_search_black_18.png.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\twotone_search_black_18.png.imageset\search-24px.svg">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\twotone_search_black_18.png.imageset\twotone_search_black_18pt_1x.png">
