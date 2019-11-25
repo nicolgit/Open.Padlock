@@ -17,6 +17,11 @@
       "scale": "3x",
       "idiom": "universal",
       "filename": "twotone_search_black_18pt_3x.png"
+    },
+    {
+      "appearances": [],
+      "idiom": "universal",
+      "filename": "search-24px.svg"
     }
   ],
   "properties": {},

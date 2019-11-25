@@ -138,6 +138,9 @@
     <ImageAsset Include="Assets.xcassets\twotone_search_black_18.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\twotone_search_black_18.png.imageset\search-24px.svg">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\twotone_search_black_18.png.imageset\twotone_search_black_18pt_1x.png">
       <Visible>false</Visible>
     </ImageAsset>
