@@ -73,14 +73,14 @@ namespace nicold.Padlock.Models
             checkXMLValidity();
         }
 
-        public async Task<bool> DocLoad(string fileName)
+        public bool DocLoad(string fileName)
         {
             DocNew();
             load();
             return true;
         }
 
-        public async Task<bool> DocSave()
+        public bool DocSave()
         {
             save();
             return true;

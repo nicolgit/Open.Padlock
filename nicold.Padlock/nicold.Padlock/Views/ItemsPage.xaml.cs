@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 using nicold.Padlock.Models;
 using nicold.Padlock.Views;
 using nicold.Padlock.ViewModels;
+using nicold.Padlock.ViewModelsArtifacts;
 
 namespace nicold.Padlock.Views
 {

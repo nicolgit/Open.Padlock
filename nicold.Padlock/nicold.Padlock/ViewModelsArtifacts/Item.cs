@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace nicold.Padlock.Models
+﻿namespace nicold.Padlock.ViewModelsArtifacts
 {
     public class Item
     {

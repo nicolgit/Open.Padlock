@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace nicold.Padlock.ViewModels
+﻿namespace nicold.Padlock.ViewModelsArtifacts
 {
     public static class Messages
     {

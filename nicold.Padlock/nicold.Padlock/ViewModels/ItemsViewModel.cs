@@ -11,6 +11,7 @@ using nicold.Padlock.Views;
 using nicold.Padlock.Models.Services;
 using System.Windows.Input;
 using System.Threading;
+using nicold.Padlock.ViewModelsArtifacts;
 
 namespace nicold.Padlock.ViewModels
 {
@@ -36,9 +37,7 @@ namespace nicold.Padlock.ViewModels
         #region EVENTS
         private async void OnAddItem(NewItemPage arg1, Item item)
         {
-            var newItem = item as Item;
-            Items.Add(newItem);
-            await DataStore.AddItemAsync(newItem);
+            
         }
 
         private async void OnSignInSuccessfully(SignInViewModel arg1, string arg2)

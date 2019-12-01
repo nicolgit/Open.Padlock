@@ -1,4 +1,5 @@
-﻿using nicold.Padlock.ViewModels;
+﻿using nicold.Padlock.ViewModelsArtifacts;
+using nicold.Padlock.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Graph;
+using nicold.Padlock.ViewModelsArtifacts;
 using nicold.Padlock.Models;
 using nicold.Padlock.Models.Services;
 using System;

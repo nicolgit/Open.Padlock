@@ -1,4 +1,5 @@
-﻿using nicold.Padlock.Models;
+﻿using nicold.Padlock.ViewModelsArtifacts;
+using nicold.Padlock.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using nicold.Padlock.ViewModelsArtifacts;
 using nicold.Padlock.Models;
 using Xamarin.Forms;
 

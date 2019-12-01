@@ -19,7 +19,7 @@ namespace nicold.Padlock.ViewModels
             Navigation = navigation;
         }
 
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
+        public IDataStore<MockItem> DataStore => DependencyService.Get<IDataStore<MockItem>>() ?? new MockDataStore();
 
         bool isBusy = false;
         public bool IsBusy
