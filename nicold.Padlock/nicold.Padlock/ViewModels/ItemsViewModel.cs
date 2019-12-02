@@ -8,8 +8,6 @@ using Xamarin.Forms;
 
 using nicold.Padlock.Models;
 using nicold.Padlock.Views;
-using nicold.Padlock.Models.Services;
-using System.Windows.Input;
 using System.Threading;
 using nicold.Padlock.ViewModelsArtifacts;
 
@@ -100,29 +98,6 @@ namespace nicold.Padlock.ViewModels
         private async Task LoadItemsCommandImplementation()
         {
             await RefreshList();
-            /*
-            if (IsBusy)
-                return;
-
-            IsBusy = true;
-
-            try
-            {
-                Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
-                {
-                    Items.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }*/
         }
 
         private async Task SignOutCommandImplementation()
@@ -173,16 +148,7 @@ namespace nicold.Padlock.ViewModels
                     // https://stackoverflow.com/questions/500925/check-if-a-string-contains-an-element-from-a-list-of-strings
                     if ( filter == null || filter.All(s => card.AdvancedCompare(s)) ) 
                     {
-                        string FAV = card.IsFavotire ? "FAVORITE" : "";
-
-                        Items.Add(new Item()
-                        {
-                            Id = card.Id.ToString(),
-                            Text = card.Title,
-                            Description = $"used {card.UsedCounter} times",
-                            Description2 = FAV
-                        }) ;
-
+                        Items.Add(new Item(card)) ;
                         await Task.Delay(10);
                     }
 

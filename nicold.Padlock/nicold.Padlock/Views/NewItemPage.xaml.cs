@@ -7,6 +7,7 @@ using Xamarin.Forms.Xaml;
 using nicold.Padlock.Models;
 using nicold.Padlock.ViewModels;
 using nicold.Padlock.ViewModelsArtifacts;
+using nicold.Padlock.Models.Services;
 
 namespace nicold.Padlock.Views
 {
@@ -15,13 +16,13 @@ namespace nicold.Padlock.Views
     [DesignTimeVisible(false)]
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public MockItem Item { get; set; }
 
         public NewItemPage()
         {
             InitializeComponent();
 
-            Item = new Item
+            Item = new MockItem
             {
                 Text = "Item name",
                 Description = "This is an item description."

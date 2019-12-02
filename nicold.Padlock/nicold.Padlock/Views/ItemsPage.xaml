@@ -42,20 +42,6 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <!--
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding Text}" 
-                                d:Text="{Binding .}"
-                                LineBreakMode="NoWrap" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="24" FontAttributes="Bold"/>
-                            <Label Text="{Binding Description}" 
-                                d:Text="Item description"
-                                LineBreakMode="NoWrap"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="13" />
-                        </StackLayout>
-                        -->
                         <Grid x:Name="grid" RowSpacing="0" ColumnSpacing="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />

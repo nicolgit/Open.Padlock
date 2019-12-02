@@ -23,18 +23,12 @@ namespace nicold.Padlock.Views
             BindingContext = this.viewModel = viewModel;
         }
 
-        public ItemDetailPage()
-        {
-            InitializeComponent();
+        //public ItemDetailPage()
+        //{
+        //    InitializeComponent();
 
-            var item = new Item
-            {
-                Text = "Item 1",
-                Description = "This is an item description."
-            };
-
-            viewModel = new ItemDetailViewModel(Navigation, item);
-            BindingContext = viewModel;
-        }
+        //    viewModel = new ItemDetailViewModel(Navigation, item);
+        //    BindingContext = viewModel;
+        //}
     }
 }

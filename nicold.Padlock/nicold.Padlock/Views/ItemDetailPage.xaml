@@ -3,15 +3,48 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:localTemplate="clr-namespace:nicold.Padlock.TemplateSelectors"
              mc:Ignorable="d"
              x:Class="nicold.Padlock.Views.ItemDetailPage"
              Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="StringAttributeTemplate">
+                <StackLayout Orientation="Vertical">
+                    <Label Text="{Binding Name}" FontSize="Small"></Label>
+                    <Label Text="{Binding Value}" FontSize="Medium"></Label>
+                </StackLayout>
+            </DataTemplate>
+            <DataTemplate x:Key="PasswordAttributeTemplate">
+                <StackLayout Orientation="Vertical">
+                    <Label Text="{Binding Name}" FontSize="Small"></Label>
+                    <Label Text="{Binding Value}" FontSize="Medium" FontAttributes="Bold" TextColor="Red"></Label>
+                </StackLayout>
+            </DataTemplate>
+            <DataTemplate x:Key="URLAttributeTemplate">
+                <StackLayout Orientation="Vertical">
+                    <Label Text="{Binding Name}" FontSize="Small"></Label>
+                    <Label Text="{Binding Value}" FontSize="Medium" TextColor="Blue" TextDecorations="Underline"></Label>
+                </StackLayout>
+            </DataTemplate>
+            <DataTemplate x:Key="HeaderAttributeTemplate">
+                <StackLayout Orientation="Vertical" Margin="0,48,0,0">
+                    <Label Text="{Binding Name}" FontSize="Large" FontAttributes="Bold"></Label>
+                </StackLayout>
+            </DataTemplate>
+            <localTemplate:CardViewTemplateSelector x:Key="RowTemplateSelector"
+                StringTemplate="{StaticResource StringAttributeTemplate}"
+                HeaderTemplate="{StaticResource HeaderAttributeTemplate}" 
+                PasswordTemplate="{StaticResource PasswordAttributeTemplate}" 
+                URLTemplate="{StaticResource URLAttributeTemplate}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView>
         <StackLayout Spacing="20" Padding="15">
             <Label Text="Name" FontSize="Small" />
             <Label Text="{Binding Title}" d:Text="Item name" FontSize="Medium"/>
-            <Label Text="{Binding Description}" d:Text="Item description" FontSize="Small" LineBreakMode="WordWrap"/>
-
+            <Label Text="{Binding Notes}" d:Text="Item description" FontSize="Small" LineBreakMode="WordWrap"/>
+            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding ItemDetailRows}" BindableLayout.ItemTemplateSelector="{StaticResource RowTemplateSelector}"></StackLayout>
         </StackLayout>
     </ScrollView>
 </ContentPage>
