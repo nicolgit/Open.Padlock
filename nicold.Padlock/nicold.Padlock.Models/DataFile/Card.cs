@@ -50,8 +50,10 @@ namespace nicold.Padlock.Models.DataFile
                         break;
                     default:
                     case AttributeType.TYPE_URL:
-                    case AttributeType.TYPE_STRING:
                         sb.Append(row.Value);
+                        break;
+                    case AttributeType.TYPE_STRING:
+                        sb.Append($"{row.Name} {row.Value}");
                         break;
                 }
                 sb.Append(" ");
