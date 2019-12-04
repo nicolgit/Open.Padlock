@@ -18,7 +18,10 @@
             <DataTemplate x:Key="PasswordAttributeTemplate">
                 <StackLayout Orientation="Vertical">
                     <Label Text="{Binding Name}" FontSize="Small"></Label>
-                    <Label Text="{Binding Value}" FontSize="Medium" FontAttributes="Bold" TextColor="Red"></Label>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding Value}" FontSize="Medium" FontAttributes="Bold" TextColor="Red"></Label>
+                        <Button Text="copy" Command="{Binding PasswordCommand}" CommandParameter="{Binding Value}"/>
+                    </StackLayout>
                 </StackLayout>
             </DataTemplate>
             <DataTemplate x:Key="URLAttributeTemplate">
