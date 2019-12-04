@@ -59,7 +59,7 @@ namespace nicold.Padlock.Models.DataFile
                 sb.Append(" ");
             }
 
-            return sb.ToString(); //.ToLower();
+            return sb.ToString();
         }
 
         public bool AdvancedCompare(string s)
