@@ -20,15 +20,12 @@ namespace nicold.Padlock.ViewModels
             Title = "Browse";
             Items = new ObservableCollection<Item>();
 
-            LoadItemsCommand = new Command(async () => await LoadItemsCommandImplementation());
             SignOutCommand = new Command(async () => await SignOutCommandImplementation());
             SearchCommand = new Command(async () => await SearchCommandImplementation());
             
             searchBarText = "";
             
             MessagingCenter.Subscribe<NewItemPage, Item>(this, Messages.ADDITEM, OnAddItem);
-            MessagingCenter.Subscribe<SignInViewModel, string>(this, Messages.SIGNIN, OnSignInSuccessfully);
-            MessagingCenter.Subscribe<TypePasswordViewModel, string>(this, Messages.FILEOPEN, OnFileOpened);
             MessagingCenter.Subscribe<ItemsViewModel, string>(this, Messages.SEARCH, OnSearchFiltered);
         }
 
@@ -38,32 +35,7 @@ namespace nicold.Padlock.ViewModels
             
         }
 
-        private async void OnSignInSuccessfully(SignInViewModel arg1, string arg2)
-        {
-            if (IsAuthenticated)
-            {
-                if (Globals.File == null)
-                {
-                    Globals.FileEncrypted = await Globals.CloudStorage.GetPadlockFile();
-                    await Navigation.PushModalAsync(new NavigationPage(new TypePasswordPage()));
-                }
-                else
-                {
-
-                }
-            }
-            else
-            {
-                // not authenticated
-            }
-        }
-
         private async void OnSearchFiltered(ItemsViewModel arg1, string arg2)
-        {
-            await RefreshList();
-        }
-
-        private async void OnFileOpened(TypePasswordViewModel arg1, string arg2)
         {
             await RefreshList();
         }
@@ -95,11 +67,6 @@ namespace nicold.Padlock.ViewModels
         #endregion
 
         #region COMMANDSIMPLEMENTATION
-        private async Task LoadItemsCommandImplementation()
-        {
-            await RefreshList();
-        }
-
         private async Task SignOutCommandImplementation()
         {
             Globals.AccessToken = null;

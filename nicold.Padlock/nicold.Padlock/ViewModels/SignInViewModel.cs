@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using nicold.Padlock.Views;
 
 namespace nicold.Padlock.ViewModels
 {
@@ -25,8 +26,8 @@ namespace nicold.Padlock.ViewModels
             
             if (IsAuthenticated)
             {
-                MessagingCenter.Send(this, Messages.SIGNIN, "");
-                await Navigation.PopModalAsync();
+                Globals.FileEncrypted = await Globals.CloudStorage.GetPadlockFile();
+                await Navigation.PushAsync(new TypePasswordPage());
             }
         }
 

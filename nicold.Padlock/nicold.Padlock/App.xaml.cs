@@ -14,7 +14,7 @@ namespace nicold.Padlock
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            MainPage = new NavigationPage (new SignIn());
         }
 
         protected override void OnStart()

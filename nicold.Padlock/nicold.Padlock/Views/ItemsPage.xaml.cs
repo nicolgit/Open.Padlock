@@ -26,9 +26,6 @@ namespace nicold.Padlock.Views
             InitializeComponent();
 
             BindingContext = viewModel = new ItemsViewModel(Navigation);
-            
-            if (!viewModel.IsAuthenticated)
-                Navigation.PushModalAsync(new NavigationPage(new SignIn()));
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -52,7 +49,8 @@ namespace nicold.Padlock.Views
             if (await DisplayAlert("Sign out", "Are you sure?", "Yes", "No"))
             {
                 viewModel.SignOutCommand.Execute(null);
-                await Navigation.PushModalAsync(new NavigationPage(new SignIn()));
+                //TODO https://github.com/xamarin/Xamarin.Forms/issues/6697  BUG su Navigation Page in uscita da AppShell
+                App.Current.MainPage = new NavigationPage(new SignIn());
             }
         }
 
