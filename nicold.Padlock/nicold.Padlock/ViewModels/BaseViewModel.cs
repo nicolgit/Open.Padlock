@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 using nicold.Padlock.Models;
 using nicold.Padlock.Models.Services;
+using System.Linq.Expressions;
 
 namespace nicold.Padlock.ViewModels
 {
@@ -19,14 +20,7 @@ namespace nicold.Padlock.ViewModels
             Navigation = navigation;
         }
 
-        public IDataStore<MockItem> DataStore => DependencyService.Get<IDataStore<MockItem>>() ?? new MockDataStore();
-
-        bool isBusy = false;
-        public bool IsBusy
-        {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
-        }
+        //public IDataStore<MockItem> DataStore => DependencyService.Get<IDataStore<MockItem>>() ?? new MockDataStore();
 
         string title = string.Empty;
         public string Title

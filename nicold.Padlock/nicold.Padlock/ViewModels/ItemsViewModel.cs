@@ -42,6 +42,13 @@ namespace nicold.Padlock.ViewModels
         #endregion
 
         #region PROPERTIES
+        bool isBusy = false;
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set { SetProperty(ref isBusy, value); }
+        }
+
         public ObservableCollection<Item> Items { get; set; }
         public bool IsAuthenticated => Globals.AccessToken != null;
 

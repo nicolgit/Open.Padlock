@@ -32,7 +32,8 @@ namespace nicold.Padlock.ViewModels
                 switch(itemRow.Type)
                 {
                     case AttributeType.TYPE_PASSWORD:
-                        itemRow.PasswordCommand = new Command<string>(async (string value) => await PasswordCommandImplementation(value));
+                        itemRow.ShowValue = false;
+                        itemRow.PasswordCommand = new Command<ItemDetailRow>(async (ItemDetailRow i) => await PasswordCommandImplementation(i));
                         break;
                 }
 
@@ -57,23 +58,25 @@ namespace nicold.Padlock.ViewModels
         #endregion
 
         #region COMMAND IMPLEMENTATION
-        private async Task PasswordCommandImplementation(string Value)
+        private async Task PasswordCommandImplementation(ItemDetailRow item)
         {
-            const string SHOW = "Show (TODO...)";
+            const string SHOW = "Show";
+            const string HIDE = "Hide";
             const string COPY = "Copy to clipboard";
-
-            var action = await Application.Current.MainPage.DisplayActionSheet("How whould you like to use the password?", "Cancel", null, SHOW, COPY);
+            
+            string rowText = item.ShowValue ? HIDE : SHOW;            
+            var action = await Application.Current.MainPage.DisplayActionSheet("How whould you like to use the password?", "Cancel", null, rowText, COPY);
 
             switch(action)
                 {
                 case SHOW:
-                    // todo
+                case HIDE:
+                    item.ShowValue = !item.ShowValue;
                     break;
                 case COPY:
-                    await Clipboard.SetTextAsync(Value);
+                    await Clipboard.SetTextAsync(item.Value);
                     break;
             }
-
         }
         #endregion
     }

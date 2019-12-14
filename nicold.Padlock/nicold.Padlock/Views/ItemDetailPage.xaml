@@ -12,22 +12,22 @@
             <DataTemplate x:Key="StringAttributeTemplate">
                 <StackLayout Orientation="Vertical">
                     <Label Text="{Binding Name}" FontSize="Small"></Label>
-                    <Label Text="{Binding Value}" FontSize="Medium"></Label>
+                    <Label Text="{Binding ValueUI}" FontSize="Medium"></Label>
                 </StackLayout>
             </DataTemplate>
             <DataTemplate x:Key="PasswordAttributeTemplate">
                 <StackLayout Orientation="Vertical">
                     <Label Text="{Binding Name}" FontSize="Small"></Label>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="{Binding Value}" FontSize="Medium" FontAttributes="Bold" TextColor="Red"></Label>
-                        <Button Text="copy" Command="{Binding PasswordCommand}" CommandParameter="{Binding Value}"/>
+                        <Label Text="{Binding ValueUI}" FontSize="Medium" FontAttributes="Bold" TextColor="Red"></Label>
+                        <Button Text="use" Command="{Binding PasswordCommand}" CommandParameter="{Binding .}"/>
                     </StackLayout>
                 </StackLayout>
             </DataTemplate>
             <DataTemplate x:Key="URLAttributeTemplate">
                 <StackLayout Orientation="Vertical">
                     <Label Text="{Binding Name}" FontSize="Small"></Label>
-                    <Label Text="{Binding Value}" FontSize="Medium" TextColor="Blue" TextDecorations="Underline"></Label>
+                    <Label Text="{Binding ValueUI}" FontSize="Medium" TextColor="Blue" TextDecorations="Underline"></Label>
                 </StackLayout>
             </DataTemplate>
             <DataTemplate x:Key="HeaderAttributeTemplate">
@@ -45,7 +45,7 @@
     <ScrollView>
         <StackLayout Spacing="20" Padding="15">
             <Label Text="Name" FontSize="Small" />
-            <Label Text="{Binding Title}" d:Text="Item name" FontSize="Medium"/>
+            <Label Text="{Binding Title}" d:Text="Item name" FontSize="Medium" FontAttributes="Bold"/>
             <Label Text="{Binding Notes}" d:Text="Item description" FontSize="Small" LineBreakMode="WordWrap"/>
             <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding ItemDetailRows}" BindableLayout.ItemTemplateSelector="{StaticResource RowTemplateSelector}"></StackLayout>
         </StackLayout>
