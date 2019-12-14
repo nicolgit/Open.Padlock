@@ -21,17 +21,16 @@ namespace nicold.Padlock.Droid
 
             base.OnCreate(savedInstanceState);
 
-            global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+
+            global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental");
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
             LoadApplication(new App());
 
             Models.Globals.CloudStorage = new Models.Services.OneDrive();
             Models.Globals.CloudStorage.Initialize();
             Models.Globals.CloudStorage.ParentWindow = this;
-
-            // string token = await Models.Globals.CloudSignin.AcquireTokenAsync();
-            // string a = token;
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

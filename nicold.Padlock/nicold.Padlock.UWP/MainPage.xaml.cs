@@ -25,7 +25,7 @@ namespace nicold.Padlock.UWP
 
             Models.Globals.CloudStorage = new Models.Services.OneDrive();
             Models.Globals.CloudStorage.Initialize();
-            Models.Globals.CloudStorage.ParentWindow = this;
+            Models.Globals.CloudStorage.ParentWindow = null;       
         }
     }
 }
