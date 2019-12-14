@@ -45,7 +45,7 @@ namespace nicold.Padlock.ViewModels
 
             if (Globals.File != null)
             {
-                Application.Current.MainPage = new AppShell();
+                Xamarin.Forms.Application.Current.MainPage = new AppShell();
             }
             else
             {
@@ -53,7 +53,7 @@ namespace nicold.Padlock.ViewModels
                 MessagingCenter.Send(this, Messages.WRONGPASSWORD, "");
             }
 
-            await Task.Delay(0); // need an await to avoi warning
+            await Task.Delay(0); // need an await to avoid warning
         }
         #endregion
     }
