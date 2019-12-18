@@ -42,9 +42,9 @@
 			<key>CFBundleURLName</key>
 			<string>nicold.Padlock.iOS</string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>msaldaec7b73-0f47-4ec7-b7b2-058f8d3a1f11</string>
-			</array>
+      <array>
+        <string>msala925d558-30c1-4c03-b810-c8dee803f966</string>
+      </array>
 		</dict>
 	</array>
 	
