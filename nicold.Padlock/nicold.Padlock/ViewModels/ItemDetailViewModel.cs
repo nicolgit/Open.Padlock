@@ -84,7 +84,22 @@ namespace nicold.Padlock.ViewModels
 
         private async Task UrlCommandImplementation(ItemDetailRow item)
         {
-            await Browser.OpenAsync(item.Value, BrowserLaunchMode.SystemPreferred);
+            var uristring = item.Value;
+
+            if ( !uristring.StartsWith("http://",StringComparison.OrdinalIgnoreCase) &&
+                 !uristring.StartsWith("https://",StringComparison.OrdinalIgnoreCase))
+            {
+                uristring = "http://" + uristring;
+            }
+
+            if (Uri.IsWellFormedUriString(uristring, UriKind.Absolute) == false)
+            {
+                await Application.Current.MainPage.DisplayAlert("", "URL not well formed, please check","mycancel");
+            }
+            else
+            {
+                await Browser.OpenAsync(uristring, BrowserLaunchMode.SystemPreferred);
+            }
         }
         #endregion
     }
