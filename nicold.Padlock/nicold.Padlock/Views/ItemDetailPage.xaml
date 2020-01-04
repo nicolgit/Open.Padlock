@@ -27,7 +27,17 @@
             <DataTemplate x:Key="URLAttributeTemplate">
                 <StackLayout Orientation="Vertical">
                     <Label Text="{Binding Name}" FontSize="Small"></Label>
-                    <Label Text="{Binding ValueUI}" FontSize="Medium" TextColor="Blue" TextDecorations="Underline"></Label>
+                    <Label FontSize="Medium" TextColor="Blue" TextDecorations="Underline">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding ValueUI}">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding UrlCommand}" CommandParameter="{Binding .}"/>
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                 </StackLayout>
             </DataTemplate>
             <DataTemplate x:Key="HeaderAttributeTemplate">

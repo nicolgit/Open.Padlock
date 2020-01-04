@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace nicold.Padlock.ViewModelsArtifacts
 {
@@ -48,5 +49,6 @@ namespace nicold.Padlock.ViewModelsArtifacts
         }
 
         public ICommand PasswordCommand { get; set; }
+        public ICommand UrlCommand { get; set; }
     }
 }

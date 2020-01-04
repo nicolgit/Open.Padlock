@@ -35,6 +35,9 @@ namespace nicold.Padlock.ViewModels
                         itemRow.ShowValue = false;
                         itemRow.PasswordCommand = new Command<ItemDetailRow>(async (ItemDetailRow i) => await PasswordCommandImplementation(i));
                         break;
+                    case AttributeType.TYPE_URL:
+                        itemRow.UrlCommand = new Command<ItemDetailRow>(async (ItemDetailRow i) => await UrlCommandImplementation(i));
+                        break;
                 }
 
                 ItemDetailRows.Add(itemRow);
@@ -77,6 +80,11 @@ namespace nicold.Padlock.ViewModels
                     await Clipboard.SetTextAsync(item.Value);
                     break;
             }
+        }
+
+        private async Task UrlCommandImplementation(ItemDetailRow item)
+        {
+            await Browser.OpenAsync(item.Value, BrowserLaunchMode.SystemPreferred);
         }
         #endregion
     }
