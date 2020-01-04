@@ -45,7 +45,7 @@ namespace nicold.Padlock.ViewModels
 
             if (Globals.File != null)
             {
-                Xamarin.Forms.Application.Current.MainPage = new AppShell();
+                await Navigation.PushAsync(new AppShell());
             }
             else
             {
