@@ -11,22 +11,29 @@
         <ResourceDictionary>
             <DataTemplate x:Key="StringAttributeTemplate">
                 <StackLayout Orientation="Vertical">
-                    <Label Text="{Binding Name}" FontSize="Small"></Label>
+                    <Label Text="{Binding Name}" FontSize="Small" FontAttributes="Bold"></Label>
                     <Label Text="{Binding ValueUI}" FontSize="Medium"></Label>
                 </StackLayout>
             </DataTemplate>
             <DataTemplate x:Key="PasswordAttributeTemplate">
-                <StackLayout Orientation="Vertical">
-                    <Label Text="{Binding Name}" FontSize="Small"></Label>
-                    <StackLayout Orientation="Horizontal">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+                        <Label Text="{Binding Name}" FontSize="Small" FontAttributes="Bold"></Label>
                         <Label Text="{Binding ValueUI}" FontSize="Medium" FontAttributes="Bold" TextColor="Red"></Label>
-                        <Button Text="use" Command="{Binding PasswordCommand}" CommandParameter="{Binding .}"/>
                     </StackLayout>
-                </StackLayout>
+                    <Button Text="use" Command="{Binding PasswordCommand}" CommandParameter="{Binding .}" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
             </DataTemplate>
             <DataTemplate x:Key="URLAttributeTemplate">
                 <StackLayout Orientation="Vertical">
-                    <Label Text="{Binding Name}" FontSize="Small"></Label>
+                    <Label Text="{Binding Name}" FontSize="Small" FontAttributes="Bold"></Label>
                     <Label FontSize="Medium" TextColor="Blue" TextDecorations="Underline">
                         <Label.FormattedText>
                             <FormattedString>
@@ -42,7 +49,7 @@
             </DataTemplate>
             <DataTemplate x:Key="HeaderAttributeTemplate">
                 <StackLayout Orientation="Vertical" Margin="0,48,0,0">
-                    <Label Text="{Binding Name}" FontSize="Large" FontAttributes="Bold"></Label>
+                    <Label Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold"></Label>
                 </StackLayout>
             </DataTemplate>
             <localTemplate:CardViewTemplateSelector x:Key="RowTemplateSelector"
