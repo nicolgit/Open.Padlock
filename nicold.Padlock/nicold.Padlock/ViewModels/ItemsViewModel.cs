@@ -81,6 +81,9 @@ namespace nicold.Padlock.ViewModels
             Globals.FileEncrypted = null;
             Globals.FileReadable = null;
             await Globals.CloudStorage.SignOut();
+
+            // reset the main navigation to login page
+            await Application.Current.MainPage.Navigation.PopToRootAsync(); 
         }
 
         private async Task SearchCommandImplementation()

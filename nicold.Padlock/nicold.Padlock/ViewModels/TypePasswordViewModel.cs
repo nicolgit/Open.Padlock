@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Application = Xamarin.Forms.Application;
 
 namespace nicold.Padlock.ViewModels
 {
@@ -45,7 +46,11 @@ namespace nicold.Padlock.ViewModels
 
             if (Globals.File != null)
             {
-                Xamarin.Forms.Application.Current.MainPage = new AppShell();
+                // TODO use PushAsync
+                Application.Current.MainPage = new AppShell();
+
+                // this not working on android!
+                //await Navigation.PushAsync(new AppShell());
             }
             else
             {

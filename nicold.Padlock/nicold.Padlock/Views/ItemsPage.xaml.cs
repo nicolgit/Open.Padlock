@@ -49,8 +49,6 @@ namespace nicold.Padlock.Views
             if (await DisplayAlert("Sign out", "Are you sure?", "Yes", "No"))
             {
                 viewModel.SignOutCommand.Execute(null);
-                //TODO https://github.com/xamarin/Xamarin.Forms/issues/6697  BUG su Navigation Page in uscita da AppShell
-                App.Current.MainPage = new NavigationPage(new SignIn());
             }
         }
 
