@@ -54,7 +54,8 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <ImageButton Source="twotone_chrome_reader_mode_black_36.png" HeightRequest="36" WidthRequest="36" CornerRadius="18" Padding="6" Margin="2" BackgroundColor="Yellow" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                <Image Source="twotone_chrome_reader_mode_black_36.png" WidthRequest="36" HeightRequest="36" Margin="5"/>
+                                <!--ImageButton Source="twotone_chrome_reader_mode_black_36.png" HeightRequest="36" WidthRequest="36" CornerRadius="18" Padding="6" Margin="2" BackgroundColor="Yellow" VerticalOptions="Center" HorizontalOptions="Center"/-->
 
                                 <Grid Grid.Column="1"
                                       RowSpacing="1"
