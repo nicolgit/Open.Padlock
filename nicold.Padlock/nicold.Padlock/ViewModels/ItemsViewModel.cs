@@ -83,7 +83,7 @@ namespace nicold.Padlock.ViewModels
             await Globals.CloudStorage.SignOut();
 
             // reset the main navigation to login page
-            await Application.Current.MainPage.Navigation.PopToRootAsync(); 
+            await Application.Current.MainPage.Navigation.PopToRootAsync();
         }
 
         private async Task SearchCommandImplementation()
