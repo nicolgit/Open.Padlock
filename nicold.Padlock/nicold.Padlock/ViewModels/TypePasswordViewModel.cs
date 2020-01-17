@@ -1,14 +1,8 @@
-﻿using Microsoft.Graph;
-using nicold.Padlock.ViewModelsArtifacts;
-using nicold.Padlock.Models;
+﻿using nicold.Padlock.Models;
 using nicold.Padlock.Models.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using nicold.Padlock.ViewModelsArtifacts;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Application = Xamarin.Forms.Application;
-using nicold.Padlock.Views;
 
 namespace nicold.Padlock.ViewModels
 {
