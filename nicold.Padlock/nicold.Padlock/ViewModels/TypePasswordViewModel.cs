@@ -42,10 +42,10 @@ namespace nicold.Padlock.ViewModels
             if (Globals.File != null)
             {
                 // TODO use PushAsync
-                //Application.Current.MainPage = new AppShell();
+                Application.Current.MainPage = new AppShell();
 
                 // this not working on android!
-                await Navigation.PushAsync(new AppShell());
+                //await Navigation.PushAsync(new AppShell());
             }
             else
             {
