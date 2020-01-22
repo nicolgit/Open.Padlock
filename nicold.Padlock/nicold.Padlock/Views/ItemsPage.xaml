@@ -9,7 +9,7 @@
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="ShowSearchBar_Clicked" IconImageSource="twotone_search_black_18.png" />
+        <ToolbarItem Text="Search" Clicked="ShowSearchBar_Clicked" IconImageSource="twotone_search_black_18.png" />
         <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
         <ToolbarItem Text="Sign out" Clicked="SignOut_Clicked"/>
     </ContentPage.ToolbarItems>
@@ -31,7 +31,7 @@
                 ItemSelected="OnItemSelected">
             <d:ListView.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
-                    <x:String>ha ha ha</x:String>
+                    <x:String>First Item</x:String>
                     <x:String>Second Item</x:String>
                     <x:String>Third Item</x:String>
                     <x:String>Forth Item</x:String>

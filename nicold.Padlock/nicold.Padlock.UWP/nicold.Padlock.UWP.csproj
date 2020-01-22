@@ -132,6 +132,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="twotone_chrome_reader_mode_black_36.png" />
+    <Content Include="twotone_search_black_18.png">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="xamarin_logo.png" />
     <Content Include="add.png" />
   </ItemGroup>
