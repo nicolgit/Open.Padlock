@@ -10,10 +10,21 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="StringAttributeTemplate">
-                <StackLayout Orientation="Vertical">
-                    <Label Text="{Binding Name}" FontSize="Small" FontAttributes="Bold"></Label>
-                    <Label Text="{Binding ValueUI}" FontSize="Medium"></Label>
-                </StackLayout>
+                <SwipeView>
+                    <SwipeView.LeftItems>
+                        <SwipeItems>
+                            <SwipeItem Text="Delete"
+                                       IconImageSource="twotone_chrome_reader_mode_black_36.png"
+                                       BackgroundColor="Red"
+                                       Command="{Binding PasswordCommand}"
+                                        />
+                        </SwipeItems>
+                    </SwipeView.LeftItems>
+                    <StackLayout Orientation="Vertical" BackgroundColor="Default">
+                        <Label Text="{Binding Name}" FontSize="Small" FontAttributes="Bold"></Label>
+                        <Label Text="{Binding ValueUI}" FontSize="Medium"></Label>
+                    </StackLayout>
+                </SwipeView>
             </DataTemplate>
             <DataTemplate x:Key="PasswordAttributeTemplate">
                 <Grid>
