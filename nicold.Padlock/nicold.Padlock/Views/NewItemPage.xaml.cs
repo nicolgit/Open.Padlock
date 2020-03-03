@@ -16,25 +16,19 @@ namespace nicold.Padlock.Views
     [DesignTimeVisible(false)]
     public partial class NewItemPage : ContentPage
     {
-        public MockItem Item { get; set; }
+        readonly NewEditItemViewModel viewModel;
 
-        public NewItemPage()
+        public NewItemPage(NewEditItemViewModel viewModel)
         {
             InitializeComponent();
 
-            Item = new MockItem
-            {
-                Text = "Item name",
-                Description = "This is an item description."
-            };
-
-            BindingContext = this;
+            BindingContext = this.viewModel = viewModel;
         }
 
         async void Save_Clicked(object sender, EventArgs e)
         {
-            MessagingCenter.Send(this, Messages.ADDITEM, Item);
-            await Navigation.PopModalAsync();
+            //MessagingCenter.Send(this, Messages.ADDITEM, viewModel.);
+            //await Navigation.PopModalAsync();
         }
 
         async void Cancel_Clicked(object sender, EventArgs e)

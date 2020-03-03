@@ -5,20 +5,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="nicold.Padlock.Views.NewItemPage"
-             Title="New Item">
+             Title="New Card">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
-        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+        <ToolbarItem IconImageSource="twotone_search_black_18.png" Text="Cancel" Command="{Binding CommandCancel}" />
+        <ToolbarItem Text="Save" Command="{Binding CommandSave}" />
     </ContentPage.ToolbarItems>
     
-    <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="15">
-            <Label Text="Text" FontSize="Medium" />
-            <Entry Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small" />
-            <Label Text="Description" FontSize="Medium" />
-            <Editor Text="{Binding Item.Description}" d:Text="Item description" FontSize="Small" Margin="0" />
-        </StackLayout>
-    </ContentPage.Content>
+    
+    <StackLayout Spacing="12" Padding="12" Orientation="Vertical">
+        <Label Text="Name" FontSize="Medium" />
+        <Entry Text="" d:Text="Item name" FontSize="Small" />
+        <Label Text="Description" FontSize="Medium" />
+        <Editor Text="{Binding Notes}" d:Text="Item description" FontSize="Small" Margin="0" />
+    </StackLayout>
     
 </ContentPage>

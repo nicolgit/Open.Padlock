@@ -28,20 +28,15 @@ namespace nicold.Padlock.Views
             BindingContext = viewModel = new ItemsViewModel(Navigation);
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
             if (!(args.SelectedItem is Item item))
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(Navigation, item)));
+            viewModel.OnItemSelectedCommand.Execute(item);       
 
             // Manually deselect item.
             ItemsListView.SelectedItem = null;
-        }
-
-        async void AddItem_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
         }
 
         async void SignOut_Clicked(object sender, EventArgs e)

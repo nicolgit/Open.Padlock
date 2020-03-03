@@ -22,13 +22,5 @@ namespace nicold.Padlock.Views
 
             BindingContext = this.viewModel = viewModel;
         }
-
-        //public ItemDetailPage()
-        //{
-        //    InitializeComponent();
-
-        //    viewModel = new ItemDetailViewModel(Navigation, item);
-        //    BindingContext = viewModel;
-        //}
     }
 }
