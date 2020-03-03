@@ -21,13 +21,15 @@ namespace nicold.Padlock.ViewModels
             
             searchBarText = "";
             
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, Messages.ADDITEM, OnItemAdded);
+            MessagingCenter.Subscribe<NewEditItemViewModel, Card>(this, Messages.ADDITEM, OnItemAdded);
             MessagingCenter.Subscribe<ItemsViewModel, string>(this, Messages.SEARCH, OnSearchFiltered);
         }
 
         #region EVENTS
-        private async void OnItemAdded(NewItemPage arg1, Item item)
+        private async void OnItemAdded(NewEditItemViewModel arg1, Card item)
         {
+            Globals.File.Cards.Add(item);
+
             await RefreshList();
         }
 

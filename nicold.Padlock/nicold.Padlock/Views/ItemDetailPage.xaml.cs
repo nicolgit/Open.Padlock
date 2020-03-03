@@ -18,9 +18,9 @@ namespace nicold.Padlock.Views
 
         public ItemDetailPage(ItemDetailViewModel viewModel)
         {
-            InitializeComponent();
-
             BindingContext = this.viewModel = viewModel;
+
+            InitializeComponent();
         }
     }
 }

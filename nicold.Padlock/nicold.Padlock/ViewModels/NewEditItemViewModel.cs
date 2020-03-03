@@ -18,7 +18,6 @@ namespace nicold.Padlock.ViewModels
                 item = new Card();
 
             data = item;
-            data.Notes = "ciao";
         }
 
         #region PROPERTIES

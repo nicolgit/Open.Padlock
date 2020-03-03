@@ -20,20 +20,18 @@ namespace nicold.Padlock.Views
 
         public NewItemPage(NewEditItemViewModel viewModel)
         {
-            InitializeComponent();
-
             BindingContext = this.viewModel = viewModel;
+            InitializeComponent();
         }
 
-        async void Save_Clicked(object sender, EventArgs e)
+        void Save_Clicked(object sender, EventArgs e)
         {
-            //MessagingCenter.Send(this, Messages.ADDITEM, viewModel.);
-            //await Navigation.PopModalAsync();
+            viewModel.SaveCommand.Execute(null);
         }
 
-        async void Cancel_Clicked(object sender, EventArgs e)
+        void Cancel_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PopModalAsync();
+            viewModel.CancelCommand.Execute(null);
         }
     }
 }

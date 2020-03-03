@@ -8,8 +8,8 @@
              Title="New Card">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="twotone_search_black_18.png" Text="Cancel" Command="{Binding CommandCancel}" />
-        <ToolbarItem Text="Save" Command="{Binding CommandSave}" />
+        <ToolbarItem IconImageSource="twotone_search_black_18.png" Text="Cancel" Clicked="Cancel_Clicked" />
+        <ToolbarItem IconImageSource="twotone_search_black_18.png" Text="Save" Clicked="Save_Clicked"/>
     </ContentPage.ToolbarItems>
     
     
