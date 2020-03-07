@@ -1,16 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-using nicold.Padlock.Models;
-using nicold.Padlock.Views;
-using nicold.Padlock.ViewModels;
+﻿using nicold.Padlock.ViewModels;
 using nicold.Padlock.ViewModelsArtifacts;
+using System;
+using System.ComponentModel;
+using Xamarin.Forms;
 
 namespace nicold.Padlock.Views
 {

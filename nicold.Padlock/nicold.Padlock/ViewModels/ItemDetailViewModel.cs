@@ -7,6 +7,7 @@ using nicold.Padlock.Models.DataFile;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using System.Collections.ObjectModel;
 
 namespace nicold.Padlock.ViewModels
 {
@@ -19,15 +20,11 @@ namespace nicold.Padlock.ViewModels
             Title = card.Title;
             Notes = card.Notes;
 
-            ItemDetailRows = new List<ItemDetailRow>();
+            ItemDetailRows = new ObservableCollection<ItemDetailRow>();
+
             foreach (var row in card.Rows)
             {
-                var itemRow = new ItemDetailRow()
-                {
-                    Name = row.Name,
-                    Value = row.Value,
-                    Type = row.Type,
-                };
+                var itemRow = new ItemDetailRow(row);
 
                 switch(itemRow.Type)
                 {
@@ -52,8 +49,8 @@ namespace nicold.Padlock.ViewModels
             set { SetProperty(ref notes, value); }
         }
 
-        List<ItemDetailRow> itemDetailRows;
-        public List<ItemDetailRow> ItemDetailRows
+        ObservableCollection<ItemDetailRow> itemDetailRows;
+        public ObservableCollection<ItemDetailRow> ItemDetailRows
         {
             get { return itemDetailRows; }
             set { SetProperty(ref itemDetailRows, value); }

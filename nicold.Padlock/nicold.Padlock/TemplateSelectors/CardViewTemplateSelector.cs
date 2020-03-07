@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace nicold.Padlock.TemplateSelectors
 {
-    public class CardViewTemplateSelector: DataTemplateSelector
+    public class CardRowTemplateSelector: DataTemplateSelector
     {
         public DataTemplate StringTemplate { get; set; }
         public DataTemplate HeaderTemplate { get; set; }
@@ -16,7 +16,7 @@ namespace nicold.Padlock.TemplateSelectors
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            switch ( ((ItemDetailRow) item).Type)
+            switch ( ((ItemDetailEditRow) item).Type)
             {
                 case Models.DataFile.AttributeType.TYPE_HEADER:
                     return HeaderTemplate;
