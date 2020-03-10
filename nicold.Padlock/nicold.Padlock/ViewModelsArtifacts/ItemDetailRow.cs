@@ -12,6 +12,7 @@ namespace nicold.Padlock.ViewModelsArtifacts
     {
         public ItemDetailRow(Models.DataFile.Attribute row) : base (row)
         {
+            showValue = true;
         }
 
         public string ValueUI => ShowValue ? Value : new string('*', Value.Length);
