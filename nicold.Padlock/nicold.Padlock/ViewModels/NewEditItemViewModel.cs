@@ -67,12 +67,9 @@ namespace nicold.Padlock.ViewModels
         {
             await Task.Delay(10);
 
-            Models.DataFile.Attribute row = new Models.DataFile.Attribute();
+            Models.DataFile.Attribute row = new Models.DataFile.Attribute(AttributeType.TYPE_STRING);
 
-            ItemDetailEditRows.Add(new ItemDetailEditRow(row)
-            {
-                Type = AttributeType.TYPE_STRING
-            });
+            ItemDetailEditRows.Add(new ItemDetailEditRow(row));
         }
         #endregion
     }
