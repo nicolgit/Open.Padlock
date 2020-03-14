@@ -31,18 +31,18 @@ namespace nicold.Padlock.ViewModels
         new public string Title
         {
             get { return data.Title; }
-            set { data.Title = value; }
+            set { data.Title = value; RaisePropertyChanged(() => Title); }
         }
         public string Notes
         {
             get { return data.Notes; }
-            set { data.Notes = value; }
+            set { data.Notes = value; RaisePropertyChanged(() => Notes); }
         }
         ObservableCollection<ItemDetailEditRow> itemDetailEditRows;
         public ObservableCollection<ItemDetailEditRow> ItemDetailEditRows
         {
             get { return itemDetailEditRows; }
-            set { SetProperty(ref itemDetailEditRows, value); }
+            set { itemDetailEditRows=value; RaisePropertyChanged(() => ItemDetailEditRows); }
         }
         #endregion
 

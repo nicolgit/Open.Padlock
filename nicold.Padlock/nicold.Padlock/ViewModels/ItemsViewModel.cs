@@ -44,23 +44,29 @@ namespace nicold.Padlock.ViewModels
         public bool IsBusy
         {
             get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            set { isBusy=value; RaisePropertyChanged(() => IsBusy); }
         }
 
-        public ObservableCollection<Item> Items { get; set; }
+        private ObservableCollection<Item> items;
+        public ObservableCollection<Item> Items
+        {
+            get { return items; }
+            set { items = value; RaisePropertyChanged(() => Items); }
+        }
+
         public bool IsAuthenticated => Globals.AccessToken != null;
 
         private bool searchBarIsVisible;
         public bool SearchBarIsVisible 
         {
             get { return searchBarIsVisible; }
-            set { SetProperty(ref searchBarIsVisible, value); }
+            set { searchBarIsVisible = value; RaisePropertyChanged(() => SearchBarIsVisible); }
         }
 
         private string searchBarText;
         public string SearchBarText {
             get { return searchBarText; }
-            set { SetProperty(ref searchBarText, value); }
+            set { searchBarText = value; RaisePropertyChanged(() => SearchBarText); }
         }
         #endregion
 

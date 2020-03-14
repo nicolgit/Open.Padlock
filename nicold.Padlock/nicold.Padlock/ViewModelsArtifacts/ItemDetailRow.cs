@@ -20,9 +20,10 @@ namespace nicold.Padlock.ViewModelsArtifacts
         private bool showValue;
         public bool ShowValue {
             get { return showValue; }
-            set { 
-                SetProperty(ref showValue, value);
-                OnPropertyChanged("ValueUI");
+            set {
+                showValue = value;
+                RaisePropertyChanged(() => ShowValue);
+                RaisePropertyChanged(() => ValueUI);
             }
         }
 

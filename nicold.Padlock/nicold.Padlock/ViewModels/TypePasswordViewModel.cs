@@ -19,14 +19,14 @@ namespace nicold.Padlock.ViewModels
         public bool ShowWrongPasswordMessage
         {
             get { return showWrongPasswordMessage; }
-            set { SetProperty(ref showWrongPasswordMessage, value); }
+            set { showWrongPasswordMessage=value; RaisePropertyChanged(() => ShowWrongPasswordMessage); }
         }
 
         private string password;
         public string Password
         {
             get { return password; }
-            set { SetProperty(ref password, value); }
+            set { password=value; RaisePropertyChanged(() => Password); }
         }
         #endregion
 

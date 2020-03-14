@@ -28,21 +28,21 @@ namespace nicold.Padlock.ViewModelsArtifacts
         public string Name
         {
             get { return name; }
-            set { SetProperty(ref name, value); }
+            set { name=value; RaisePropertyChanged(() => Name); }
         }
 
         private string value_;
         public string Value
         {
             get { return value_; }
-            set { SetProperty(ref value_, value); }
+            set { value_=value; RaisePropertyChanged(() => Value); }
         }
 
         private Models.DataFile.AttributeType type;
         public Models.DataFile.AttributeType Type
         {
             get { return type; }
-            set { SetProperty(ref type, value); }
+            set { type = value; RaisePropertyChanged(() => Type); }
         }
         #endregion
     }

@@ -46,14 +46,14 @@ namespace nicold.Padlock.ViewModels
         public string Notes
         {
             get { return notes; }
-            set { SetProperty(ref notes, value); }
+            set { notes=value; RaisePropertyChanged(() => Notes); }
         }
 
         ObservableCollection<ItemDetailRow> itemDetailRows;
         public ObservableCollection<ItemDetailRow> ItemDetailRows
         {
             get { return itemDetailRows; }
-            set { SetProperty(ref itemDetailRows, value); }
+            set { itemDetailRows=value; RaisePropertyChanged(() => ItemDetailRows); }
         }
         #endregion
 
