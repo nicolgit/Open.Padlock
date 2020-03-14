@@ -52,7 +52,12 @@ namespace nicold.Padlock.Views
 
         private void OnSearchOpen(ItemsViewModel arg1, string arg2)
         {
-            searchBar.Focus();
+            // https://github.com/xamarin/Xamarin.Forms/issues/2094
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await System.Threading.Tasks.Task.Delay(250);
+                searchBar.Focus();
+            });
         }
 
         protected override void OnDisappearing()

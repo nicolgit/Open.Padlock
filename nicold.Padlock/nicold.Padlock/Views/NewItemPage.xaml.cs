@@ -21,9 +21,21 @@ namespace nicold.Padlock.Views
         public NewItemPage(NewEditItemViewModel viewModel)
         {
             BindingContext = this.viewModel = viewModel;
+            
             InitializeComponent();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // https://github.com/xamarin/Xamarin.Forms/issues/2094
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await System.Threading.Tasks.Task.Delay(250);
+                entryTitle.Focus();
+            });
+        }
         void Save_Clicked(object sender, EventArgs e)
         {
             viewModel.SaveCommand.Execute(null);
