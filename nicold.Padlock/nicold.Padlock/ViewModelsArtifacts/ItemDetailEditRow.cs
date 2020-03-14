@@ -1,15 +1,17 @@
-﻿using nicold.Padlock.ViewModels;
+﻿using nicold.Padlock.Validators;
+using nicold.Padlock.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace nicold.Padlock.ViewModelsArtifacts
 {
-    public class ItemDetailEditRow: BaseViewModel
+    public class ItemDetailEditRow: ExtendedBindableObject
     {
-        public ItemDetailEditRow(Models.DataFile.Attribute row) : base(null)
+        public ItemDetailEditRow(Models.DataFile.Attribute row)
         {
             name = row.Name;
+
             value_ = row.Value;
             type = row.Type;
         }

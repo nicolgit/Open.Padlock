@@ -1,6 +1,8 @@
 ﻿using nicold.Padlock.Models.DataFile;
+using nicold.Padlock.Validators;
 using nicold.Padlock.ViewModelsArtifacts;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
@@ -20,6 +22,12 @@ namespace nicold.Padlock.ViewModels
 
             data = item;
 
+            title.Value = data.Title;
+            title.Validations.Add(new IsNotNullOrEmptyRule<string>()
+            {
+                ValidationMessage = "Card name can not be empty"
+            });
+
             ItemDetailEditRows = new ObservableCollection<ItemDetailEditRow>();
             foreach (var rowModel in data.Rows)
             {
@@ -28,11 +36,20 @@ namespace nicold.Padlock.ViewModels
         }
 
         #region PROPERTIES
-        new public string Title
+        private ValidatableObject<string> title = new ValidatableObject<string>();
+        new public ValidatableObject<string> Title
         {
-            get { return data.Title; }
-            set { data.Title = value; RaisePropertyChanged(() => Title); }
+            get { return title; }
+            set { title = value; RaisePropertyChanged(() => Title); }
         }
+
+        private string titleError;
+        public string TitleError
+        {
+            get { return titleError; }
+            set { titleError = value; RaisePropertyChanged(() => TitleError); }
+        }
+
         public string Notes
         {
             get { return data.Notes; }
@@ -58,6 +75,13 @@ namespace nicold.Padlock.ViewModels
         #region COMMANDS_IMPLEMENTATION
         private async Task SaveCommandImplementation()
         {
+            if (!title.Validate())
+            {
+                TitleError = title.Errors.FirstOrDefault();
+                return;
+            }
+
+            data.Title = title.Value;
             data.Rows = new List<Models.DataFile.Attribute>();
             foreach(var row in ItemDetailEditRows)
             {

@@ -91,7 +91,9 @@
     <ScrollView>
         <StackLayout Spacing="12" Padding="12" Orientation="Vertical">
             <Label Text="Name" FontSize="Medium" />
-            <Entry Text="{Binding Title}" d:Text="Item name" FontSize="Small" />
+            <Entry Text="{Binding Title.Value}" d:Text="Item name" FontSize="Small" />
+            <Label Text="{Binding TitleError}" FontSize="Small" TextColor="Red"/>
+
             <Label Text="Description" FontSize="Medium" />
             <Editor Text="{Binding Notes}" d:Text="Item description" FontSize="Small" Margin="0" />
 
