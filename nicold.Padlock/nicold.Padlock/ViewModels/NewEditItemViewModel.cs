@@ -49,12 +49,23 @@ namespace nicold.Padlock.ViewModels
         #region COMMANDS
         public Command SaveCommand => new Command(async () => await SaveCommandImplementation());
         public Command CancelCommand => new Command(async () => await CancelCommandImplementation());
-        public Command<string> AddRowCommand => new Command<string>(async (type) => await AddRowCommandImplementation(type));
+        public Command AddHeaderRowCommand => new Command(async () => await AddHeaderRowCommandImplementation());
+        public Command AddAttributeRowCommand => new Command(async () => await AddAttributeRowCommandImplementation());
+        public Command AddURLRowCommand => new Command(async () => await AddURLRowCommandImplementation());
+        public Command AddPasswordRowCommand => new Command(async () => await AddPasswordRowCommandImplementation());
         #endregion
 
         #region COMMANDS_IMPLEMENTATION
         private async Task SaveCommandImplementation()
         {
+            data.Rows = new List<Models.DataFile.Attribute>();
+            foreach(var row in ItemDetailEditRows)
+            {
+                data.Rows.Add(row.GetRowModel());
+            }
+
+            data.LastUpdateDateTime = DateTime.Now;
+
             MessagingCenter.Send(this, Messages.ADDITEM, this.data);
             await Navigation.PopAsync();
         }
@@ -63,12 +74,33 @@ namespace nicold.Padlock.ViewModels
         {
             await Navigation.PopAsync();
         }
-        private async Task AddRowCommandImplementation(string type)
+
+        private async Task AddHeaderRowCommandImplementation()
         {
-            await Task.Delay(10);
+            await Task.Delay(1);
+            Models.DataFile.Attribute row = new Models.DataFile.Attribute(AttributeType.TYPE_HEADER);
+            ItemDetailEditRows.Add(new ItemDetailEditRow(row));
+        }
 
+        private async Task AddAttributeRowCommandImplementation()
+        {
+            await Task.Delay(1);
             Models.DataFile.Attribute row = new Models.DataFile.Attribute(AttributeType.TYPE_STRING);
-
+            ItemDetailEditRows.Add(new ItemDetailEditRow(row));
+        }
+        private async Task AddURLRowCommandImplementation()
+        {
+            await Task.Delay(1);
+            Models.DataFile.Attribute row = new Models.DataFile.Attribute(AttributeType.TYPE_URL);
+            row.Name = "URL";
+            row.Value = "https://";
+            ItemDetailEditRows.Add(new ItemDetailEditRow(row));
+        }
+        private async Task AddPasswordRowCommandImplementation()
+        {
+            await Task.Delay(1);
+            Models.DataFile.Attribute row = new Models.DataFile.Attribute(AttributeType.TYPE_PASSWORD);
+            row.Name = "Password";
             ItemDetailEditRows.Add(new ItemDetailEditRow(row));
         }
         #endregion

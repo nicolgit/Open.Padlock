@@ -14,6 +14,16 @@ namespace nicold.Padlock.ViewModelsArtifacts
             type = row.Type;
         }
 
+        public Models.DataFile.Attribute GetRowModel()
+        {
+            Models.DataFile.Attribute row = new Models.DataFile.Attribute(Type);
+            row.Name = Name;
+            row.Value = Value;
+
+            return row;
+        }
+
+        #region PROPERTIES
         private string name;
         public string Name
         {
@@ -34,5 +44,6 @@ namespace nicold.Padlock.ViewModelsArtifacts
             get { return type; }
             set { SetProperty(ref type, value); }
         }
+        #endregion
     }
 }

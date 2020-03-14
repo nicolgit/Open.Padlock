@@ -97,12 +97,10 @@
 
             <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding ItemDetailEditRows}" BindableLayout.ItemTemplateSelector="{StaticResource RowTemplateSelector}" ></StackLayout>
 
-            <Button Text="Add Header" Command="{Binding AddRowCommand}" ></Button>
-            <Button Text="Add Attribute" Command="{Binding AddRowCommand}" ></Button>
-            <Button Text="Add Password" Command="{Binding AddRowCommand}" ></Button>
-            <Button Text="Add URL" Command="{Binding AddRowCommand}"></Button>
-            
-            
+            <Button Text="Add Header" Command="{Binding AddHeaderRowCommand}" ></Button>
+            <Button Text="Add Attribute" Command="{Binding AddAttributeRowCommand}" ></Button>
+            <Button Text="Add Password" Command="{Binding AddPasswordRowCommand}" ></Button>
+            <Button Text="Add URL" Command="{Binding AddURLRowCommand}"></Button>
         </StackLayout>
     </ScrollView>
 </ContentPage>
