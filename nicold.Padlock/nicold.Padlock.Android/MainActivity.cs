@@ -23,6 +23,7 @@ namespace nicold.Padlock.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
+            // test
             global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental", "SwipeView_Experimental");
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
