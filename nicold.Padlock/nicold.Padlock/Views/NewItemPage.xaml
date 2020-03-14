@@ -16,12 +16,12 @@
                             <SwipeItem Text="Delete"
                                        IconImageSource="twotone_chrome_reader_mode_black_36.png"
                                        BackgroundColor="Red"
-                                       Command="{Binding DeleteCommand}"
-                                        />
+                                       Command="{Binding DeleteCommand}" CommandParameter="{Binding .}"
+                                       />
                         </SwipeItems>
                     </SwipeView.LeftItems>
                     <StackLayout Orientation="Vertical" BackgroundColor="Default">
-                        <Entry Text="{Binding Name}" Placeholder="Attribute Name" MaxLength="100"/>
+                        <Entry Text="{Binding Name}" Placeholder="Attribute Name" MaxLength="100" FontSize="Small"/>
                         <Entry Text="{Binding Value}" Placeholder="Attribute Value" MaxLength="100"/>
                     </StackLayout>
                 </SwipeView>
@@ -33,12 +33,12 @@
                             <SwipeItem Text="Delete"
                                        IconImageSource="twotone_chrome_reader_mode_black_36.png"
                                        BackgroundColor="Red"
-                                       Command="{Binding DeleteCommand}"
-                                        />
+                                       Command="{Binding DeleteCommand}" CommandParameter="{Binding .}"
+                                       />
                         </SwipeItems>
                     </SwipeView.LeftItems>
                     <StackLayout Orientation="Vertical" BackgroundColor="Default">
-                        <Entry Text="{Binding Name}" Placeholder="Password Name" MaxLength="100"/>
+                        <Entry Text="{Binding Name}" Placeholder="Password Name" MaxLength="100" FontSize="Small"/>
                         <Entry Text="{Binding Value}" Placeholder="Password Value" MaxLength="100" IsPassword="True"/>
                     </StackLayout>
                 </SwipeView>
@@ -50,13 +50,13 @@
                             <SwipeItem Text="Delete"
                                        IconImageSource="twotone_chrome_reader_mode_black_36.png"
                                        BackgroundColor="Red"
-                                       Command="{Binding DeleteCommand}"
-                                        />
+                                       Command="{Binding DeleteCommand}" CommandParameter="{Binding .}"
+                                       />
                         </SwipeItems>
                     </SwipeView.LeftItems>
                     <StackLayout Orientation="Vertical" BackgroundColor="Default">
-                        <Entry Text="{Binding Name}" Placeholder="URL Name" MaxLength="100"/>
-                        <Entry Text="{Binding Value}" Placeholder="URL Value" MaxLength="1024"/>
+                        <Entry Text="{Binding Name}" Placeholder="URL Name" MaxLength="100" FontSize="Small" />
+                        <Entry Text="{Binding Value}" Placeholder="URL Value" MaxLength="1024" FontAttributes="Italic" />
                     </StackLayout>
                 </SwipeView>
             </DataTemplate>
@@ -67,12 +67,12 @@
                             <SwipeItem Text="Delete"
                                        IconImageSource="twotone_chrome_reader_mode_black_36.png"
                                        BackgroundColor="Red"
-                                       Command="{Binding DeleteCommand}"
-                                        />
+                                       Command="{Binding DeleteCommand}" CommandParameter="{Binding .}" 
+                                       />
                         </SwipeItems>
                     </SwipeView.LeftItems>
                     <StackLayout Orientation="Vertical" BackgroundColor="Default">
-                        <Entry Text="{Binding Name}" Placeholder="Header" MaxLength="100"/>
+                        <Entry Text="{Binding Name}" Placeholder="Header" MaxLength="100" FontAttributes="Bold"/>
                     </StackLayout>
                 </SwipeView>
             </DataTemplate>

@@ -6,8 +6,6 @@ using Xamarin.Forms.Xaml;
 
 using nicold.Padlock.Models;
 using nicold.Padlock.ViewModels;
-using nicold.Padlock.ViewModelsArtifacts;
-using nicold.Padlock.Models.Services;
 
 namespace nicold.Padlock.Views
 {

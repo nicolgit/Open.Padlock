@@ -99,33 +99,55 @@ namespace nicold.Padlock.ViewModels
             await Navigation.PopAsync();
         }
 
+        private async Task DeleteCommandImplementation(ItemDetailEditRow row)
+        {
+            await Task.Delay(1);
+            ItemDetailEditRows.Remove(row);
+        }
+
         private async Task AddHeaderRowCommandImplementation()
         {
             await Task.Delay(1);
-            Models.DataFile.Attribute row = new Models.DataFile.Attribute(AttributeType.TYPE_HEADER);
-            ItemDetailEditRows.Add(new ItemDetailEditRow(row));
-        }
+            var row = new Models.DataFile.Attribute(AttributeType.TYPE_HEADER);
 
+            var vmRow = new ItemDetailEditRow(row);
+            vmRow.DeleteCommand = new Command<ItemDetailEditRow>(async (ItemDetailEditRow i) => await DeleteCommandImplementation(i));
+
+            ItemDetailEditRows.Add(vmRow);
+        }
         private async Task AddAttributeRowCommandImplementation()
         {
             await Task.Delay(1);
-            Models.DataFile.Attribute row = new Models.DataFile.Attribute(AttributeType.TYPE_STRING);
-            ItemDetailEditRows.Add(new ItemDetailEditRow(row));
+            var row = new Models.DataFile.Attribute(AttributeType.TYPE_STRING);
+
+            var vmRow = new ItemDetailEditRow(row);
+            vmRow.DeleteCommand = new Command<ItemDetailEditRow>(async (ItemDetailEditRow i) => await DeleteCommandImplementation(i));
+
+            ItemDetailEditRows.Add(vmRow);
         }
         private async Task AddURLRowCommandImplementation()
         {
             await Task.Delay(1);
-            Models.DataFile.Attribute row = new Models.DataFile.Attribute(AttributeType.TYPE_URL);
+            var row = new Models.DataFile.Attribute(AttributeType.TYPE_URL);
             row.Name = "URL";
             row.Value = "https://";
-            ItemDetailEditRows.Add(new ItemDetailEditRow(row));
+
+            var vmRow = new ItemDetailEditRow(row);
+            vmRow.DeleteCommand = new Command<ItemDetailEditRow>(async (ItemDetailEditRow i) => await DeleteCommandImplementation(i));
+
+            ItemDetailEditRows.Add(vmRow);
         }
         private async Task AddPasswordRowCommandImplementation()
         {
             await Task.Delay(1);
-            Models.DataFile.Attribute row = new Models.DataFile.Attribute(AttributeType.TYPE_PASSWORD);
+
+            var row = new Models.DataFile.Attribute(AttributeType.TYPE_PASSWORD);
             row.Name = "Password";
-            ItemDetailEditRows.Add(new ItemDetailEditRow(row));
+
+            var vmRow = new ItemDetailEditRow(row);
+            vmRow.DeleteCommand = new Command<ItemDetailEditRow>(async (ItemDetailEditRow i) => await DeleteCommandImplementation(i));
+
+            ItemDetailEditRows.Add(vmRow);
         }
         #endregion
     }

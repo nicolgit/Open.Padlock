@@ -16,7 +16,7 @@ namespace nicold.Padlock.TemplateSelectors
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            switch ( ((ItemDetailEditRow) item).Type)
+            switch ( ((ItemDetailRow) item).Type)
             {
                 case Models.DataFile.AttributeType.TYPE_HEADER:
                     return HeaderTemplate;

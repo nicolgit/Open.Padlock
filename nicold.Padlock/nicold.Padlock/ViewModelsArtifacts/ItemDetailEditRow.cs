@@ -3,17 +3,14 @@ using nicold.Padlock.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 
 namespace nicold.Padlock.ViewModelsArtifacts
 {
-    public class ItemDetailEditRow: ExtendedBindableObject
+    public class ItemDetailEditRow: ItemDetailRow
     {
-        public ItemDetailEditRow(Models.DataFile.Attribute row)
+        public ItemDetailEditRow(Models.DataFile.Attribute row): base(row)
         {
-            name = row.Name;
-
-            value_ = row.Value;
-            type = row.Type;
         }
 
         public Models.DataFile.Attribute GetRowModel()
@@ -26,26 +23,9 @@ namespace nicold.Padlock.ViewModelsArtifacts
         }
 
         #region PROPERTIES
-        private string name;
-        public string Name
-        {
-            get { return name; }
-            set { name=value; RaisePropertyChanged(() => Name); }
-        }
-
-        private string value_;
-        public string Value
-        {
-            get { return value_; }
-            set { value_=value; RaisePropertyChanged(() => Value); }
-        }
-
-        private Models.DataFile.AttributeType type;
-        public Models.DataFile.AttributeType Type
-        {
-            get { return type; }
-            set { type = value; RaisePropertyChanged(() => Type); }
-        }
+        
         #endregion
+
+        public ICommand DeleteCommand { get; set; }
     }
 }

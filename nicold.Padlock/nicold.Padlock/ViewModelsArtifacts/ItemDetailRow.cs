@@ -1,33 +1,39 @@
-﻿using nicold.Padlock.Models.DataFile;
+﻿using System;
 using nicold.Padlock.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace nicold.Padlock.ViewModelsArtifacts
 {
-    public class ItemDetailRow: ItemDetailEditRow
+    public class ItemDetailRow : ExtendedBindableObject
     {
-        public ItemDetailRow(Models.DataFile.Attribute row) : base (row)
+        public ItemDetailRow(Models.DataFile.Attribute row)
         {
-            showValue = true;
+            name = row.Name;
+
+            value_ = row.Value;
+            type = row.Type;
         }
 
-        public string ValueUI => ShowValue ? Value : new string('*', Value.Length);
-
-        private bool showValue;
-        public bool ShowValue {
-            get { return showValue; }
-            set {
-                showValue = value;
-                RaisePropertyChanged(() => ShowValue);
-                RaisePropertyChanged(() => ValueUI);
-            }
+        #region PROPERTIES
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set { name = value; RaisePropertyChanged(() => Name); }
         }
 
-        public ICommand PasswordCommand { get; set; }
-        public ICommand UrlCommand { get; set; }
+        private string value_;
+        public string Value
+        {
+            get { return value_; }
+            set { value_ = value; RaisePropertyChanged(() => Value); }
+        }
+
+        private Models.DataFile.AttributeType type;
+        public Models.DataFile.AttributeType Type
+        {
+            get { return type; }
+            set { type = value; RaisePropertyChanged(() => Type); }
+        }
+        #endregion
     }
 }
