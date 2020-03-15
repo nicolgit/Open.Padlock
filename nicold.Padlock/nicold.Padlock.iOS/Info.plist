@@ -10,6 +10,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
@@ -21,11 +22,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
+	<string>13.2</string>
 	<key>CFBundleDisplayName</key>
 	<string>nicold.Padlock</string>
-	<key>CFBundleIdentifier</key>
-	<string>nicold.Padlock.iOS</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
@@ -42,12 +41,14 @@
 			<key>CFBundleURLName</key>
 			<string>nicold.Padlock.iOS</string>
 			<key>CFBundleURLSchemes</key>
-      <array>
-        <string>msala925d558-30c1-4c03-b810-c8dee803f966</string>
-      </array>
+			<array>
+				<string>msala925d558-30c1-4c03-b810-c8dee803f966</string>
+			</array>
 		</dict>
 	</array>
-	
-	
+	<key>CFBundleShortVersionString</key>
+	<string>0.1</string>
+	<key>CFBundleIdentifier</key>
+	<string>nicold.Padlock-iOS</string>
 </dict>
 </plist>

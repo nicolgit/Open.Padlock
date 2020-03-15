@@ -71,7 +71,8 @@
                                        />
                         </SwipeItems>
                     </SwipeView.LeftItems>
-                    <StackLayout Orientation="Vertical" BackgroundColor="Default">
+                    <StackLayout Orientation="Horizontal" BackgroundColor="Default">
+                        <Label Text=">>"/>
                         <Entry Text="{Binding Name}" Placeholder="Header" MaxLength="100" FontAttributes="Bold"/>
                     </StackLayout>
                 </SwipeView>
