@@ -63,7 +63,7 @@
                     <Label Text="{Binding Name}" FontSize="Medium" FontAttributes="Bold"></Label>
                 </StackLayout>
             </DataTemplate>
-            <localTemplate:CardViewTemplateSelector x:Key="RowTemplateSelector"
+            <localTemplate:CardRowTemplateSelector x:Key="RowTemplateSelector"
                 StringTemplate="{StaticResource StringAttributeTemplate}"
                 HeaderTemplate="{StaticResource HeaderAttributeTemplate}" 
                 PasswordTemplate="{StaticResource PasswordAttributeTemplate}" 

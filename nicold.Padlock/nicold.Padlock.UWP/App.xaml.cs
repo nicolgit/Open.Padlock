@@ -52,7 +52,7 @@ namespace nicold.Padlock.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                Xamarin.Forms.SetFlags("Shell_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental", "SwipeView_Experimental");
+                Xamarin.Forms.Forms.SetFlags("Shell_UWP_Experimental", "Visual_Experimental", "CollectionView_Experimental", "FastRenderers_Experimental", "SwipeView_Experimental");
                 Xamarin.Forms.Forms.Init(e);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)

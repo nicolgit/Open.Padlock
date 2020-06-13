@@ -6,8 +6,6 @@ using Xamarin.Forms.Xaml;
 
 using nicold.Padlock.Models;
 using nicold.Padlock.ViewModels;
-using nicold.Padlock.ViewModelsArtifacts;
-using nicold.Padlock.Models.Services;
 
 namespace nicold.Padlock.Views
 {
@@ -16,30 +14,34 @@ namespace nicold.Padlock.Views
     [DesignTimeVisible(false)]
     public partial class NewItemPage : ContentPage
     {
-        public MockItem Item { get; set; }
+        readonly NewEditItemViewModel viewModel;
 
-        public NewItemPage()
+        public NewItemPage(NewEditItemViewModel viewModel)
         {
+            BindingContext = this.viewModel = viewModel;
+            
             InitializeComponent();
+        }
 
-            Item = new MockItem
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // https://github.com/xamarin/Xamarin.Forms/issues/2094
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                Text = "Item name",
-                Description = "This is an item description."
-            };
-
-            BindingContext = this;
+                await System.Threading.Tasks.Task.Delay(250);
+                entryTitle.Focus();
+            });
+        }
+        void Save_Clicked(object sender, EventArgs e)
+        {
+            viewModel.SaveCommand.Execute(null);
         }
 
-        async void Save_Clicked(object sender, EventArgs e)
+        void Cancel_Clicked(object sender, EventArgs e)
         {
-            MessagingCenter.Send(this, Messages.ADDITEM, Item);
-            await Navigation.PopModalAsync();
-        }
-
-        async void Cancel_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PopModalAsync();
+            viewModel.CancelCommand.Execute(null);
         }
     }
 }

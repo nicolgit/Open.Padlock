@@ -10,7 +10,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Search" Clicked="ShowSearchBar_Clicked" IconImageSource="twotone_search_black_18.png" />
-        <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
+        <ToolbarItem Text="Add" Command="{Binding AddCommand}"/>
         <ToolbarItem Text="Sign out" Clicked="SignOut_Clicked"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
@@ -82,12 +82,12 @@
                        Text="{Binding Description}"
                                FontSize="{OnPlatform Android={OnIdiom Phone=10, Tablet=14}, iOS={OnIdiom Phone=12, Tablet=14}, macOS=14, UWP={OnIdiom Phone=12, Tablet=12, Desktop=12}, WPF=12}" />
                                         <Label TextColor="#474747"
-                       Margin="0,0,10,0"
-                       Grid.Column="1"
-                       LineBreakMode="NoWrap"
-                       HorizontalTextAlignment="End"
-                       Text="{Binding Description2}"
-                               FontSize="{OnPlatform Android={OnIdiom Phone=10, Tablet=14}, iOS={OnIdiom Phone=12, Tablet=14}, macOS=14, UWP={OnIdiom Phone=12, Tablet=12, Desktop=12}, WPF=12}" />
+                                           Margin="0,0,10,0"
+                                           Grid.Column="1"
+                                           LineBreakMode="NoWrap"
+                                           HorizontalTextAlignment="End"
+                                           Text="{Binding Description2}"
+                                           FontSize="{OnPlatform Android={OnIdiom Phone=10, Tablet=14}, iOS={OnIdiom Phone=12, Tablet=14}, macOS=14, UWP={OnIdiom Phone=12, Tablet=12, Desktop=12}, WPF=12}" />
                                     </Grid>
                                 </Grid>
 

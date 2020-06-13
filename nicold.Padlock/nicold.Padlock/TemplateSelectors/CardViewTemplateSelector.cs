@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace nicold.Padlock.TemplateSelectors
 {
-    public class CardViewTemplateSelector: DataTemplateSelector
+    public class CardRowTemplateSelector: DataTemplateSelector
     {
         public DataTemplate StringTemplate { get; set; }
         public DataTemplate HeaderTemplate { get; set; }

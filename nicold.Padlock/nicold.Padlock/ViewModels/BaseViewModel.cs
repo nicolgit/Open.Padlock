@@ -8,10 +8,11 @@ using Xamarin.Forms;
 using nicold.Padlock.Models;
 using nicold.Padlock.Models.Services;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace nicold.Padlock.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : ExtendedBindableObject // INotifyPropertyChanged
     {
         protected INavigation Navigation;
 
@@ -20,15 +21,14 @@ namespace nicold.Padlock.ViewModels
             Navigation = navigation;
         }
 
-        //public IDataStore<MockItem> DataStore => DependencyService.Get<IDataStore<MockItem>>() ?? new MockDataStore();
-
         string title = string.Empty;
         public string Title
         {
             get { return title; }
-            set { SetProperty(ref title, value); }
+            set { title = value; RaisePropertyChanged(() => Title); }
         }
 
+        /*
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName]string propertyName = "",
             Action onChanged = null)
@@ -42,6 +42,7 @@ namespace nicold.Padlock.ViewModels
             return true;
         }
 
+        
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
@@ -53,5 +54,28 @@ namespace nicold.Padlock.ViewModels
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+        
+        public void RaisePropertyChanged<T>(Expression<Func<T>> property)
+        {
+            var name = GetMemberInfo(property).Name;
+            OnPropertyChanged(name);
+        }
+
+        private MemberInfo GetMemberInfo(Expression expression)
+        {
+            MemberExpression operand;
+            LambdaExpression lambdaExpression = (LambdaExpression)expression;
+            if (lambdaExpression.Body as UnaryExpression != null)
+            {
+                UnaryExpression body = (UnaryExpression)lambdaExpression.Body;
+                operand = (MemberExpression)body.Operand;
+            }
+            else
+            {
+                operand = (MemberExpression)lambdaExpression.Body;
+            }
+            return operand.Member;
+        }
+        */
     }
 }

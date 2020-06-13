@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using nicold.Padlock.ViewModelsArtifacts;
-using nicold.Padlock.Models;
 using Xamarin.Forms;
 using nicold.Padlock.Models.DataFile;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using System.Collections.ObjectModel;
 
 namespace nicold.Padlock.ViewModels
 {
@@ -19,24 +19,20 @@ namespace nicold.Padlock.ViewModels
             Title = card.Title;
             Notes = card.Notes;
 
-            ItemDetailRows = new List<ItemDetailRow>();
+            ItemDetailRows = new ObservableCollection<ItemDetailViewRow>();
+
             foreach (var row in card.Rows)
             {
-                var itemRow = new ItemDetailRow()
-                {
-                    Name = row.Name,
-                    Value = row.Value,
-                    Type = row.Type,
-                };
+                var itemRow = new ItemDetailViewRow(row);
 
                 switch(itemRow.Type)
                 {
                     case AttributeType.TYPE_PASSWORD:
                         itemRow.ShowValue = false;
-                        itemRow.PasswordCommand = new Command<ItemDetailRow>(async (ItemDetailRow i) => await PasswordCommandImplementation(i));
+                        itemRow.PasswordCommand = new Command<ItemDetailViewRow>(async (ItemDetailViewRow i) => await PasswordCommandImplementation(i));
                         break;
                     case AttributeType.TYPE_URL:
-                        itemRow.UrlCommand = new Command<ItemDetailRow>(async (ItemDetailRow i) => await UrlCommandImplementation(i));
+                        itemRow.UrlCommand = new Command<ItemDetailViewRow>(async (ItemDetailViewRow i) => await UrlCommandImplementation(i));
                         break;
                 }
 
@@ -49,19 +45,19 @@ namespace nicold.Padlock.ViewModels
         public string Notes
         {
             get { return notes; }
-            set { SetProperty(ref notes, value); }
+            set { notes=value; RaisePropertyChanged(() => Notes); }
         }
 
-        List<ItemDetailRow> itemDetailRows;
-        public List<ItemDetailRow> ItemDetailRows
+        ObservableCollection<ItemDetailViewRow> itemDetailRows;
+        public ObservableCollection<ItemDetailViewRow> ItemDetailRows
         {
             get { return itemDetailRows; }
-            set { SetProperty(ref itemDetailRows, value); }
+            set { itemDetailRows=value; RaisePropertyChanged(() => ItemDetailRows); }
         }
         #endregion
 
         #region COMMAND IMPLEMENTATION
-        private async Task PasswordCommandImplementation(ItemDetailRow item)
+        private async Task PasswordCommandImplementation(ItemDetailViewRow item)
         {
             const string SHOW = "Show";
             const string HIDE = "Hide";
@@ -82,7 +78,7 @@ namespace nicold.Padlock.ViewModels
             }
         }
 
-        private async Task UrlCommandImplementation(ItemDetailRow item)
+        private async Task UrlCommandImplementation(ItemDetailViewRow item)
         {
             var uristring = item.Value;
 

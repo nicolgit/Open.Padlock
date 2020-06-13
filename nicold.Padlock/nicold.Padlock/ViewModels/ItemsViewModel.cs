@@ -1,4 +1,5 @@
 ﻿using nicold.Padlock.Models;
+using nicold.Padlock.Models.DataFile;
 using nicold.Padlock.ViewModelsArtifacts;
 using nicold.Padlock.Views;
 using System;
@@ -17,20 +18,19 @@ namespace nicold.Padlock.ViewModels
         {
             Title = "Browse";
             Items = new ObservableCollection<Item>();
-
-            SignOutCommand = new Command(async () => await SignOutCommandImplementation());
-            SearchCommand = new Command(async () => await SearchCommandImplementation());
             
             searchBarText = "";
             
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, Messages.ADDITEM, OnAddItem);
+            MessagingCenter.Subscribe<NewEditItemViewModel, Card>(this, Messages.ADDITEM, OnItemAdded);
             MessagingCenter.Subscribe<ItemsViewModel, string>(this, Messages.SEARCH, OnSearchFiltered);
         }
 
         #region EVENTS
-        private async void OnAddItem(NewItemPage arg1, Item item)
+        private async void OnItemAdded(NewEditItemViewModel arg1, Card item)
         {
-            
+            Globals.File.Cards.Add(item);
+
+            await RefreshList();
         }
 
         private async void OnSearchFiltered(ItemsViewModel arg1, string arg2)
@@ -44,30 +44,37 @@ namespace nicold.Padlock.ViewModels
         public bool IsBusy
         {
             get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            set { isBusy=value; RaisePropertyChanged(() => IsBusy); }
         }
 
-        public ObservableCollection<Item> Items { get; set; }
+        private ObservableCollection<Item> items;
+        public ObservableCollection<Item> Items
+        {
+            get { return items; }
+            set { items = value; RaisePropertyChanged(() => Items); }
+        }
+
         public bool IsAuthenticated => Globals.AccessToken != null;
 
         private bool searchBarIsVisible;
         public bool SearchBarIsVisible 
         {
             get { return searchBarIsVisible; }
-            set { SetProperty(ref searchBarIsVisible, value); }
+            set { searchBarIsVisible = value; RaisePropertyChanged(() => SearchBarIsVisible); }
         }
 
         private string searchBarText;
         public string SearchBarText {
             get { return searchBarText; }
-            set { SetProperty(ref searchBarText, value); }
+            set { searchBarText = value; RaisePropertyChanged(() => SearchBarText); }
         }
         #endregion
 
         #region COMMANDS
-        public Command LoadItemsCommand { get; set; }
-        public Command SignOutCommand { get; set; }
-        public Command SearchCommand { get; set; }
+        public Command SignOutCommand => new Command(async () => await SignOutCommandImplementation());
+        public Command SearchCommand => new Command(async () => await SearchCommandImplementation());
+        public Command AddCommand => new Command(async () => await AddCommandImplementation());
+        public Command OnItemSelectedCommand => new Command<Item>(async (item) => await OnItemSelectedCommandImplementation(item));
         public Command ToggleSearchBar => new Command(async () => await ToggleSearchBarCommandImplementation());
         #endregion
 
@@ -100,6 +107,17 @@ namespace nicold.Padlock.ViewModels
 
             await Task.Delay(100);
         }
+        
+        private async Task AddCommandImplementation()
+        {
+            await Navigation.PushAsync(new NewItemPage(new NewEditItemViewModel(Navigation)));
+        }
+
+        private async Task OnItemSelectedCommandImplementation(Item item)
+        {
+            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(Navigation, item)));
+        }
+
         #endregion
 
         #region PRIVATE

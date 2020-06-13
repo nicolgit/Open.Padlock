@@ -1,16 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-using nicold.Padlock.Models;
-using nicold.Padlock.Views;
-using nicold.Padlock.ViewModels;
+﻿using nicold.Padlock.ViewModels;
 using nicold.Padlock.ViewModelsArtifacts;
+using System;
+using System.ComponentModel;
+using Xamarin.Forms;
 
 namespace nicold.Padlock.Views
 {
@@ -28,20 +20,15 @@ namespace nicold.Padlock.Views
             BindingContext = viewModel = new ItemsViewModel(Navigation);
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
             if (!(args.SelectedItem is Item item))
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(Navigation, item)));
+            viewModel.OnItemSelectedCommand.Execute(item);       
 
             // Manually deselect item.
             ItemsListView.SelectedItem = null;
-        }
-
-        async void AddItem_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
         }
 
         async void SignOut_Clicked(object sender, EventArgs e)
@@ -65,7 +52,12 @@ namespace nicold.Padlock.Views
 
         private void OnSearchOpen(ItemsViewModel arg1, string arg2)
         {
-            searchBar.Focus();
+            // https://github.com/xamarin/Xamarin.Forms/issues/2094
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await System.Threading.Tasks.Task.Delay(250);
+                searchBar.Focus();
+            });
         }
 
         protected override void OnDisappearing()
