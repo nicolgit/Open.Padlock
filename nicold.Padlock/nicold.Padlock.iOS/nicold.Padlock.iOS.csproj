@@ -150,6 +150,7 @@
       <Visible>false</Visible>
     </ImageAsset>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\materialdesignicons-webfont.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

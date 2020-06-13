@@ -61,22 +61,25 @@
                     </StackLayout>
                 </SwipeView>
             </DataTemplate>
-            <DataTemplate x:Key="HeaderAttributeTemplate">
-                <SwipeView>
-                    <SwipeView.LeftItems>
-                        <SwipeItems>
-                            <SwipeItem Text="Delete"
-                                       IconImageSource="twotone_chrome_reader_mode_black_36.png"
-                                       BackgroundColor="Red"
-                                       Command="{Binding DeleteCommand}" CommandParameter="{Binding .}" 
-                                       />
-                        </SwipeItems>
-                    </SwipeView.LeftItems>
-                    <StackLayout Orientation="Horizontal" BackgroundColor="Default">
-                        <Label Text=">>"/>
-                        <Entry Text="{Binding Name}" Placeholder="Header" MaxLength="100" FontAttributes="Bold"/>
+            <DataTemplate x:Key="HeaderAttributeTemplate">      
+                <StackLayout Orientation="Horizontal" BackgroundColor="Default">
+                    <Entry Text="{Binding Name}" Placeholder="Header" MaxLength="100" FontAttributes="Bold"
+                            HorizontalOptions="FillAndExpand"/>
+                    <Image
+                        HeightRequest="24"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="24">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource IconFont}"
+                                Glyph="&#xF01B4;"
+                                Color="Red"
+                                Size="24"
+                                    />
+                        </Image.Source>
+                    </Image>
                     </StackLayout>
-                </SwipeView>
             </DataTemplate>
             <localTemplate:CardRowTemplateSelector x:Key="RowTemplateSelector"
                 StringTemplate="{StaticResource StringAttributeTemplate}"
@@ -92,12 +95,10 @@
 
     <ScrollView>
         <StackLayout Spacing="12" Padding="12" Orientation="Vertical">
-            <Label Text="Name" FontSize="Medium" />
-            <Entry x:Name="entryTitle" Text="{Binding Title.Value}" d:Text="Item name" FontSize="Small" />
+            <Entry x:Name="entryTitle" Placeholder="Name" Text="{Binding Title.Value}" d:Text="Item name" />
             <Label Text="{Binding TitleError}" FontSize="Small" TextColor="Red"/>
 
-            <Label Text="Description" FontSize="Medium" />
-            <Editor Text="{Binding Notes}" d:Text="Item description" FontSize="Small" AutoSize="TextChanges" />
+            <Editor Text="{Binding Notes}" Placeholder="Description" d:Text="Item description" AutoSize="TextChanges" />
 
             <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding ItemDetailEditRows}" BindableLayout.ItemTemplateSelector="{StaticResource RowTemplateSelector}" ></StackLayout>
 

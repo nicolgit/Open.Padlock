@@ -50,5 +50,9 @@
 	<string>0.1</string>
 	<key>CFBundleIdentifier</key>
 	<string>nicold.Padlock-iOS</string>
+	<key>UIAppFonts</key>
+	<array>
+    	<string>materialdesignicons-webfont.ttf</string>
+	</array>
 </dict>
 </plist>
