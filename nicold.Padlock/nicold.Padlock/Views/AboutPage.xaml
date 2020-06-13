@@ -6,7 +6,8 @@
              mc:Ignorable="d"
              x:Class="nicold.Padlock.Views.AboutPage"
              xmlns:vm="clr-namespace:nicold.Padlock.ViewModels"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             Visual="Material">
     
     <ContentPage.Resources>
         <ResourceDictionary>

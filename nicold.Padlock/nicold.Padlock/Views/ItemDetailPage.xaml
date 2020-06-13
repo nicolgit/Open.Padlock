@@ -6,7 +6,8 @@
              xmlns:localTemplate="clr-namespace:nicold.Padlock.TemplateSelectors"
              mc:Ignorable="d"
              x:Class="nicold.Padlock.Views.ItemDetailPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             Visual="Material">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="StringAttributeTemplate">
@@ -75,7 +76,10 @@
             <Label Text="Name" FontSize="Small" />
             <Label Text="{Binding Title}" d:Text="Item name" FontSize="Medium" FontAttributes="Bold"/>
             <Label Text="{Binding Notes}" d:Text="Item description" FontSize="Small" LineBreakMode="WordWrap"/>
-            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding ItemDetailRows}" BindableLayout.ItemTemplateSelector="{StaticResource RowTemplateSelector}"></StackLayout>
+            <StackLayout Orientation="Vertical"
+                         BindableLayout.ItemsSource="{Binding ItemDetailRows}"
+                         BindableLayout.ItemTemplateSelector="{StaticResource RowTemplateSelector}"
+                         Spacing="12"></StackLayout>
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -6,7 +6,8 @@
              mc:Ignorable="d"
              x:Class="nicold.Padlock.Views.ItemsPage"
              Title="{Binding Title}"
-             x:Name="BrowseItemsPage">
+             x:Name="BrowseItemsPage"
+             Visual="Material">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Search" Clicked="ShowSearchBar_Clicked" IconImageSource="twotone_search_black_18.png" />

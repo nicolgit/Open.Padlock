@@ -4,15 +4,18 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="nicold.Padlock.Views.SignIn">
+             x:Class="nicold.Padlock.Views.SignIn"
+             Visual="Material">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="12,12,12,48">
             <Label Text="Welcome to nicold.Padlock!"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand"
+                Style="{StaticResource Padlock.Text.Large}"/>
             <Button 
                 Text="Sign In to OneDrive to begin"
-                Command="{Binding SignInCommand}"/>
+                Command="{Binding SignInCommand}"
+                Style="{StaticResource Padlock.Text}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -6,6 +6,12 @@
              mc:Ignorable="d"
              x:Class="nicold.Padlock.App">
     <Application.Resources>
-        
+        <Style x:Key="Padlock.Text" TargetType="Label">
+            <Setter Property="FontFamily" Value="sans-serif-condensed"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style x:Key="Padlock.Text.Large" TargetType="Label" BasedOn="{StaticResource Padlock.Text}">
+            <Setter Property="FontSize" Value="24"/>
+        </Style>
     </Application.Resources>
 </Application>

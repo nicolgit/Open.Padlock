@@ -6,7 +6,8 @@
              xmlns:localTemplate="clr-namespace:nicold.Padlock.TemplateSelectors"
              mc:Ignorable="d"
              x:Class="nicold.Padlock.Views.NewItemPage"
-             Title="New Card">
+             Title="New Card"
+             Visual="Material">
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="StringAttributeTemplate">
@@ -85,8 +86,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="twotone_search_black_18.png" Text="Cancel" Clicked="Cancel_Clicked" />
-        <ToolbarItem IconImageSource="twotone_search_black_18.png" Text="Save" Clicked="Save_Clicked"/>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
+        <ToolbarItem Text="Save" Clicked="Save_Clicked"/>
     </ContentPage.ToolbarItems>
 
     <ScrollView>
