@@ -12,6 +12,7 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                 Style="{StaticResource Padlock.Text.Large}"/>
+            <ActivityIndicator VerticalOptions="CenterAndExpand" HorizontalOptions="Center" IsRunning="{Binding IsWorking}"/>
             <Button 
                 Text="Sign In to OneDrive to begin"
                 Command="{Binding SignInCommand}"

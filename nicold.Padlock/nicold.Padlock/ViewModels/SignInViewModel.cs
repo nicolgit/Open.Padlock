@@ -16,6 +16,17 @@ namespace nicold.Padlock.ViewModels
             SignInCommand = new Command(async () => await SignInCommandImplementation());
         }
 
+        #region PROPERTIES
+        private bool isWorking;
+        public bool IsWorking
+        {
+            get { return isWorking; }
+            set { isWorking = value; RaisePropertyChanged(() => IsWorking); }
+        }
+
+        public bool IsAuthenticated => Globals.AccessToken != null;
+        #endregion
+
         #region COMMANDS
         public Command SignInCommand { get; set; }
         #endregion
@@ -26,11 +37,14 @@ namespace nicold.Padlock.ViewModels
             
             if (IsAuthenticated)
             {
+                IsWorking = true;
                 Globals.FileEncrypted = await Globals.CloudStorage.GetPadlockFile();
+                IsWorking = false;
+                
                 await Navigation.PushAsync(new TypePasswordPage());
             }
         }
 
-        public bool IsAuthenticated => Globals.AccessToken != null;
+        
     }
 }

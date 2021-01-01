@@ -28,6 +28,13 @@ namespace nicold.Padlock.ViewModels
             get { return password; }
             set { password=value; RaisePropertyChanged(() => Password); }
         }
+
+        private bool isWorking;
+        public bool IsWorking
+        {
+            get { return isWorking; }
+            set { isWorking = value; RaisePropertyChanged(() => IsWorking); }
+        }
         #endregion
 
         #region COMMANDS
@@ -37,7 +44,10 @@ namespace nicold.Padlock.ViewModels
         #region COMMANDS_IMPLEMENTATION
         private async Task SubmitCommandImplementation()
         {
+            ShowWrongPasswordMessage = false;
+            IsWorking = true;
             Globals.File = PadlockFileReader.OpenFile(Globals.FileEncrypted, Password);
+            IsWorking = false;
 
             if (Globals.File != null)
             {
