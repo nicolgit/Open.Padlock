@@ -6,7 +6,7 @@ This is an open source password keeper developed in c# and usable on Android, iO
 
 There are many password keeper out there (commercial and free), I have decided to develop my personal one because for this type of tool, availability of the cource code is a plus, and a guarantee. Even if you are not able to read the code, open discussions here can help you to understand if you can trust this code or not.
 
-This tool also do not have his own cloud, but just save a file on your OneDrive (in future I hope also on other cloud storages
+This tool also do not have his own cloud, but just save a file on your OneDrive (in future I hope also to support on other cloud storages)
 
 # How do I get started?
 Fork this repository, choose one of the open issues and start coding.
