@@ -16,7 +16,7 @@ namespace nicold.Padlock.Models.Services
         readonly private string File = "data.pz";
         readonly private int BufferSize = 1024 * 1024; // 1Mbyte
 
-        readonly private string ClientID = "a925d558-30c1-4c03-b810-c8dee803f966"; // tenant nicoladelfino.onmicrosoft.com (250dc01a-4b55-42d6-a0d5-8ce0c1e3a4b0)
+        readonly private string ClientID = "4926943b-ab46-4176-a639-ef6438ceb351"; // tenant nicoladelfinooutlook.onmicrosoft.com (dac2b1d5-5420-4fad-889e-1280ffdc8003)
         readonly private string[] Scopes = { "Files.ReadWrite.All" };
         
         private IPublicClientApplication PCA = null;
