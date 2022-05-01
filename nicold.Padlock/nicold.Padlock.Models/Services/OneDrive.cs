@@ -16,8 +16,10 @@ namespace nicold.Padlock.Models.Services
         readonly private string File = "data.pz";
         readonly private int BufferSize = 1024 * 1024; // 1Mbyte
 
+        // the same clied ID must present in AndroidManifest.xml FILE
+        // for reference: <data android:scheme="msal4926943b-ab46-4176-a639-ef6438ceb351" android:host="auth" />
         readonly private string ClientID = "4926943b-ab46-4176-a639-ef6438ceb351"; // tenant nicoladelfinooutlook.onmicrosoft.com (dac2b1d5-5420-4fad-889e-1280ffdc8003)
-        readonly private string[] Scopes = { "Files.ReadWrite.All" };
+        readonly private string[] Scopes = { "Files.ReadWrite.All"};
         
         private IPublicClientApplication PCA = null;
 
@@ -29,7 +31,11 @@ namespace nicold.Padlock.Models.Services
 
         void ICloudStorage.Initialize()
         {
-            PCA = PublicClientApplicationBuilder.Create(ClientID).WithRedirectUri($"msal{ClientID}://auth").Build();
+            PCA = PublicClientApplicationBuilder
+                .Create(ClientID)
+                .WithRedirectUri($"msal{ClientID}://auth")
+                .WithAuthority(AadAuthorityAudience.PersonalMicrosoftAccount)
+                .Build();
         }
 
         async Task<string> ICloudStorage.AcquireTokenAsync()
@@ -49,8 +55,8 @@ namespace nicold.Padlock.Models.Services
                     try
                     {
                         authResult = await PCA.AcquireTokenInteractive(Scopes)
-                                                  .WithParentActivityOrWindow(parentwindow)
-                                                  .ExecuteAsync();
+                            .WithParentActivityOrWindow(parentwindow)
+                            .ExecuteAsync();
                     }
                     catch (Exception ex2)
                     {

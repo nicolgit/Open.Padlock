@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using nicold.Padlock.Models.DataFile;
+﻿using nicold.Padlock.Models.DataFile;
 using System;
 using System.IO;
 using System.Security.Cryptography;
