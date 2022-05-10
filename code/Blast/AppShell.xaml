@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Blast.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Blast"
+    xmlns:view="clr-namespace:Blast.View"
+    >
+
+    <!-- fitst shell content is the default page shown on start-->
+    <ShellContent Route="Welcome01Page" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:Welcome01Page}"/>
+    <ShellContent Route="Welcome02Page" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:Welcome02Page}"/>
+    
+    <TabBar>
+        <Tab Title="Cats"
+            Icon="cat.png">
+            <ShellContent Route="MainPage" Title="lorem" ContentTemplate="{DataTemplate local:MainPage}" />
+            <ShellContent Title="ipsut" ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+        <Tab Title="Dogs"
+            Icon="dog.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+        </Tab>
+    </TabBar>
+
+</Shell>
