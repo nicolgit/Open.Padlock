@@ -58,6 +58,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="View\SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\Welcome01Page.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -68,6 +71,10 @@
 
 	<ItemGroup>
 	  <Folder Include="Helpers\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
 	</ItemGroup>
 
 	<ItemGroup>

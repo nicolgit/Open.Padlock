@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blast", "Blast.csproj", "{A5637B8A-5522-4357-A439-13D886B75A52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blast.Model", "..\Blast.Model\Blast.Model.csproj", "{9A937C05-96A1-46C1-A757-32F08A579A54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blast.Model", "..\Blast.Model\Blast.Model.csproj", "{9A937C05-96A1-46C1-A757-32F08A579A54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

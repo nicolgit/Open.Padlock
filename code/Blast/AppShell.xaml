@@ -10,17 +10,32 @@
     <!-- fitst shell content is the default page shown on start-->
     <ShellContent Route="Welcome01Page" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:Welcome01Page}"/>
     <ShellContent Route="Welcome02Page" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:Welcome02Page}"/>
-    
-    <TabBar>
+    <!--ShellContent Route="SettingsPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:SettingsPage}"/-->
+
+    <FlyoutItem Title="Item1">
         <Tab Title="Cats"
             Icon="cat.png">
             <ShellContent Route="MainPage" Title="lorem" ContentTemplate="{DataTemplate local:MainPage}" />
-            <ShellContent Title="ipsut" ContentTemplate="{DataTemplate local:MainPage}" />
         </Tab>
         <Tab Title="Dogs"
             Icon="dog.png">
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
         </Tab>
-    </TabBar>
+        <Tab Title="Settings2"
+            Icon="dog.png">
+            <ShellContent Route="SettingsPage2" ContentTemplate="{DataTemplate view:SettingsPage}" />
+        </Tab>
+        
+        <ShellContent Route="SettingsPage2" ContentTemplate="{DataTemplate view:SettingsPage}" />
+        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate view:SettingsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Item2">
+        <ShellContent Title="TitleShellSettings3" Route="SettingsPage" ContentTemplate="{DataTemplate view:SettingsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Item3">
+        <ShellContent Title="TitleShellAoub" Route="AboutPage" />
+    </FlyoutItem>
 
 </Shell>
