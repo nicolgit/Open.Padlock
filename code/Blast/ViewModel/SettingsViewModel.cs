@@ -34,10 +34,6 @@ namespace Blast.ViewModel
         [ObservableProperty]
         private List<BlastItem> themes;
 
-
-
-
-
         [ObservableProperty]
         [AlsoNotifyChangeFor(nameof(pluto))]
         private string pippoPippo;

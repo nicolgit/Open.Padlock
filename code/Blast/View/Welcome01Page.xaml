@@ -7,11 +7,12 @@
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome01"
-                VerticalOptions="Center" 
-                HorizontalOptions="Center" />
-            <Button Text="command" Clicked="Button_Clicked"/>
+        <StackLayout Spacing="6" Margin="6">
+            <Label Text="Welcome in Blast" HorizontalOptions="Center" />
+            <Label Text="Balst is a safe place where keep your passwords and private data." HorizontalOptions="Center" />
+            <Label Text="Do you have a Blast vault or do you want to create a new one?" HorizontalOptions="Center" />
+            <Button Text="Create a new VAULT" Command="{Binding NewCommand}"/>
+            <Button Text="I want to open an existing VAULT" Command="{Binding ExistingCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

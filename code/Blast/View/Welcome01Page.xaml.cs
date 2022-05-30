@@ -17,9 +17,4 @@ public partial class Welcome01Page : ContentPage
         // skip this if already logged-in
         // await Shell.Current.GoToAsync("//MainPage");
     }
-    private async void Button_Clicked(object sender, EventArgs e)
-    {
-		// remove the back stack and go to next page
-		await Shell.Current.GoToAsync($"//{nameof(View.Welcome02Page)}");
-    }
 }
