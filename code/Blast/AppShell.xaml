@@ -10,6 +10,7 @@
     <!-- fitst shell content is the default page shown on start-->
     <ShellContent Route="Welcome01Page" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:Welcome01Page}"/>
     <ShellContent Route="Welcome02Page" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:Welcome02Page}"/>
+    <ShellContent Route="CreatePasswordPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:CreatePasswordPage}"/>
     <!--ShellContent Route="SettingsPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:SettingsPage}"/-->
 
     <FlyoutItem Title="Item1">

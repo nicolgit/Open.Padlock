@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using Microsoft.Graph;
 using System.Net.Http.Headers;
 using System.IO;
+using Blast.Models;
 
-namespace Blast.Models.Services
+namespace Blast.Model.Services.Storage
 {
-    public class OneDrive: ICloudStorage
+    public class OneDriveStorage : IBlastStorage
     {
         readonly private string Folder = "PadlockStorage";
         readonly private string File = "data.pz";
@@ -19,17 +20,19 @@ namespace Blast.Models.Services
         // the same clied ID must present in AndroidManifest.xml FILE
         // for reference: <data android:scheme="msal4926943b-ab46-4176-a639-ef6438ceb351" android:host="auth" />
         readonly private string ClientID = "4926943b-ab46-4176-a639-ef6438ceb351"; // tenant nicoladelfinooutlook.onmicrosoft.com (dac2b1d5-5420-4fad-889e-1280ffdc8003)
-        readonly private string[] Scopes = { "Files.ReadWrite.All"};
-        
+        readonly private string[] Scopes = { "Files.ReadWrite.All" };
+
         private IPublicClientApplication PCA = null;
 
-        public OneDrive()
+        public OneDriveStorage()
         { }
 
         private object parentwindow;
-        object ICloudStorage.ParentWindow { get { return parentwindow; } set { parentwindow = value; } }
+        object IBlastStorage.ParentWindow { get { return parentwindow; } set { parentwindow = value; } }
 
-        void ICloudStorage.Initialize()
+        string IBlastStorage.FileName { get; set; }
+
+        void IBlastStorage.Initialize()
         {
             PCA = PublicClientApplicationBuilder
                 .Create(ClientID)
@@ -38,7 +41,7 @@ namespace Blast.Models.Services
                 .Build();
         }
 
-        async Task<string> ICloudStorage.AcquireTokenAsync()
+        async Task<string> IBlastStorage.AcquireTokenAsync()
         {
             AuthenticationResult authResult = null;
             IEnumerable<IAccount> accounts = await PCA.GetAccountsAsync();
@@ -63,18 +66,18 @@ namespace Blast.Models.Services
                         throw new CloudSignInException("Acquire token interactive failed: " + ex2.Message);
                     }
                 }
-                
+
                 return authResult.AccessToken;
             }
             catch (Exception ex)
             {
-                  throw new CloudSignInException("Authentication failed: " + ex.Message);
+                throw new CloudSignInException("Authentication failed: " + ex.Message);
             }
         }
 
-        async Task<bool> ICloudStorage.SignOut()
+        async Task<bool> IBlastStorage.SignOutAsync()
         {
-            foreach(var account in await PCA.GetAccountsAsync())
+            foreach (var account in await PCA.GetAccountsAsync())
             {
                 await PCA.RemoveAsync(account);
             }
@@ -82,20 +85,20 @@ namespace Blast.Models.Services
             return true;
         }
 
-        async Task<byte[]> ICloudStorage.GetPadlockFile()
+        async Task<byte[]> IBlastStorage.GetFileAsync()
         {
-            var graphServiceClient = new GraphServiceClient(new DelegateAuthenticationProvider(async (requestMessage) => 
+            var graphServiceClient = new GraphServiceClient(new DelegateAuthenticationProvider(async (requestMessage) =>
             {
                 requestMessage
                     .Headers
-                    .Authorization = new AuthenticationHeaderValue("bearer", await ((ICloudStorage)this).AcquireTokenAsync());
+                    .Authorization = new AuthenticationHeaderValue("bearer", await ((IBlastStorage)this).AcquireTokenAsync());
                 return;
             }));
 
             // https://graph.microsoft.com/v1.0/me/drive/root:/documenti/test.txt:/content
             var fileStream = await graphServiceClient.Me.Drive.Root.ItemWithPath(Folder + "/" + File).Content.Request().GetAsync();
 
-            byte[] buffer = new Byte[BufferSize];
+            byte[] buffer = new byte[BufferSize];
             int bytesRead = await fileStream.ReadAsync(buffer, 0, BufferSize);
 
             byte[] buffer2 = new byte[bytesRead];

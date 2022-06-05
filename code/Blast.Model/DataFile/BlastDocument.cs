@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Blast.Models.DataFile
 {
-    public class PadlockFile
+    public class BlastDocument
     {
-        public PadlockFile()
+        public BlastDocument()
         {
             Id = Guid.NewGuid();
             Version = 10;

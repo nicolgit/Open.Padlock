@@ -9,9 +9,9 @@ using System.Xml.XPath;
 
 namespace Blast.Models.Services
 {
-    public static class PadlockFileReader
+    public static class BlastFileReader
     {
-        public static DataFile.PadlockFile OpenFile(byte[] source, string unlockPassword)
+        public static DataFile.BlastDocument OpenFile(byte[] source, string unlockPassword)
         {
             EncrDecr ed;
             ed = new EncrDecr();
@@ -76,7 +76,7 @@ namespace Blast.Models.Services
                             xml.Append(element, 0, element.Length);
                         }
 
-                        PadlockFile pf = ParsePazwordFile(xml.ToString());
+                        var pf = ParsePazwordFile(xml.ToString());
 
                         //string json = JsonConvert.SerializeObject(pf);
                         //PadlockFile pf2 = JsonConvert.DeserializeObject<PadlockFile>(json);
@@ -87,11 +87,11 @@ namespace Blast.Models.Services
             }
         }
 
-        private static PadlockFile ParsePazwordFile(string file)
+        private static BlastDocument ParsePazwordFile(string file)
         {
             var xdoc = XDocument.Parse(file);
 
-            PadlockFile pf = new PadlockFile();
+            var pf = new BlastDocument();
 
             try
             {

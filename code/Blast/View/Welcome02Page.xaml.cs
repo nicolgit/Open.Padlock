@@ -4,14 +4,29 @@ namespace Blast.View;
 
 public partial class Welcome02Page : ContentPage
 {
+    private Welcome02ViewModel viewModel;
+
 	public Welcome02Page(Welcome02ViewModel vm)
 	{
 		InitializeComponent();
-		BindingContext = vm;
+		BindingContext = viewModel = vm;
 	}
 
-    private async void Button_Clicked(object sender, EventArgs e)
+    private async void ButtonFile_Clicked(object sender, EventArgs e)
     {
-		await Shell.Current.GoToAsync($"//{nameof(View.SettingsPage)}");
+        string result = await DisplayPromptAsync("File System VAULT", "Choose a name for your VAULT", initialValue: "LocalVault.blast");
+        if (result != null)
+        {
+            await viewModel.LocalFileCommand.ExecuteAsync(result);
+        }
+    }
+
+    private async void ButtonOneDrive_Clicked(object sender, EventArgs e)
+    {
+        string result = await DisplayPromptAsync("OneDrive VAULT", "Choose a name for your VAULT", initialValue: "OneDriveVault.blast");
+        if (result != null)
+        {
+            await viewModel.OneDriveCommand.ExecuteAsync(result);
+        }
     }
 }
