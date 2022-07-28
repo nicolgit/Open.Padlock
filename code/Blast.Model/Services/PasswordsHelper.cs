@@ -51,7 +51,7 @@ namespace Blast.Model.Services
         {
             int score = 0;
 
-            if (password.Length < 1)
+            if (password==null || password.Length < 1)
                 return PasswordScore.Blank;
             if (password.Length < 4)
                 return PasswordScore.VeryWeak;
@@ -93,6 +93,24 @@ namespace Blast.Model.Services
             }
 
             return iterations;
+        }
+
+        public bool OnlyAllowedChars(string password)
+        {
+            if (password == null)
+                return true;
+
+            foreach (char c in password)
+            {
+                var cstr = c.ToString();
+
+                if (!ContainsLowercase(cstr) &&
+                    !ContainsUppercase(cstr) &&
+                    !ContainsNumber(cstr) &&
+                    !ContainsSymbols(cstr))
+                    return false;
+            }
+            return true;
         }
     }
 }
