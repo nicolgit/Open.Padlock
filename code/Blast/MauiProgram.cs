@@ -30,6 +30,7 @@ public static class MauiProgram
 		// models
 		builder.Services.AddSingleton<Model.Settings>();
 		builder.Services.AddSingleton<Model.Current>();
+		builder.Services.AddSingleton<Model.Services.PasswordsHelper>();
 
 		// infrastructure
 		builder.Services.AddSingleton<IPreferences>(Microsoft.Maui.Storage.Preferences.Default);

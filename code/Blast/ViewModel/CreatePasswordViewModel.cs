@@ -10,15 +10,18 @@ namespace Blast.ViewModel
 {
     public partial class CreatePasswordViewModel: ViewModelBase, IQueryAttributable
     {
-        public CreatePasswordViewModel()
+        private Model.Services.PasswordsHelper passwordsHelper;
+        public CreatePasswordViewModel(Model.Services.PasswordsHelper ph)
         {
-
+            passwordsHelper = ph;
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
 
         }
+
+        public string AllowedSymbols => Model.Services.PasswordsHelper.AllowedSymbols;
 
         [ObservableProperty]
         [AlsoNotifyChangeFor(nameof(Complexity))]
@@ -28,7 +31,7 @@ namespace Blast.ViewModel
         {
             get
             {
-                return $"123{newPassword}123 2.3 seconds";
+                return $"{passwordsHelper.BruteForceItearions(newPassword)} iterations";
             }
         }
     }
