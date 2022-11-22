@@ -18,6 +18,7 @@
             Icon="cat.png">
             <ShellContent Route="MainPage" Title="lorem" ContentTemplate="{DataTemplate local:MainPage}" />
         </Tab>
+        
         <Tab Title="Dogs"
             Icon="dog.png">
             <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
@@ -26,11 +27,13 @@
             Icon="dog.png">
             <ShellContent Route="SettingsPage2" ContentTemplate="{DataTemplate view:SettingsPage}" />
         </Tab>
-        
+       
         <ShellContent Route="SettingsPage2" ContentTemplate="{DataTemplate view:SettingsPage}" />
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate view:SettingsPage}" />
+        
     </FlyoutItem>
 
+    <!--
     <FlyoutItem Title="Item2">
         <ShellContent Title="TitleShellSettings3" Route="SettingsPage" ContentTemplate="{DataTemplate view:SettingsPage}" />
     </FlyoutItem>
@@ -38,5 +41,5 @@
     <FlyoutItem Title="Item3">
         <ShellContent Title="TitleShellAoub" Route="AboutPage" />
     </FlyoutItem>
-
+    -->
 </Shell>

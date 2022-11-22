@@ -1,4 +1,4 @@
-﻿using Blast.Model;
+﻿using Blast.Model.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -12,9 +12,9 @@ namespace Blast.ViewModel
 {
     public partial class SettingsViewModel: ViewModelBase
     {
-        private Model.Settings settings;
+        private Settings settings;
 
-        public SettingsViewModel(Model.Settings s)
+        public SettingsViewModel(Settings s)
         {
             settings = s;
             s.LoadAll();
@@ -35,19 +35,19 @@ namespace Blast.ViewModel
         private List<BlastItem> themes;
 
         [ObservableProperty]
-        [AlsoNotifyChangeFor(nameof(pluto))]
+        [NotifyPropertyChangedFor(nameof(pluto))]
         private string pippoPippo;
 
         public string pluto => $"aaaa {pippoPippo} bbb";
 
-        [ICommand]
+        [RelayCommand]
         void SaveAll()
         {
             settings.UITheme = (Settings.UIThemeEnum)selectedTheme.Id;
             settings.SaveAll();
         }
 
-        [ICommand]
+        [RelayCommand]
         void ThemeChanged()
         {
             switch ((int)selectedTheme.Id)

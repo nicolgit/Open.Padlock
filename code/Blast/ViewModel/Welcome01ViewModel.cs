@@ -10,13 +10,13 @@ namespace Blast.ViewModel
     public partial class Welcome01ViewModel: ViewModelBase
     {
 
-        [ICommand]
+        [RelayCommand]
         async Task New()
         {
             await Shell.Current.GoToAsync($"//{nameof(View.Welcome02Page)}?Action=new");
         }
 
-        [ICommand]
+        [RelayCommand]
         async Task Existing()
         {
             await Shell.Current.GoToAsync($"//{nameof(View.Welcome02Page)}?Action=open");

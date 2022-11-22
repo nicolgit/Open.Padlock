@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Blast.Model
+namespace Blast.Model.Services
 {
-    public class Current  {
-        public Object  ParentWindow { get; set; }
+    public class Current
+    {
+        public object ParentWindow { get; set; }
         public string AccessToken { get; set; }
         public byte[] FileEncrypted { get; set; }
         public string FileReadable { get; set; }

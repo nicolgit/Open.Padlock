@@ -28,8 +28,8 @@ public static class MauiProgram
         builder.Services.AddTransient<Blast.ViewModel.SettingsViewModel>();
 
 		// models
-		builder.Services.AddSingleton<Model.Settings>();
-		builder.Services.AddSingleton<Model.Current>();
+		builder.Services.AddSingleton<Model.Services.Settings>();
+		builder.Services.AddSingleton<Model.Services.Current>();
 		builder.Services.AddSingleton<Model.Services.PasswordsHelper>();
 
 		// infrastructure

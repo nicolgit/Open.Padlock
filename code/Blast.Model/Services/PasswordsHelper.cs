@@ -49,23 +49,32 @@ namespace Blast.Model.Services
 
         public PasswordScore CheckStrength(string password)
         {
-            int score = 0;
+            PasswordScore score = 0;
 
             if (password==null || password.Length < 1)
                 return PasswordScore.Blank;
             if (password.Length < 4)
                 return PasswordScore.VeryWeak;
-
+            if (password.Length >= 4)
+                score++;
             if (password.Length >= 8)
                 score++;
-            if (password.Length >= 12)
+            if (password.Length >= 16)
                 score++;
+            if (password.Length >= 24)
+                score++;
+            if (password.Length >= 48)
+                score++;
+
             if (ContainsLowercase(password))
                 score++;
             if (ContainsUppercase(password))
                 score++;
             if (ContainsSymbols(password))
                 score++;
+
+            if (score > PasswordScore.VeryStrong)
+                score = PasswordScore.VeryStrong;
 
             return (PasswordScore)score;
         }

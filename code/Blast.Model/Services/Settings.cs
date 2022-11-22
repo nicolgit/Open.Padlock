@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blast.Model
+namespace Blast.Model.Services
 {
     public class Settings
     {
@@ -40,17 +40,17 @@ namespace Blast.Model
 
         public void SaveAll()
         {
-            preferences.Set<int>(UITheme.GetType().Name, (int)UITheme);
-            preferences.Set<int>(StorageType.GetType().Name, (int)StorageType);
-            preferences.Set<string>(FileName.GetType().Name, FileName);
+            preferences.Set(UITheme.GetType().Name, (int)UITheme);
+            preferences.Set(StorageType.GetType().Name, (int)StorageType);
+            preferences.Set(FileName.GetType().Name, FileName);
 
         }
 
         public void LoadAll()
         {
-           UITheme = (UIThemeEnum)preferences.Get<int>(UITheme.GetType().Name, (int)UIThemeEnum.UI_AUTO);
-           StorageType = (StorageEnum)preferences.Get<int>(StorageType.GetType().Name, (int)StorageEnum.NONE);
-           FileName = preferences.Get<string>(FileName.GetType().Name, "");
+            UITheme = (UIThemeEnum)preferences.Get(UITheme.GetType().Name, (int)UIThemeEnum.UI_AUTO);
+            StorageType = (StorageEnum)preferences.Get(StorageType.GetType().Name, (int)StorageEnum.NONE);
+            FileName = preferences.Get(FileName.GetType().Name, "");
         }
 
     }
