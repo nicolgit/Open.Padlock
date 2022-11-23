@@ -45,3 +45,4 @@ once configured the Service principal you have to use its ApplicationID guid in:
     * `nicold.Padlock\nicold.Padlock.Models\Services\OneDrive.cs`: ClientID private string
     * `nicold.Padlock\nicold.Padlock.Android\Properties\AndroidManifest.xml`: intent-filter > data > android:scheme attribute
   
+this is the first update from mac:)
