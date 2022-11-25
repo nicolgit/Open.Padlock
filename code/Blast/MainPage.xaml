@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Blast.MainPage">
-    <ListView ItemsSource="{Binding Rows}"> non fa il binding? perchè?
+    <ListView ItemsSource="{Binding Rows}" WidthRequest="300" HeightRequest="300">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <TextCell Text="bella fra" />
