@@ -17,8 +17,7 @@
             
         <ShellContent Title="Cats2" Route="SettingsPage" ContentTemplate="{DataTemplate view:SettingsPage}" />
         <ShellContent Title="Cats3" Route="SettingsPage2" ContentTemplate="{DataTemplate view:SettingsPage}" />
-        <ShellContent Title="Cats4" Route="SettingsPage3" ContentTemplate="{DataTemplate view:SettingsPage}" />
-        
+        <ShellContent Title="Cats4" Route="SettingsPage3" ContentTemplate="{DataTemplate view:SettingsPage}" />             
     </FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" ><ShellContent Title="Settings" Route="SettingsPage4" ContentTemplate="{DataTemplate view:SettingsPage}" /></FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" ><ShellContent Title="About Blast" Route="SettingsPage5" ContentTemplate="{DataTemplate view:SettingsPage}" /></FlyoutItem>

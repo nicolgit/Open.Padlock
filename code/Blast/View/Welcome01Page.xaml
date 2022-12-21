@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:Blast.ViewModel"
+             xmlns:extension="clr-namespace:Blast.Extension"
              x:Class="Blast.View.Welcome01Page"
              Title="Welcome01"
              Shell.FlyoutBehavior="Disabled"
@@ -13,6 +14,24 @@
             <Label Text="Do you have a Blast vault or do you want to create a new one?" HorizontalOptions="Center" />
             <Button Text="Create a new VAULT" Command="{Binding NewCommand}"/>
             <Button Text="I want to open an existing VAULT" Command="{Binding ExistingCommand}"/>
+
+            <Image Source="dotnet_bot.png" WidthRequest="128" HeightRequest="128"/>
+
+            <Image WidthRequest="36" HeightRequest="36">
+                <Image.Source>
+                    <FontImageSource Glyph="&#xf191;"
+                                        FontFamily="MaterialIcons"
+                                        Size="36" />
+                </Image.Source>
+            </Image>
+
+            <Label 
+                FontFamily="MaterialIcons" 
+                Text="ciao bello"
+                FontSize="50"
+
+                HorizontalOptions="Center">
+            </Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
