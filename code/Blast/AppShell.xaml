@@ -13,7 +13,7 @@
     <ShellContent Route="CreatePasswordPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:CreatePasswordPage}"/>
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
-        <ShellContent Route="MainPage" Title="lorem1" ContentTemplate="{DataTemplate local:MainPage}" />
+        <ShellContent Route="MainPage" Title="lorem1" ContentTemplate="{DataTemplate view:MainPage}" />
             
         <ShellContent Title="Cats2" Route="SettingsPage" ContentTemplate="{DataTemplate view:SettingsPage}" />
         <ShellContent Title="Cats3" Route="SettingsPage2" ContentTemplate="{DataTemplate view:SettingsPage}" />

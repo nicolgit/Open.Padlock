@@ -50,7 +50,6 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
-		<MauiFont Include="MauiProgram.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -69,7 +68,7 @@
 	  <None Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Extension\" />
+	  <Folder Include="Helper\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Images\dotnet_bot2.svg" />
@@ -367,8 +366,5 @@
 	  <ImageAsset Include="**/*" />
 	  <ImageAsset Include="**/*" />
 	  <ImageAsset Include="**/*" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Compile Remove="MauiProgram.cs" />
 	</ItemGroup>
 </Project>

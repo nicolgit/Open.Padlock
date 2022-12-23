@@ -1,6 +1,6 @@
 ﻿using Blast.ViewModel;
 
-namespace Blast;
+namespace Blast.View;
 
 public partial class MainPage : ContentPage
 {

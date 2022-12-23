@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:Blast.ViewModel"
-             xmlns:extension="clr-namespace:Blast.Extension"
+             xmlns:helper="clr-namespace:Blast.Helper"
              x:Class="Blast.View.Welcome01Page"
              Title="Welcome01"
              Shell.FlyoutBehavior="Disabled"
@@ -15,23 +15,15 @@
             <Button Text="Create a new VAULT" Command="{Binding NewCommand}"/>
             <Button Text="I want to open an existing VAULT" Command="{Binding ExistingCommand}"/>
 
-            <Image Source="dotnet_bot.png" WidthRequest="128" HeightRequest="128"/>
+            <Image Source="dotnet_bot.png" WidthRequest="148" HeightRequest="148"/>
 
-            <Image WidthRequest="36" HeightRequest="36">
+            <Image WidthRequest="80" HeightRequest="80">
                 <Image.Source>
-                    <FontImageSource Glyph="&#xf191;"
-                                        FontFamily="MaterialIcons"
-                                        Size="36" />
+                    <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Home}" FontFamily="MaterialIcons" Size="36" />
                 </Image.Source>
             </Image>
 
-            <Label 
-                FontFamily="MaterialIcons" 
-                Text="ciao bello"
-                FontSize="50"
-
-                HorizontalOptions="Center">
-            </Label>
+            <Label FontFamily="MaterialIcons" Text="{x:Static helper:MaterialFontHelper.Houseboat}" FontSize="48" HorizontalOptions="Center"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

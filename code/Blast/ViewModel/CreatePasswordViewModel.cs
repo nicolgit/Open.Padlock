@@ -77,7 +77,7 @@ namespace Blast.ViewModel
         async Task CreatePassword()
         {
             current.File = new Models.DataFile.BlastDocument();
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(View.MainPage)}");
         }
 
     }

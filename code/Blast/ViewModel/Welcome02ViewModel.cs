@@ -59,13 +59,6 @@ After:
         async Task LocalFile(string fileName)
         {
             settings.FileName = fileName;
-
-/* Unmerged change from project 'Blast (net6.0-windows10.0.19041.0)'
-Before:
-            settings.StorageType = Model.Settings.StorageEnum.STORAGE_LOCAL;
-After:
-            settings.StorageType = Settings.StorageEnum.STORAGE_LOCAL;
-*/
             settings.StorageType = Model.Services.Settings.StorageEnum.STORAGE_LOCAL;
 
             current.CloudStorage = new Blast.Model.Services.Storage.LocalStorage();
@@ -76,7 +69,7 @@ After:
             if (current.RawFile == null)
             {
                 // creating a new file
-                await Shell.Current.GoToAsync($"//{nameof(View.CreatePasswordPage)}?NextPage={nameof(MainPage)}");
+                await Shell.Current.GoToAsync($"//{nameof(View.CreatePasswordPage)}?NextPage={nameof(View.MainPage)}");
             }
             else
             {

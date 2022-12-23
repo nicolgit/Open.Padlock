@@ -18,7 +18,7 @@ public static class MauiProgram
             });
 
         // views
-        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<Blast.View.MainPage>();
 		builder.Services.AddTransient<Blast.View.Welcome01Page>();
 		builder.Services.AddTransient<Blast.View.Welcome02Page>();
         builder.Services.AddTransient<Blast.View.CreatePasswordPage>();
