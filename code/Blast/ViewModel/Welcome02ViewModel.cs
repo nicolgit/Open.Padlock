@@ -74,7 +74,7 @@ After:
             else
             {
                 // file exists
-                //await Shell.Current.GoToAsync($"//{nameof(View.TypeMainPasswordPage)}?NextPage={nameof(MainPage)}");
+                await Shell.Current.GoToAsync($"//{nameof(View.TypePasswordPage)}?NextPage={nameof(View.MainPage)}");
             }
 
         }

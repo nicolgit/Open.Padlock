@@ -15,7 +15,7 @@
 		<ApplicationTitle>Blast</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.blast</ApplicationId>
+		<ApplicationId>com.nicold.blast</ApplicationId>
 		<ApplicationIdGuid>e3cd3f99-a577-4d8e-9d79-ee0b303c00c1</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -54,7 +54,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="3.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="3.1.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	</ItemGroup>
 
@@ -62,16 +62,7 @@
 	  <ProjectReference Include="..\Blast.Model\Blast.Model.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Extension\" />
-	  <None Remove="Resources\Images\dotnet_bot %28copy%29.svg" />
-	  <None Remove="Resources\Images\dotnet_bot2.svg" />
-	  <None Remove="Resources\Fonts\MaterialIcons-Regular.ttf" />
-	</ItemGroup>
-	<ItemGroup>
 	  <Folder Include="Helper\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Include="Resources\Images\dotnet_bot2.svg" />
 	</ItemGroup>
 	<ItemGroup>
 	  <BundleResource Remove="bin\Debug\net7.0-maccatalyst\maccatalyst-x64\Blast.app\Contents\Resources\obj\Debug\net7.0-maccatalyst\maccatalyst-x64\actool\cloned-assets\Assets.xcassets\appicon.appiconset\appicon20x20%402x.png" />
@@ -367,4 +358,20 @@
 	  <ImageAsset Include="**/*" />
 	  <ImageAsset Include="**/*" />
 	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Remove="Resources\Styles\Colors-delete.xaml" />
+	  <BundleResource Remove="Resources\Styles\Explicits.xaml" />
+	  <BundleResource Remove="Resources\Styles\Styles-delete.xaml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ImageAsset Remove="Resources\Styles\Colors-delete.xaml" />
+	  <ImageAsset Remove="Resources\Styles\Explicits.xaml" />
+	  <ImageAsset Remove="Resources\Styles\Styles-delete.xaml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\Explicits.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+	
 </Project>

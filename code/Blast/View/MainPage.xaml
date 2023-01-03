@@ -21,7 +21,7 @@
 
                             <Image WidthRequest="36" HeightRequest="36" Margin="5" AnchorX="-1">
                                 <Image.Source>
-                                    <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Summarize}" FontFamily="MaterialIcons" Size="100" />
+                                    <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Summarize}" FontFamily="MaterialIcons" Size="100" Color="red" />    
                                 </Image.Source>
                             </Image>
 
@@ -34,34 +34,33 @@
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>  
 
-                            <Label LineBreakMode="NoWrap"
-                     TextColor="#474747"
-                     Text="{Binding Title}" 
-                               FontSize="{OnPlatform Android={OnIdiom Phone=16, Tablet=18}, iOS={OnIdiom Phone=18, Tablet=20}, MacCatalyst=20, WinUI={OnIdiom Phone=18, Tablet=20, Desktop=20}}" />
-                                    <Grid RowSpacing="0" ColumnSpacing="0" Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
+                            <Label LineBreakMode="NoWrap"   
+                                Text="{Binding Title}" 
+                                FontSize="{OnPlatform Android={OnIdiom Phone=16, Tablet=18}, iOS={OnIdiom Phone=18, Tablet=20}, MacCatalyst=20, WinUI={OnIdiom Phone=18, Tablet=20, Desktop=20}}" />
+                                <Grid RowSpacing="0" ColumnSpacing="0" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-                                        <Label TextColor="#474747"
-                       LineBreakMode="NoWrap"
-                       Text="{Binding Description}"
-                               FontSize="{OnPlatform Android={OnIdiom Phone=10, Tablet=14}, iOS={OnIdiom Phone=12, Tablet=14}, MacCatalyst=14, WinUI={OnIdiom Phone=12, Tablet=12, Desktop=12}}" />
-                                        <Label TextColor="#474747"
-                                           Margin="0,0,10,0"
-                                           Grid.Column="1"
-                                           LineBreakMode="NoWrap"
-                                           HorizontalTextAlignment="End"
-                                           Text="{Binding Title}"
-                                           FontSize="{OnPlatform Android={OnIdiom Phone=10, Tablet=14}, iOS={OnIdiom Phone=12, Tablet=14}, MacCatalyst=14, WinUI={OnIdiom Phone=12, Tablet=12, Desktop=12}}" />
-                                    </Grid>
+                                    <Label 
+                                        LineBreakMode="NoWrap"
+                                        Text="{Binding Description}"
+                                        FontSize="{OnPlatform Android={OnIdiom Phone=10, Tablet=14}, iOS={OnIdiom Phone=12, Tablet=14}, MacCatalyst=14, WinUI={OnIdiom Phone=12, Tablet=12, Desktop=12}}" />
+                                    <Label 
+                                        Margin="0,0,10,0"
+                                        Grid.Column="1"
+                                        LineBreakMode="NoWrap"
+                                        HorizontalTextAlignment="End"
+                                        Text="{Binding Title}"
+                                        FontSize="{OnPlatform Android={OnIdiom Phone=10, Tablet=14}, iOS={OnIdiom Phone=12, Tablet=14}, MacCatalyst=14, WinUI={OnIdiom Phone=12, Tablet=12, Desktop=12}}" />
                                 </Grid>
+                            </Grid>
 
                                 
-                            </Grid>
-                            <StackLayout Grid.Row="1" BackgroundColor="#E4E4E4" HeightRequest="1"/>
                         </Grid>
+                        <StackLayout Grid.Row="1" BackgroundColor="{StaticResource MidGray}" HeightRequest="1"/>
+                    </Grid>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>

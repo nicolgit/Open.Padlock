@@ -5,5 +5,6 @@
              x:Class="Blast.App">
     <Application.Resources>
         <ResourceDictionary Source="Resources/Styles.xaml" />
+        <ResourceDictionary Source="Resources/Styles/Explicits.xaml" />        
     </Application.Resources>
 </Application>

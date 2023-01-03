@@ -11,6 +11,7 @@
     <ShellContent Route="Welcome01Page" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:Welcome01Page}"/>
     <ShellContent Route="Welcome02Page" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:Welcome02Page}"/>
     <ShellContent Route="CreatePasswordPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:CreatePasswordPage}"/>
+    <ShellContent Route="TypePasswordPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:TypePasswordPage}"/>
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
         <ShellContent Route="MainPage" Title="lorem1" ContentTemplate="{DataTemplate view:MainPage}" />

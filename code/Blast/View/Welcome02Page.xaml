@@ -5,11 +5,13 @@
              Title="Welcome02"
              Shell.FlyoutItemIsVisible="False"
              Shell.NavBarIsVisible="False">
-    <StackLayout Spacing="6" Margin="6">
-        <Label Text="Please select a store for your Blast VAULT" HorizontalOptions="Center" />
-        <Button Text="Local file on this device" Clicked="ButtonFile_Clicked"/>
-        <Label Text="Warning, selecting this options, you could loose all your data if you broke or loose this device!" HorizontalOptions="Center" TextColor="Red" FontAttributes="Bold"/>
-        <Label />
-        <Button Text="Microsoft OneDrive Personal" Clicked="ButtonOneDrive_Clicked"/>
-    </StackLayout>
+    <ScrollView>
+        <VerticalStackLayout Style="{StaticResource VericalStackContent}">
+            <Label Text="Please select a store for your Blast VAULT" HorizontalOptions="Center" />
+            <Button Text="Local file on this device" Clicked="ButtonFile_Clicked"/>
+            <Label Text="Warning, selecting this options, you could loose all your data if you broke or loose this device!" HorizontalOptions="Center" TextColor="Red" FontAttributes="Bold"/>
+            <Label />
+            <Button Text="Microsoft OneDrive Personal" Clicked="ButtonOneDrive_Clicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
