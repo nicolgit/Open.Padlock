@@ -15,7 +15,6 @@ namespace Blast.Model.Services
             UI_AUTO = 1,
             UI_LIGHT = 2,
             UI_DARK = 3
-
         }
 
         public enum StorageEnum

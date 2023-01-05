@@ -19,15 +19,19 @@ public static class MauiProgram
 
         // views
         builder.Services.AddSingleton<Blast.View.MainPage>();
-		builder.Services.AddTransient<Blast.View.Welcome01Page>();
-		builder.Services.AddTransient<Blast.View.Welcome02Page>();
+		builder.Services.AddTransient<Blast.View.WelcomeNewOrExistingPage>();
+		builder.Services.AddTransient<Blast.View.WelcomeSelectStoragePage>();
         builder.Services.AddTransient<Blast.View.CreatePasswordPage>();
         builder.Services.AddTransient<Blast.View.SettingsPage>();
 
+		// UI Services
+		builder.Services.AddSingleton<Blast.UIServices.IDialogService>(new Blast.UIServices.DialogService());
+		builder.Services.AddSingleton<Blast.UIServices.INavigationService>(new Blast.UIServices.NavigationService());
+
         // view models
         builder.Services.AddSingleton<Blast.ViewModel.MainViewModel>();
-		builder.Services.AddTransient<Blast.ViewModel.Welcome01ViewModel>();
-		builder.Services.AddTransient<Blast.ViewModel.Welcome02ViewModel>();
+		builder.Services.AddTransient<Blast.ViewModel.WelcomeNewOrExisistingViewModel>();
+		builder.Services.AddTransient<Blast.ViewModel.WelcomeSelectStorageViewModel>();
         builder.Services.AddTransient<Blast.ViewModel.CreatePasswordViewModel>();
         builder.Services.AddTransient<Blast.ViewModel.SettingsViewModel>();
 

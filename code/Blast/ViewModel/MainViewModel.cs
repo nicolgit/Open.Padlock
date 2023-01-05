@@ -25,6 +25,7 @@ namespace Blast.ViewModel
 
         private void loadCards()
         {
+
             current.File.Cards = new List<Models.DataFile.Card>();
 
             for (int i=0; i<10; i++)

@@ -2,9 +2,9 @@ using Blast.ViewModel;
 
 namespace Blast.View;
 
-public partial class Welcome01Page : ContentPage
+public partial class WelcomeNewOrExistingPage : ContentPage
 {
-	public Welcome01Page(Welcome01ViewModel vm)
+	public WelcomeNewOrExistingPage(WelcomeNewOrExisistingViewModel vm)
 	{
 		InitializeComponent();
         BindingContext = vm;

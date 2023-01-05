@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Blast.View.Welcome02Page"
-             Title="Welcome02"
+             x:Class="Blast.View.WelcomeSelectStoragePage"
+             Title="Select a storage type"
              Shell.FlyoutItemIsVisible="False"
              Shell.NavBarIsVisible="False">
     <ScrollView>
         <VerticalStackLayout Style="{StaticResource VericalStackContent}">
+            <Label Text="Welcome in Blast" HorizontalOptions="Center"/>
+            <Label Text="Balst is a safe place where keep your passwords and private data." HorizontalOptions="Center" />
+            <Label/>
             <Label Text="Please select a store for your Blast VAULT" HorizontalOptions="Center" />
-            <Button Text="Local file on this device" Clicked="ButtonFile_Clicked"/>
+            <Button Text="Local file on this device" Command="{Binding LocalFileCommand}"/>
             <Label Text="Warning, selecting this options, you could loose all your data if you broke or loose this device!" HorizontalOptions="Center" TextColor="Red" FontAttributes="Bold"/>
             <Label />
-            <Button Text="Microsoft OneDrive Personal" Clicked="ButtonOneDrive_Clicked"/>
+            <Button Text="Microsoft OneDrive Personal"  Command="{Binding OneDriveCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

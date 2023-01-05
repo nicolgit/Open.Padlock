@@ -8,8 +8,9 @@
     >
 
     <!-- fitst shell content is the default page shown on start-->
-    <ShellContent Route="Welcome01Page" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:Welcome01Page}"/>
-    <ShellContent Route="Welcome02Page" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:Welcome02Page}"/>
+    <ShellContent Route="WelcomeSelectStoragePage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:WelcomeSelectStoragePage}"/>
+    <ShellContent Route="WelcomeNewOrExistingPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:WelcomeNewOrExistingPage}"/>
+    
     <ShellContent Route="CreatePasswordPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:CreatePasswordPage}"/>
     <ShellContent Route="TypePasswordPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:TypePasswordPage}"/>
 

@@ -362,11 +362,31 @@
 	  <BundleResource Remove="Resources\Styles\Colors-delete.xaml" />
 	  <BundleResource Remove="Resources\Styles\Explicits.xaml" />
 	  <BundleResource Remove="Resources\Styles\Styles-delete.xaml" />
+	  <BundleResource Remove="UIServices\DialogService.cs" />
+	  <BundleResource Remove="UIServices\NavigationService.cs" />
+	  <BundleResource Remove="ViewModel\WelcomeNewOrExisistingViewModel.cs" />
+	  <BundleResource Remove="ViewModel\WelcomeSelectStorageViewModel.cs" />
+	  <BundleResource Remove="View\WelcomeNewOrExistingPage.xaml" />
+	  <BundleResource Remove="View\WelcomeSelectStoragePage.xaml" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ImageAsset Remove="Resources\Styles\Colors-delete.xaml" />
 	  <ImageAsset Remove="Resources\Styles\Explicits.xaml" />
 	  <ImageAsset Remove="Resources\Styles\Styles-delete.xaml" />
+	  <ImageAsset Remove="UIServices\DialogService.cs" />
+	  <ImageAsset Remove="UIServices\NavigationService.cs" />
+	  <ImageAsset Remove="ViewModel\WelcomeNewOrExisistingViewModel.cs" />
+	  <ImageAsset Remove="ViewModel\WelcomeSelectStorageViewModel.cs" />
+	  <ImageAsset Remove="View\WelcomeNewOrExistingPage.xaml" />
+	  <ImageAsset Remove="View\WelcomeSelectStoragePage.xaml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="View\WelcomeNewOrExistingPage.xaml.cs">
+	    <DependentUpon>WelcomeNewOrExistingPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\WelcomeSelectStoragePage.xaml.cs">
+	    <DependentUpon>WelcomeSelectStoragePage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <MauiXaml Update="Resources\Styles\Explicits.xaml">
