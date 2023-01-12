@@ -1,9 +1,14 @@
+using Blast.ViewModel;
+
 namespace Blast.View;
 
 public partial class TypePasswordPage : ContentPage
 {
-	public TypePasswordPage()
+    private TypePasswordViewModel viewmodel;
+
+    public TypePasswordPage(TypePasswordViewModel vm)
 	{
 		InitializeComponent();
+		BindingContext = viewmodel = vm;
 	}
 }

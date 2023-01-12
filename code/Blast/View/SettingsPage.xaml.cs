@@ -1,5 +1,3 @@
-using Blast.ViewModel;
-
 namespace Blast.View;
 
 public partial class SettingsPage : ContentPage

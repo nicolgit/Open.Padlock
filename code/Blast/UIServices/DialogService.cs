@@ -4,8 +4,8 @@ namespace Blast.UIServices
 {
     public interface IDialogService
     {
-        public Task<bool> ShowConfirmationAsync(string title, string message);
-        public Task DisplayAlertAsync(string title, string message, string accept, string cancel);
+        public Task DisplayAlertAsync(string title, string message, string cancel);
+        public Task<bool> DisplayAlertAsync(string title, string message, string accept, string cancel);
         public Task<string> DisplayPromptAsync(string title, string message, string accept = "OK", string cancel = "Cancel", string placeholder = default, int maxLength = -1, Microsoft.Maui.Keyboard keyboard = default, string initialValue = "");
 
         //public Task<string> ShowActionsAsync(string title, string message, string destruction, params string[] buttons);
@@ -14,12 +14,12 @@ namespace Blast.UIServices
     }
     internal class DialogService : IDialogService
     {
-        public Task<bool> ShowConfirmationAsync(string title, string message)
+        public Task DisplayAlertAsync(string title, string message, string cancel)
         {
-            return Application.Current.MainPage.DisplayAlert(title, message, "Ok", "No");
+            return Application.Current.MainPage.DisplayAlert(title, message, cancel);
         }
 
-        public Task DisplayAlertAsync(string title, string message, string accept, string cancel)
+        public Task<bool> DisplayAlertAsync(string title, string message, string accept, string cancel)
         {
             return Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
         }

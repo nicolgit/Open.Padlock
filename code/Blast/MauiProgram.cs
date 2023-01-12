@@ -22,6 +22,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<Blast.View.WelcomeNewOrExistingPage>();
 		builder.Services.AddTransient<Blast.View.WelcomeSelectStoragePage>();
         builder.Services.AddTransient<Blast.View.CreatePasswordPage>();
+		builder.Services.AddTransient<Blast.View.TypePasswordPage>();
         builder.Services.AddTransient<Blast.View.SettingsPage>();
 
 		// UI Services
@@ -33,6 +34,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<Blast.ViewModel.WelcomeNewOrExisistingViewModel>();
 		builder.Services.AddTransient<Blast.ViewModel.WelcomeSelectStorageViewModel>();
         builder.Services.AddTransient<Blast.ViewModel.CreatePasswordViewModel>();
+		builder.Services.AddTransient<Blast.ViewModel.TypePasswordViewModel>();
         builder.Services.AddTransient<Blast.ViewModel.SettingsViewModel>();
 
 		// models
@@ -40,8 +42,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<Model.Services.Current>();
 		builder.Services.AddSingleton<Model.Services.PasswordsHelper>();
 
-		// infrastructure
-		builder.Services.AddSingleton<IPreferences>(Microsoft.Maui.Storage.Preferences.Default);
+        // infrastructure
+        builder.Services.AddSingleton<IPreferences>(Microsoft.Maui.Storage.Preferences.Default);
 
 		return builder.Build();
 	}

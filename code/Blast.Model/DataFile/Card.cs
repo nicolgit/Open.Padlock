@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace Blast.Models.DataFile
+namespace Blast.Model.DataFile
 {
     public class Card
     {

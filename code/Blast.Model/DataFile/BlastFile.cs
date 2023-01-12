@@ -1,0 +1,273 @@
+﻿using Microsoft.Maui.Storage;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace Blast.Model.DataFile
+{
+    public class BlastFile
+    {
+        private const string FF_PAZWORD = "PASSWORD-";
+        private const string FF_BLAST01 = "BLAST01-";
+        private static string[] fileFormats = { FF_PAZWORD, FF_BLAST01 };
+
+        public string Password { get; set; }
+
+        public byte[] FileEncrypted { get; set; }
+        public string FileReadable { get; set; }
+
+        public BlastFile() { }
+
+        /// <summary>
+        /// try to decrypt FileEncrypted using FilePassword 
+        /// 
+        /// if it works
+        ///     FileReadable contains the result in string format
+        ///     returns blastDocument contains the result in blast format 
+        /// </summary>
+        public BlastDocument GetBlastDocument()
+        {
+            byte[] crypt_key; // public key for encrypted doc
+            byte[] crypt_iv;  // init vectory for encrypted doc
+
+            crypt_key = new byte[C_KEYSIZE];
+            crypt_iv = new byte[C_IVSIZE];
+
+            using (MemoryStream encryptedFileInMemory = new MemoryStream(FileEncrypted))
+            {
+                // Use the encryptedFileInMemory stream in a binary reader.
+                using (BinaryReader br = new BinaryReader(encryptedFileInMemory, Encoding.UTF8))
+                {
+                    string fileTypeIdentifier;
+
+                    // read 'PASSWORD-'
+                    fileTypeIdentifier = br.ReadString();
+                    if (string.IsNullOrEmpty(fileTypeIdentifier)) throw new Exceptions.BlastFileEmptyException();
+
+                    if (fileFormats.Where(a => a == fileTypeIdentifier).FirstOrDefault() == null) throw new Exceptions.BlastFileFormatException();
+
+                    // use password as crypto KEY 
+                    int i;
+                    for (i = 0; i < Password.Length && i < C_KEYSIZE; i++)
+                        crypt_key[i] = (byte)(Password[i] & 0xFF);
+
+                    byte[] data = new byte[encryptedFileInMemory.Length - (fileTypeIdentifier.Length + 1) - (C_KEYSIZE - i) - C_IVSIZE];
+
+                    // read remaining crypto key
+                    for (; i < C_KEYSIZE; i++)
+                        crypt_key[i] = br.ReadByte();
+
+                    // read crypt-iv
+                    br.Read(crypt_iv, 0, C_IVSIZE);
+
+                    // read VerifyText
+                    byte[] data_test = new byte[C_VERIFYTEXT.Length * 2 + 16];
+                    br.Read(data_test, 0, C_VERIFYTEXT.Length * 2 + 16);
+
+                    string decrypted = decryptBytes(data_test, crypt_key, crypt_iv);
+                    string verifyText = C_VERIFYTEXT;
+
+                    StringBuilder readableFileString = new StringBuilder(10000);
+
+                    int compare = decrypted.CompareTo(verifyText);
+                    if (compare != 0)
+                    {
+                        throw new Exceptions.BlastFileWrongPasswordException();
+                    }
+
+                    // password is correct, returning readable file
+                    byte[] data_frag = new byte[C_BLOCKSIZE * 2 + 16];
+                    int realsize;
+
+                    while ((realsize = br.Read(data_frag, 0, C_BLOCKSIZE * 2 + 16)) > 0)
+                    {
+                        int olds = readableFileString.Length;
+
+                        string element = decryptBytes(data_frag, crypt_key, crypt_iv);
+
+                        readableFileString.Append(element, 0, element.Length);
+                    }
+                    
+                    FileReadable = readableFileString.ToString();
+
+                    switch (fileTypeIdentifier)
+                    {
+                        case FF_PAZWORD:
+                            return ParsePazwordFile(FileReadable);
+                        default:
+                            throw new NotImplementedException();
+                    }
+                }
+            }
+        }
+
+        #region PAZWORD FILE FORMAT READER
+        private static BlastDocument ParsePazwordFile(string file)
+        {
+            var xdoc = XDocument.Parse(file);
+
+            var pf = new BlastDocument();
+
+            try
+            {
+                var info = xdoc.Root.Element("info");
+                var guid = info.Attribute("guid").Value;
+                var parse = Guid.Parse(guid);
+
+                pf.Id = Guid.Parse(xdoc.Root.Element("info").Attribute("guid").Value);
+                foreach (var node in xdoc.Root.Element("nodes").Elements("node"))
+                {
+                    var card = new Card();
+
+                    card.Id = Guid.Parse(node.Attribute("guid").Value);
+                    card.Title = node.Attribute("title").Value;
+                    card.IsFavotire = node.Attribute("favorite") != null ? node.Attribute("favorite").Value.Equals("1") : false;
+                    card.UsedCounter = node.Attribute("usedcounter") != null ? int.Parse(node.Attribute("usedcounter").Value) : 0;
+                    card.Notes = "";
+
+                    if (node.Element("moreinfo") != null)
+                    {
+                        foreach (var row in node.Element("moreinfo").Elements("line"))
+                        {
+                            card.Notes += row.Value + "\r\n";
+                        }
+                    }
+
+                    foreach (var attr in node.Elements("attribute"))
+                    {
+                        Attribute attribute = new Attribute();
+
+                        if (attr.Attribute("value").Value == "")
+                        {
+                            attribute.Type = AttributeType.TYPE_HEADER;
+                        }
+                        else
+                        {
+                            if (attr.Attribute("type") != null)
+                            {
+                                if (attr.Attribute("type").Value == "password")
+                                {
+                                    attribute.Type = AttributeType.TYPE_PASSWORD;
+                                }
+                                if (attr.Attribute("type").Value == "generic")
+                                {
+                                    attribute.Type = AttributeType.TYPE_STRING;
+                                }
+                                if (attr.Attribute("type").Value == "URL")
+                                {
+                                    attribute.Type = AttributeType.TYPE_URL;
+                                }
+                            }
+                        }
+
+                        attribute.Name = attr.Attribute("name").Value;
+                        attribute.Value = attr.Attribute("value").Value;
+
+                        card.Rows.Add(attribute);
+                    }
+
+                    pf.Cards.Add(card);
+                }
+            }
+            catch
+            {
+
+
+            }
+
+            return pf;
+        }
+        #endregion
+        #region ENCRYPTION-DECRIPTION STUFF
+        private const int C_KEYSIZE = 24;
+        private const int C_IVSIZE = 8;
+        private const int C_BLOCKSIZE = 2000;
+        private const string C_HEX = "0123456789ABCDEF";
+        //private const string C_VERIFYTEXT = "Era invevitabile: l'odore delle mandorle amare gli ricordava " +
+        //   "sempre il destino degli amori contrastati. Il dottor Juvenal " +
+        //   "Urbino lo sent� appena entrato nella casa ancora in penombra, " +
+        //   "dove era accorso d'urgenza per occuparsi di un caso che per lui " +
+        //   "aveva cessato di essere urgente da molti anni. Il rifugiato " +
+        //   "antillano Jeremiah de Saint-Amour, invalido di guerra, foto- " +
+        //   "grafo di bambini e il suo avversario di scacchi pi� pietoso, si era " +
+        //   "messo in salvo dai tormenti della memoria con un suffumigio di " +
+        //   "cianuro di oro.";
+
+        private const string C_VERIFYTEXT = "Era invevitabile: l'odore delle mandorle amare gli ricordava sempre il destino degli amori contrastati. Il dottor Juvenal Urbino lo sentì appena entrato nella casa ancora in penombra, dove era accorso d'urgenza per occuparsi di un caso che per lui aveva cessato di essere urgente da molti anni. Il rifugiato antillano Jeremiah de Saint-Amour, invalido di guerra, foto- grafo di bambini e il suo avversario di scacchi più pietoso, si era messo in salvo dai tormenti della memoria con un suffumigio di cianuro di oro.";
+        private static TripleDESCryptoServiceProvider alg = new TripleDESCryptoServiceProvider();
+        private static void buildKey(string key)
+        {
+            alg.GenerateKey();
+            alg.GenerateIV();
+
+            byte[] k = alg.Key;
+
+            int i;
+            for (i = 0; i < key.Length && i < C_KEYSIZE; i++)
+            {
+                k[i] = (byte)(key[i] & 0xFF);
+            }
+            alg.Key = k;
+        }
+        private static byte[] encryptString(string source, byte[] fullkey, byte[] iv)
+        {
+            byte[] bin = new byte[2 * source.Length + 16];
+            byte[] bout = new byte[2 * source.Length + 16];
+            MemoryStream fout = new MemoryStream(bout, 0, source.Length * 2 + 16, true, true);
+            int i, j;
+
+            fullkey = (byte[])fullkey.Clone();
+            iv = (byte[])iv.Clone();
+
+            // TEST (UNICODE): source="鯡鯢鯤鯥";
+
+            // convert string to byte array
+            for (i = j = 0; i < source.Length; i++, j += 2)
+            {
+                bin[j] = (byte)(source[i] & 0xFF);
+                bin[j + 1] = (byte)(source[i] >> 8 & 0xFF);
+            }
+
+            CryptoStream encStream = new CryptoStream(fout, alg.CreateEncryptor(fullkey, iv), CryptoStreamMode.Write);
+            encStream.Write(bin, 0, bin.Length);
+
+            return bout;
+        }
+        private static string decryptBytes(byte[] source, byte[] fullkey, byte[] iv)
+        {
+            byte[] bout = new byte[source.Length];
+            MemoryStream fout = new MemoryStream(bout, 0, source.Length, true, true);
+            int i;
+
+            fullkey = (byte[])fullkey.Clone();
+            iv = (byte[])iv.Clone();
+
+            CryptoStream decStream = new CryptoStream(fout, alg.CreateDecryptor(fullkey, iv), CryptoStreamMode.Write);
+
+            decStream.Write(source, 0, source.Length);
+
+            string output;
+
+            // convert byte array to string
+            output = "";
+            for (i = 0; i < bout.Length; i += 2)
+            {
+                output += (char)(bout[i] + (bout[i + 1] << 8));
+            }
+
+            //return output;
+            return output.Substring(0, output.IndexOf('\0'));
+        }
+        private static byte hex2Byte(string sin)
+        {
+            return (byte)(C_HEX.LastIndexOf(sin[0]) * 16 + C_HEX.LastIndexOf(sin[1]));
+        }
+        #endregion
+    }
+
+}
+

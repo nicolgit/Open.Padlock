@@ -11,15 +11,12 @@ namespace Blast.Model.Services.Storage
     {
         object IBlastStorage.ParentWindow { get => null; set { } }
 
-        private string fileName;
-        string IBlastStorage.FileName { get => fileName; set => fileName=value; }
-
         Task<string> IBlastStorage.AcquireTokenAsync()
         {
             return Task.FromResult("");
         }
 
-        async Task<byte[]> IBlastStorage.GetFileAsync()
+        async Task<byte[]> IBlastStorage.GetFileAsync(string fileName)
         {
             string fullPath = Path.Combine(FileSystem.Current.AppDataDirectory, fileName);
 
@@ -43,6 +40,12 @@ namespace Blast.Model.Services.Storage
         Task<bool> IBlastStorage.SignOutAsync()
         {
             return Task.FromResult(true);
+        }
+
+        Task<bool> IBlastStorage.FileExistsAsync(string fileName)
+        {
+            string fullPath = Path.Combine(FileSystem.Current.AppDataDirectory, fileName);
+            return Task.FromResult(System.IO.File.Exists(fullPath));
         }
     }
 }

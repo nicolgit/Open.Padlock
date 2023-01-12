@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace Blast.Models.DataFile
+namespace Blast.Model.DataFile
 {
     public class Attribute
     {

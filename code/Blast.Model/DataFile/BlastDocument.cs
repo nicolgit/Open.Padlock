@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Blast.Models.DataFile
+namespace Blast.Model.DataFile
 {
     public class BlastDocument
     {

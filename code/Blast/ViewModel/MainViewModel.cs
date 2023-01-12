@@ -20,18 +20,11 @@ namespace Blast.ViewModel
             loadCards();
         }
 
-        public List<Blast.Models.DataFile.Card> Rows => current.File.Cards;
-        //List<string> Rows { get; set; }
-
+        public List<Blast.Model.DataFile.Card> Rows => current.Document.Cards;
+        
         private void loadCards()
         {
-
-            current.File.Cards = new List<Models.DataFile.Card>();
-
-            for (int i=0; i<10; i++)
-            {
-                Rows.Add(new Models.DataFile.Card() { Title="hello " + Random.Shared.Next().ToString()});
-            }
+            //TODO implemets CardViewModel
 
             OnPropertyChanged(nameof(Rows));
         }

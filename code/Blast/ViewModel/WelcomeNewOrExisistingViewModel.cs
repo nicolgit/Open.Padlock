@@ -1,4 +1,6 @@
-﻿using Blast.Model.Services;
+﻿using Blast.Model.DataFile;
+using Blast.Model.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 
@@ -28,19 +30,52 @@ namespace Blast.ViewModel
         {
             settings.FileName = null;
             string result = await dialogService.DisplayPromptAsync("File System VAULT", "Choose a name for your VAULT", initialValue: "LocalVault.blast");
-            if (result != null)
+            if (result != null && result.Length>0)
             {
                 settings.FileName = result;
 
-                current.File = new Models.DataFile.BlastDocument();
-                await navigationService.GoToAsync($"//{nameof(View.MainPage)}");
+                current.CloudStorage = new Model.Services.Storage.LocalStorage();
+                
+                if (await current.CloudStorage.FileExistsAsync(settings.FileName) == false)
+                {
+                    settings.FileName = result;
+                    current.File = new BlastFile();
+                    current.Document = new Model.DataFile.BlastDocument();
+                    await navigationService.GoToAsync($"//{nameof(View.CreatePasswordPage)}");
+                }
+                else
+                {
+                    await dialogService.DisplayAlertAsync("ERROR", $"file {result} already exists, please choose another name", "continue");
+                }
             }
         }
 
         [RelayCommand]
         async Task Existing()
         {
-            throw new NotImplementedException();
+            settings.FileName = null;
+            string result = await dialogService.DisplayPromptAsync("File System VAULT", "Choose the name for your VAULT", initialValue: "LocalVault.blast");
+            if (result != null && result.Length > 0)
+            {
+                settings.FileName = result;
+
+                current.CloudStorage = new Model.Services.Storage.LocalStorage();
+                current.File = new BlastFile();
+                
+                if (await current.CloudStorage.FileExistsAsync(settings.FileName) == true)
+                {
+                    settings.FileName = result;
+
+                    current.File = new BlastFile();
+                    current.File.FileEncrypted = await current.CloudStorage.GetFileAsync(settings.FileName);
+                    
+                    await navigationService.GoToAsync($"//{nameof(View.TypePasswordPage)}");
+                }
+                else
+                {
+                    await dialogService.DisplayAlertAsync("ERROR", $"file {result} not found, please choose another name", "continue");
+                }
+            }
         }
     }
 }

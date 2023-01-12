@@ -364,6 +364,7 @@
 	  <BundleResource Remove="Resources\Styles\Styles-delete.xaml" />
 	  <BundleResource Remove="UIServices\DialogService.cs" />
 	  <BundleResource Remove="UIServices\NavigationService.cs" />
+	  <BundleResource Remove="ViewModel\TypePasswordViewModel.cs" />
 	  <BundleResource Remove="ViewModel\WelcomeNewOrExisistingViewModel.cs" />
 	  <BundleResource Remove="ViewModel\WelcomeSelectStorageViewModel.cs" />
 	  <BundleResource Remove="View\WelcomeNewOrExistingPage.xaml" />
@@ -375,6 +376,7 @@
 	  <ImageAsset Remove="Resources\Styles\Styles-delete.xaml" />
 	  <ImageAsset Remove="UIServices\DialogService.cs" />
 	  <ImageAsset Remove="UIServices\NavigationService.cs" />
+	  <ImageAsset Remove="ViewModel\TypePasswordViewModel.cs" />
 	  <ImageAsset Remove="ViewModel\WelcomeNewOrExisistingViewModel.cs" />
 	  <ImageAsset Remove="ViewModel\WelcomeSelectStorageViewModel.cs" />
 	  <ImageAsset Remove="View\WelcomeNewOrExistingPage.xaml" />

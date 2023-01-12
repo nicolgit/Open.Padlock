@@ -8,11 +8,12 @@ namespace Blast.Model.Services.Storage
 {
     public interface IBlastStorage
     {
-        void Initialize();
-        Task<string> AcquireTokenAsync();
-        Task<bool> SignOutAsync();
-        Task<byte[]> GetFileAsync();
+        public void Initialize();
+        public Task<string> AcquireTokenAsync();
+        public Task<bool> SignOutAsync();
+        public Task<byte[]> GetFileAsync(string fileName);
+        public Task<bool> FileExistsAsync(string fileName);
         object ParentWindow { get; set; }
-        public string FileName { get; set; }
+
     }
 }

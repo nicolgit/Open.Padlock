@@ -14,13 +14,15 @@ namespace Blast.ViewModel
     {
         private Model.Services.PasswordsHelper passwordsHelper;
         private Model.Services.Current current;
-
+        private Model.Services.Settings settings;
         public CreatePasswordViewModel(
             Model.Services.PasswordsHelper ph,
-            Model.Services.Current cu)
+            Model.Services.Current cu,
+            Model.Services.Settings s)
         {
             passwordsHelper = ph;
             current = cu;
+            settings = s;
         }           
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -76,9 +78,8 @@ namespace Blast.ViewModel
         [RelayCommand]
         async Task CreatePassword()
         {
-            current.File = new Models.DataFile.BlastDocument();
+            current.File.Password = newPassword;
             await Shell.Current.GoToAsync($"//{nameof(View.MainPage)}");
         }
-
     }
 }

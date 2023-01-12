@@ -30,8 +30,6 @@ namespace Blast.Model.Services.Storage
         private object parentwindow;
         object IBlastStorage.ParentWindow { get { return parentwindow; } set { parentwindow = value; } }
 
-        string IBlastStorage.FileName { get; set; }
-
         void IBlastStorage.Initialize()
         {
             PCA = PublicClientApplicationBuilder
@@ -85,7 +83,7 @@ namespace Blast.Model.Services.Storage
             return true;
         }
 
-        async Task<byte[]> IBlastStorage.GetFileAsync()
+        async Task<byte[]> IBlastStorage.GetFileAsync(string fileName)
         {
             var graphServiceClient = new GraphServiceClient(new DelegateAuthenticationProvider(async (requestMessage) =>
             {
@@ -107,5 +105,10 @@ namespace Blast.Model.Services.Storage
             return buffer2;
         }
 
+        Task<bool> IBlastStorage.FileExistsAsync(string fileName)
+        {
+            //TODO implement fileexistsasync here
+            throw new NotImplementedException();
+        }
     }
 }
