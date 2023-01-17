@@ -53,7 +53,7 @@ namespace Blast.ViewModel
         [RelayCommand]
         async Task Existing()
         {
-            settings.FileName = null;
+            //settings.FileName = null;
             string result = await dialogService.DisplayPromptAsync("File System VAULT", "Choose the name for your VAULT", initialValue: "LocalVault.blast");
             if (result != null && result.Length > 0)
             {

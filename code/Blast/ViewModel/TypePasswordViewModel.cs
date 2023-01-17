@@ -36,6 +36,7 @@ namespace Blast.ViewModel
             try
             {
                 current.Document = current.File.GetBlastDocument();
+                settings.SaveAll();
                 await Shell.Current.GoToAsync($"//{nameof(View.MainPage)}");
             }
             catch (Model.Exceptions.BlastFileWrongPasswordException)

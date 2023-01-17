@@ -3,21 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:Blast.ViewModel"
              xmlns:helper="clr-namespace:Blast.Helper"
-             x:Class="Blast.View.WelcomeNewOrExistingPage"
-             Title="New or existing file"
+             x:Class="Blast.View.WelcomePage"
+             Title="Welcome"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="False">
 
     <ContentPage.Content>
         <ScrollView>
             <VerticalStackLayout Style="{StaticResource VericalStackContent}">
-                
-                <Label Text="Do you have a Blast vault or do you want to create a new one?" HorizontalOptions="Center" />
-                <Button Text="Create a new VAULT" Command="{Binding NewCommand}"/>
-                <Button Text="I want to open an existing VAULT" Command="{Binding ExistingCommand}"/>
+                <Image Source="dotnet_bot.png" WidthRequest="148" HeightRequest="148"/>
 
-         
-                <Label FontFamily="MaterialIcons" Text="{x:Static helper:MaterialFontHelper.Houseboat}" FontSize="48" HorizontalOptions="Center"/>
+                <Image WidthRequest="80" HeightRequest="80">
+                    <Image.Source>
+                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Home}" FontFamily="MaterialIcons" Size="36" />
+                    </Image.Source>
+                </Image>
+
             </VerticalStackLayout>
         </ScrollView>
     </ContentPage.Content>

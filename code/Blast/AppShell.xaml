@@ -7,6 +7,7 @@
     >
 
     <!-- fitst shell content is the default page shown on start-->
+    <ShellContent Route="Welcome" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:WelcomePage}"/>
     <ShellContent Route="WelcomeSelectStoragePage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:WelcomeSelectStoragePage}"/>
     <ShellContent Route="WelcomeNewOrExistingPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:WelcomeNewOrExistingPage}"/>
     
