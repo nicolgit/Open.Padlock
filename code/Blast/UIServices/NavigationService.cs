@@ -8,6 +8,8 @@ namespace Blast.UIServices
 {
     public interface INavigationService
     {
+        Task GoToViewModelAsync(string viewmodelName);
+
         Task GoToAsync (ShellNavigationState navigationState);
     }
 
@@ -15,7 +17,18 @@ namespace Blast.UIServices
     {
         public Task GoToAsync (ShellNavigationState navigationState)
         {
-            return Shell.Current.GoToAsync(navigationState);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                // Code to run on the main thread
+                Shell.Current.GoToAsync(navigationState);
+            });
+            return Task.CompletedTask;
         }
+
+        public Task GoToViewModelAsync(string viewmodelName)
+        {
+            return GoToAsync($"//{viewmodelName.Replace("ViewModel","Page")}");
+        }
+
     }
 }

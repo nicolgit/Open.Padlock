@@ -10,4 +10,11 @@ public partial class WelcomePage : ContentPage
 		InitializeComponent();
         BindingContext = viewmodel = vm;
 	}
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        await Task.Run(() => viewmodel.TryLoad());
+    }
 }

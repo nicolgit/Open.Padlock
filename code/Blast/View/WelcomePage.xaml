@@ -18,7 +18,8 @@
                         <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Home}" FontFamily="MaterialIcons" Size="36" />
                     </Image.Source>
                 </Image>
-
+                
+                <ActivityIndicator IsRunning="true" />
             </VerticalStackLayout>
         </ScrollView>
     </ContentPage.Content>
