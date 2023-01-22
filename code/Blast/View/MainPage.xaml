@@ -4,7 +4,11 @@
              xmlns:helper="clr-namespace:Blast.Helper"
              x:Class="Blast.View.MainPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Sign out" Command="{Binding SignOutCommand}"/>
+        <ToolbarItem Text="Sign out" Command="{Binding SignOutCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Logout}" FontFamily="MaterialIcons" Size="36" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ListView ItemsSource="{Binding Rows}" >
         <ListView.ItemTemplate>
