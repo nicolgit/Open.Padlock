@@ -19,11 +19,16 @@ namespace Blast.ViewModel
             current = c;
             settings = s;
             navigationService = n;
+        }
+
+        internal void Initialize()
+        {
             loadCards();
         }
 
         public List<Blast.Model.DataFile.Card> Rows => current.Document.Cards;
-        
+
+
         private void loadCards()
         {
             //TODO implemets CardViewModel
@@ -38,8 +43,10 @@ namespace Blast.ViewModel
             settings.StorageType = Model.Services.Settings.StorageEnum.NONE;
             settings.SaveAll();
 
-            current = new Model.Services.Current();
-
+            current.CloudStorage = null;
+            current.Document = new Model.DataFile.BlastDocument();
+            current.File = new Model.DataFile.BlastFile();
+            
             await navigationService.GoToViewModelAsync(nameof(WelcomeSelectStorageViewModel));
         }
     }

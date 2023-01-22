@@ -12,8 +12,10 @@ public partial class TypePasswordPage : ContentPage
 		BindingContext = viewmodel = vm;
 	}
 
-    private void ContentPage_Loaded(object sender, EventArgs e)
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
-        viewmodel.Password = "";
+        base.OnNavigatedTo(args);
+
+        viewmodel.Initialize();
     }
 }

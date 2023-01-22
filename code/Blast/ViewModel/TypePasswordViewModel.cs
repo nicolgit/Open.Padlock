@@ -22,6 +22,11 @@ namespace Blast.ViewModel
             password = errorMessage = "";            
         }
 
+        internal void Initialize()
+        {
+            Password = "";
+        }
+
         [ObservableProperty]
         private string password;
 
