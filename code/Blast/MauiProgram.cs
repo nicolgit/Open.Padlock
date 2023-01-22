@@ -18,8 +18,8 @@ public static class MauiProgram
             });
 
         // views
-        builder.Services.AddSingleton<Blast.View.MainPage>();
-		builder.Services.AddSingleton<Blast.View.WelcomePage>();
+        builder.Services.AddTransient<Blast.View.MainPage>();
+		builder.Services.AddTransient<Blast.View.WelcomePage>();
 		builder.Services.AddTransient<Blast.View.WelcomeNewOrExistingPage>();
 		builder.Services.AddTransient<Blast.View.WelcomeSelectStoragePage>();
         builder.Services.AddTransient<Blast.View.CreatePasswordPage>();
@@ -31,8 +31,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<Blast.UIServices.INavigationService>(new Blast.UIServices.NavigationService());
 
         // view models
-        builder.Services.AddSingleton<Blast.ViewModel.MainViewModel>();
-		builder.Services.AddSingleton<Blast.ViewModel.WelcomeViewModel>();
+        builder.Services.AddTransient<Blast.ViewModel.MainViewModel>();
+		builder.Services.AddTransient<Blast.ViewModel.WelcomeViewModel>();
 		builder.Services.AddTransient<Blast.ViewModel.WelcomeNewOrExisistingViewModel>();
 		builder.Services.AddTransient<Blast.ViewModel.WelcomeSelectStorageViewModel>();
         builder.Services.AddTransient<Blast.ViewModel.CreatePasswordViewModel>();

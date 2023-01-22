@@ -6,7 +6,9 @@
              x:Class="Blast.View.WelcomePage"
              Title="Welcome"
              Shell.FlyoutBehavior="Disabled"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             Loaded="ContentPage_Loaded"
+             >
 
     <ContentPage.Content>
         <ScrollView>

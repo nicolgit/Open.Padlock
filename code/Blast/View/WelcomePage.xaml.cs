@@ -14,7 +14,11 @@ public partial class WelcomePage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        
+    }
 
-        await Task.Run(() => viewmodel.TryLoad());
+    private void ContentPage_Loaded(object sender, EventArgs e)
+    {
+        Task.Run(() => viewmodel.TryLoad());
     }
 }

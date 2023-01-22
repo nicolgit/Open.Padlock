@@ -31,7 +31,7 @@ namespace Blast.ViewModel
         [RelayCommand]
         async Task OpenFile()
         {
-            current.File.Password = password;
+            current.File.Password = Password;
 
             try
             {
@@ -44,9 +44,6 @@ namespace Blast.ViewModel
                 ErrorMessage = "WRONG Password";
             }
             
-
-
-           
         }
     }
 }

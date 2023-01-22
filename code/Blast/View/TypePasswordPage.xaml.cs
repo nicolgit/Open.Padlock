@@ -11,4 +11,9 @@ public partial class TypePasswordPage : ContentPage
 		InitializeComponent();
 		BindingContext = viewmodel = vm;
 	}
+
+    private void ContentPage_Loaded(object sender, EventArgs e)
+    {
+        viewmodel.Password = "";
+    }
 }

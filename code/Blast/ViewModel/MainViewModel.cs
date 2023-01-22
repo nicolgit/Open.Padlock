@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Graph;
 
 namespace Blast.ViewModel
 {
-    public class MainViewModel:ViewModelBase
+    public partial class MainViewModel:ViewModelBase
     {
         private Model.Services.Current current;
         private Model.Services.Settings settings;
+        private UIServices.INavigationService navigationService;
 
-        public MainViewModel(Model.Services.Current c, Model.Services.Settings s)
+        public MainViewModel(Model.Services.Current c, Model.Services.Settings s, UIServices.INavigationService n)
         {
             current = c;
             settings = s;
-
+            navigationService = n;
             loadCards();
         }
 
@@ -27,6 +29,18 @@ namespace Blast.ViewModel
             //TODO implemets CardViewModel
 
             OnPropertyChanged(nameof(Rows));
+        }
+
+        [RelayCommand]
+        async Task SignOut()
+        {
+            settings.FileName = "";
+            settings.StorageType = Model.Services.Settings.StorageEnum.NONE;
+            settings.SaveAll();
+
+            current = new Model.Services.Current();
+
+            await navigationService.GoToViewModelAsync(nameof(WelcomeSelectStorageViewModel));
         }
     }
 }

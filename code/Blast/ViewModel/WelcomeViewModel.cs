@@ -26,7 +26,7 @@ namespace Blast.ViewModel
 
         public async Task TryLoad()
         {
-            Task.Delay(5000).Wait();
+            Task.Delay(1000).Wait();
 
             try
             {
@@ -40,12 +40,13 @@ namespace Blast.ViewModel
                         break;
                     default:
                         await navigationService.GoToViewModelAsync(nameof(WelcomeSelectStorageViewModel));
-                        break;
+                        return;
                 }
             }
             catch (Exception)
             {
                 await navigationService.GoToViewModelAsync(nameof(WelcomeSelectStorageViewModel));
+                return;
             }
             
             try

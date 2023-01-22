@@ -23,26 +23,6 @@ namespace Blast.ViewModel
         {
             settings.StorageType = Model.Services.Settings.StorageEnum.STORAGE_LOCAL;
             await navigationService.GoToAsync($"//{nameof(View.WelcomeNewOrExistingPage)}");
-            
-
-            //settings.FileName = fileName;
-            //settings.StorageType = Model.Services.Settings.StorageEnum.STORAGE_LOCAL;
-
-            //current.CloudStorage = new Blast.Model.Services.Storage.LocalStorage();
-            //current.CloudStorage.FileName = fileName;
-            //current.RawFile = await current.CloudStorage.GetFileAsync();
-            //current.File = new Models.DataFile.BlastDocument();
-
-            //if (current.RawFile == null)
-            //{
-            //    // creating a new file
-            //    await Shell.Current.GoToAsync($"//{nameof(View.CreatePasswordPage)}?NextPage={nameof(View.MainPage)}");
-            //}
-            //else
-            //{
-            //    // file exists
-            //    await Shell.Current.GoToAsync($"//{nameof(View.TypePasswordPage)}?NextPage={nameof(View.MainPage)}");
-            //}
         }
 
         [RelayCommand]
