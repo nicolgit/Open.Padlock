@@ -25,7 +25,11 @@ namespace Blast.ViewModel
         internal void Initialize()
         {
             Password = "";
+            FileURI = $"{settings.StorageType.ToString()} - {settings.FileName}"; 
         }
+
+        [ObservableProperty]
+        private string fileURI;
 
         [ObservableProperty]
         private string password;
