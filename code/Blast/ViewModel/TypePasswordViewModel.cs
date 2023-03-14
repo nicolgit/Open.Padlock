@@ -12,12 +12,13 @@ namespace Blast.ViewModel
     {
         private Model.Services.Settings settings;
         private Model.Services.Current current;
+        private UIServices.INavigationService navigationService;
 
-        public TypePasswordViewModel(Model.Services.Current c,
-            Model.Services.Settings s)
+        public TypePasswordViewModel(Model.Services.Current c, Model.Services.Settings s, UIServices.INavigationService n)
         {
             current = c;
             settings = s;
+            navigationService = n;
 
             password = errorMessage = "";            
         }
@@ -38,7 +39,7 @@ namespace Blast.ViewModel
         private string errorMessage;
 
         [RelayCommand]
-        async Task OpenFile()
+        public async Task OpenFile()
         {
             current.File.Password = Password;
 
@@ -53,6 +54,19 @@ namespace Blast.ViewModel
                 ErrorMessage = "WRONG Password";
             }
             
+        }
+
+        [RelayCommand]
+        async Task Cancel() {
+            settings.FileName = "";
+            settings.StorageType = Model.Services.Settings.StorageEnum.NONE;
+            settings.SaveAll();
+
+            current.CloudStorage = null;
+            current.Document = new Model.DataFile.BlastDocument();
+            current.File = new Model.DataFile.BlastFile();
+
+            await navigationService.GoToViewModelAsync(nameof(WelcomeSelectStorageViewModel));
         }
     }
 }

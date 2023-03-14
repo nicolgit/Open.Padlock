@@ -31,7 +31,7 @@ namespace Blast.ViewModel
 
         private void loadCards()
         {
-            //TODO implemets CardViewModel
+            //TODO implements CardViewModel
 
             OnPropertyChanged(nameof(Rows));
         }

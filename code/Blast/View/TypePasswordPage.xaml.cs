@@ -18,4 +18,8 @@ public partial class TypePasswordPage : ContentPage
 
         viewmodel.Initialize();
     }
+
+    private async void Password_Completed(object sender, EventArgs e) {
+        await viewmodel.OpenFile();
+    }
 }
