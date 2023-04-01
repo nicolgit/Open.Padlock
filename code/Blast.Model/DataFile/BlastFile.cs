@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -32,7 +34,7 @@ namespace Blast.Model.DataFile
         public BlastDocument GetBlastDocument()
         {
             byte[] crypt_key; // public key for encrypted doc
-            byte[] crypt_iv;  // init vectory for encrypted doc
+            byte[] crypt_iv;  // init vector for encrypted doc
 
             crypt_key = new byte[C_KEYSIZE];
             crypt_iv = new byte[C_IVSIZE];
@@ -64,7 +66,7 @@ namespace Blast.Model.DataFile
                     // read crypt-iv
                     br.Read(crypt_iv, 0, C_IVSIZE);
 
-                    // read VerifyText
+                    // read encrypted VerifyText
                     byte[] data_test = new byte[C_VERIFYTEXT.Length * 2 + 16];
                     br.Read(data_test, 0, C_VERIFYTEXT.Length * 2 + 16);
 
@@ -81,9 +83,9 @@ namespace Blast.Model.DataFile
 
                     // password is correct, returning readable file
                     byte[] data_frag = new byte[C_BLOCKSIZE * 2 + 16];
-                    int realsize;
+                    int realSize;
 
-                    while ((realsize = br.Read(data_frag, 0, C_BLOCKSIZE * 2 + 16)) > 0)
+                    while ((realSize = br.Read(data_frag, 0, C_BLOCKSIZE * 2 + 16)) > 0)
                     {
                         int olds = readableFileString.Length;
 
@@ -103,6 +105,72 @@ namespace Blast.Model.DataFile
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// encrypt document using FilePassword
+        /// 
+        /// if it works
+        ///     FileReadable contains the document in string format
+        ///     FileEncrypted contains the document encrypted
+        /// </summary>
+        /// <param name="document"></param>
+        /// <returns>raise an exception in case of failure</returns>
+        public void PutBlastDocument(BlastDocument document)
+        {
+            int item;
+
+            this.FileReadable = JsonSerializer.Serialize(document);
+
+            byte[] crypt_key; // public key for encrypted doc
+            byte[] crypt_iv;  // init vector for encrypted doc
+
+            crypt_key = new byte[C_KEYSIZE];
+            crypt_iv = new byte[C_IVSIZE];
+
+            // generate random crypt_key and crypt_iv
+            var rand = new Random();
+            for (item = 0; item < C_KEYSIZE; item++)
+                crypt_key[item] = (byte)rand.Next(255);
+            for (item = 0; item < C_IVSIZE; item++)
+                crypt_iv[item] = (byte)rand.Next(255);
+
+            // use password as crypto KEY 
+            for (item = 0; item < Password.Length && item < C_KEYSIZE; item++)
+                crypt_key[item] = (byte)(Password[item] & 0xFF);
+
+            System.IO.MemoryStream outputStream = new System.IO.MemoryStream();
+            System.IO.BinaryWriter outputWriter = new System.IO.BinaryWriter(outputStream, System.Text.Encoding.UTF8);
+
+            // writes file type identifier
+            outputWriter.Write(FF_BLAST01);
+
+            // writes the crypto_key bytes that are not the password in the file
+            for (item = this.Password.Length; item < C_KEYSIZE; item++)
+                outputWriter.Write(crypt_key[item]);
+
+            // writes the crypt_iv in the file
+            outputWriter.Write(crypt_iv);
+
+            //writes the encrypted version of VERIFYTEXT
+            outputWriter.Write(encryptString(C_VERIFYTEXT, crypt_key, crypt_iv));
+
+            // writes the encrypted version of FileReadable
+            for (item = 0; item < FileReadable.Length; item += C_BLOCKSIZE)
+            {
+                if (item + C_BLOCKSIZE <= FileReadable.Length)
+                {
+                    outputWriter.Write(encryptString(FileReadable.Substring(item, C_BLOCKSIZE), crypt_key, crypt_iv));
+                }
+                else
+                {
+                    outputWriter.Write(encryptString(FileReadable.Substring(item), crypt_key, crypt_iv));
+                }
+            }
+
+            outputWriter.Close();
+            this.FileEncrypted = outputStream.ToArray();
+            outputStream.Close();
         }
 
         #region PAZWORD FILE FORMAT READER
@@ -182,20 +250,18 @@ namespace Blast.Model.DataFile
             return pf;
         }
         #endregion
+
+        #region BLAST-READER
+        #endregion
+        
+        #region BLAST-WRITER
+        #endregion
+
         #region ENCRYPTION-DECRIPTION STUFF
         private const int C_KEYSIZE = 24;
         private const int C_IVSIZE = 8;
         private const int C_BLOCKSIZE = 2000;
         private const string C_HEX = "0123456789ABCDEF";
-        //private const string C_VERIFYTEXT = "Era invevitabile: l'odore delle mandorle amare gli ricordava " +
-        //   "sempre il destino degli amori contrastati. Il dottor Juvenal " +
-        //   "Urbino lo sent� appena entrato nella casa ancora in penombra, " +
-        //   "dove era accorso d'urgenza per occuparsi di un caso che per lui " +
-        //   "aveva cessato di essere urgente da molti anni. Il rifugiato " +
-        //   "antillano Jeremiah de Saint-Amour, invalido di guerra, foto- " +
-        //   "grafo di bambini e il suo avversario di scacchi pi� pietoso, si era " +
-        //   "messo in salvo dai tormenti della memoria con un suffumigio di " +
-        //   "cianuro di oro.";
 
         private const string C_VERIFYTEXT = "Era invevitabile: l'odore delle mandorle amare gli ricordava sempre il destino degli amori contrastati. Il dottor Juvenal Urbino lo sentì appena entrato nella casa ancora in penombra, dove era accorso d'urgenza per occuparsi di un caso che per lui aveva cessato di essere urgente da molti anni. Il rifugiato antillano Jeremiah de Saint-Amour, invalido di guerra, foto- grafo di bambini e il suo avversario di scacchi più pietoso, si era messo in salvo dai tormenti della memoria con un suffumigio di cianuro di oro.";
         private static TripleDESCryptoServiceProvider alg = new TripleDESCryptoServiceProvider();

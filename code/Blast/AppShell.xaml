@@ -16,8 +16,7 @@
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
         <ShellContent Route="MainPage" Title="Blast" ContentTemplate="{DataTemplate view:MainPage}" />
-
-        <ShellContent Title="Cats2" Route="SettingsPage" ContentTemplate="{DataTemplate view:SettingsPage}" />
+        <ShellContent Title="Generate Password" Route="SettingsPage" ContentTemplate="{DataTemplate view:SettingsPage}" />
     </FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" ><ShellContent Title="Settings" Route="SettingsPage4" ContentTemplate="{DataTemplate view:SettingsPage}" /></FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" ><ShellContent Title="About Blast" Route="SettingsPage5" ContentTemplate="{DataTemplate view:SettingsPage}" /></FlyoutItem>
