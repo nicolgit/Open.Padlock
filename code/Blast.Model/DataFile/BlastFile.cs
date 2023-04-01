@@ -264,29 +264,16 @@ namespace Blast.Model.DataFile
         private const string C_HEX = "0123456789ABCDEF";
 
         private const string C_VERIFYTEXT = "Era invevitabile: l'odore delle mandorle amare gli ricordava sempre il destino degli amori contrastati. Il dottor Juvenal Urbino lo sentì appena entrato nella casa ancora in penombra, dove era accorso d'urgenza per occuparsi di un caso che per lui aveva cessato di essere urgente da molti anni. Il rifugiato antillano Jeremiah de Saint-Amour, invalido di guerra, foto- grafo di bambini e il suo avversario di scacchi più pietoso, si era messo in salvo dai tormenti della memoria con un suffumigio di cianuro di oro.";
-        private static TripleDESCryptoServiceProvider alg = new TripleDESCryptoServiceProvider();
-        private static void buildKey(string key)
-        {
-            alg.GenerateKey();
-            alg.GenerateIV();
+        private static TripleDES tripleDESAlgorithm = TripleDES.Create();
 
-            byte[] k = alg.Key;
-
-            int i;
-            for (i = 0; i < key.Length && i < C_KEYSIZE; i++)
-            {
-                k[i] = (byte)(key[i] & 0xFF);
-            }
-            alg.Key = k;
-        }
-        private static byte[] encryptString(string source, byte[] fullkey, byte[] iv)
+        private static byte[] encryptString(string source, byte[] fullKey, byte[] iv)
         {
             byte[] bin = new byte[2 * source.Length + 16];
             byte[] bout = new byte[2 * source.Length + 16];
-            MemoryStream fout = new MemoryStream(bout, 0, source.Length * 2 + 16, true, true);
+            MemoryStream memoryStream = new MemoryStream(bout, 0, source.Length * 2 + 16, true, true);
             int i, j;
 
-            fullkey = (byte[])fullkey.Clone();
+            fullKey = (byte[])fullKey.Clone();
             iv = (byte[])iv.Clone();
 
             // TEST (UNICODE): source="鯡鯢鯤鯥";
@@ -298,21 +285,21 @@ namespace Blast.Model.DataFile
                 bin[j + 1] = (byte)(source[i] >> 8 & 0xFF);
             }
 
-            CryptoStream encStream = new CryptoStream(fout, alg.CreateEncryptor(fullkey, iv), CryptoStreamMode.Write);
+            CryptoStream encStream = new CryptoStream(memoryStream, tripleDESAlgorithm.CreateEncryptor(fullKey, iv), CryptoStreamMode.Write);
             encStream.Write(bin, 0, bin.Length);
 
             return bout;
         }
-        private static string decryptBytes(byte[] source, byte[] fullkey, byte[] iv)
+        private static string decryptBytes(byte[] source, byte[] fullKey, byte[] iv)
         {
             byte[] bout = new byte[source.Length];
-            MemoryStream fout = new MemoryStream(bout, 0, source.Length, true, true);
+            MemoryStream memoryStream = new MemoryStream(bout, 0, source.Length, true, true);
             int i;
 
-            fullkey = (byte[])fullkey.Clone();
+            fullKey = (byte[])fullKey.Clone();
             iv = (byte[])iv.Clone();
 
-            CryptoStream decStream = new CryptoStream(fout, alg.CreateDecryptor(fullkey, iv), CryptoStreamMode.Write);
+            CryptoStream decStream = new CryptoStream(memoryStream, tripleDESAlgorithm.CreateDecryptor(fullKey, iv), CryptoStreamMode.Write);
 
             decStream.Write(source, 0, source.Length);
 
