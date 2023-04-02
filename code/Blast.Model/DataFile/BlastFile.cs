@@ -254,12 +254,6 @@ namespace Blast.Model.DataFile
         }
         #endregion
 
-        #region BLAST-READER
-        #endregion
-
-        #region BLAST-WRITER
-        #endregion
-
         #region ENCRYPTION-DECRIPTION STUFF
         private const int C_KEYSIZE = 24;
         private const int C_IVSIZE = 8;
