@@ -67,7 +67,7 @@ namespace Blast.ViewModel
                     settings.FileName = result;
 
                     current.File = new BlastFile();
-                    current.File.FileEncrypted = await current.CloudStorage.GetFileAsync(settings.FileName);
+                    current.File.FileEncrypted = await current.CloudStorage.ReadFileAsync(settings.FileName);
                     
                     await navigationService.GoToAsync($"//{nameof(View.TypePasswordPage)}");
                 }

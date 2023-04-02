@@ -83,7 +83,7 @@ namespace Blast.Model.Services.Storage
             return true;
         }
 
-        async Task<byte[]> IBlastStorage.GetFileAsync(string fileName)
+        async Task<byte[]> IBlastStorage.ReadFileAsync(string fileName)
         {
             var graphServiceClient = new GraphServiceClient(new DelegateAuthenticationProvider(async (requestMessage) =>
             {
@@ -107,7 +107,13 @@ namespace Blast.Model.Services.Storage
 
         Task<bool> IBlastStorage.FileExistsAsync(string fileName)
         {
-            //TODO implement fileexistsasync here
+            //TODO implement 
+            throw new NotImplementedException();
+        }
+
+        public Task WriteFileAsync(string fileName, byte[] data)
+        {
+            //TODO implement
             throw new NotImplementedException();
         }
     }

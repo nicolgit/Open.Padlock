@@ -16,7 +16,7 @@ namespace Blast.Model.Services.Storage
             return Task.FromResult("");
         }
 
-        async Task<byte[]> IBlastStorage.GetFileAsync(string fileName)
+        async Task<byte[]> IBlastStorage.ReadFileAsync(string fileName)
         {
             string fullPath = Path.Combine(FileSystem.Current.AppDataDirectory, fileName);
 
@@ -46,6 +46,13 @@ namespace Blast.Model.Services.Storage
         {
             string fullPath = Path.Combine(FileSystem.Current.AppDataDirectory, fileName);
             return Task.FromResult(System.IO.File.Exists(fullPath));
+        }
+
+        async Task IBlastStorage.WriteFileAsync(string fileName, byte[] data)
+        {
+            string fullPath = Path.Combine(FileSystem.Current.AppDataDirectory, fileName);
+            await System.IO.File.WriteAllBytesAsync(fullPath, data);
+            return;
         }
     }
 }

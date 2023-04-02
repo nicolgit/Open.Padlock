@@ -54,7 +54,7 @@ namespace Blast.ViewModel
                 if (!string.IsNullOrEmpty(settings.FileName))
                 {
                     current.File = new BlastFile();
-                    current.File.FileEncrypted = await current.CloudStorage.GetFileAsync(settings.FileName);
+                    current.File.FileEncrypted = await current.CloudStorage.ReadFileAsync(settings.FileName);
 
                     await navigationService.GoToViewModelAsync(nameof(TypePasswordViewModel));
                 }

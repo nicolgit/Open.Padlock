@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -100,6 +101,8 @@ namespace Blast.Model.DataFile
                     {
                         case FF_PAZWORD:
                             return ParsePazwordFile(FileReadable);
+                        case FF_BLAST01:
+                            return JsonSerializer.Deserialize<BlastDocument>(FileReadable);
                         default:
                             throw new NotImplementedException();
                     }
@@ -253,7 +256,7 @@ namespace Blast.Model.DataFile
 
         #region BLAST-READER
         #endregion
-        
+
         #region BLAST-WRITER
         #endregion
 

@@ -11,7 +11,9 @@ namespace Blast.Model.Services.Storage
         public void Initialize();
         public Task<string> AcquireTokenAsync();
         public Task<bool> SignOutAsync();
-        public Task<byte[]> GetFileAsync(string fileName);
+        public Task<byte[]> ReadFileAsync(string fileName);
+        public Task WriteFileAsync(string fileName, byte[] data);
+
         public Task<bool> FileExistsAsync(string fileName);
         object ParentWindow { get; set; }
 
