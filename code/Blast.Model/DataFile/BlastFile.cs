@@ -39,70 +39,33 @@ namespace Blast.Model.DataFile
                 // Use the encryptedFileInMemory stream in a binary reader.
                 using (BinaryReader br = new BinaryReader(encryptedFileInMemory, Encoding.UTF8))
                 {
-                    TripleDES algorithm = TripleDES.Create();
                     
-                    byte[] crypt_key; // public key for encrypted doc
-                    byte[] crypt_iv;  // init vector for encrypted doc
-
-                    crypt_key = new byte[C_KEYSIZE];
-                    crypt_iv = new byte[C_IVSIZE];
 
                     string fileTypeIdentifier;
 
                     // read 'PASSWORD-'
                     fileTypeIdentifier = br.ReadString();
                     if (string.IsNullOrEmpty(fileTypeIdentifier)) throw new Exceptions.BlastFileEmptyException();
+                    switch (fileTypeIdentifier)
+                    {
+                        case FF_PAZWORD:
+                            return parsePazwordFile(decryptPazwordFile (encryptedFileInMemory, fileTypeIdentifier, br));
+                        case FF_BLAST01:
+                            break;
+                        default:
+                            throw new Exceptions.BlastFileFormatException();
+                    }
+
+
 
                     if (fileFormats.Where(a => a == fileTypeIdentifier).FirstOrDefault() == null) throw new Exceptions.BlastFileFormatException();
 
-                    // use password as crypto KEY 
-                    int i;
-                    for (i = 0; i < Password.Length && i < C_KEYSIZE; i++)
-                        crypt_key[i] = (byte)(Password[i] & 0xFF);
-
-                    byte[] data = new byte[encryptedFileInMemory.Length - (fileTypeIdentifier.Length + 1) - (C_KEYSIZE - i) - C_IVSIZE];
-
-                    // read remaining crypto key
-                    for (; i < C_KEYSIZE; i++)
-                        crypt_key[i] = br.ReadByte();
-
-                    // read crypt-iv
-                    br.Read(crypt_iv, 0, C_IVSIZE);
-
-                    // read encrypted VerifyText
-                    byte[] data_test = new byte[C_VERIFYTEXT.Length * 2 + 16];
-                    br.Read(data_test, 0, C_VERIFYTEXT.Length * 2 + 16);
-
-                    string decrypted = decryptBytes(algorithm, data_test, crypt_key, crypt_iv);
-                    string verifyText = C_VERIFYTEXT;
-
-                    StringBuilder readableFileString = new StringBuilder(10000);
-
-                    int compare = decrypted.CompareTo(verifyText);
-                    if (compare != 0)
-                    {
-                        throw new Exceptions.BlastFileWrongPasswordException();
-                    }
-
-                    // password is correct, returning readable file
-                    byte[] data_frag = new byte[C_BLOCKSIZE * 2 + 16];
-                    int realSize;
-
-                    while ((realSize = br.Read(data_frag, 0, C_BLOCKSIZE * 2 + 16)) > 0)
-                    {
-                        int olds = readableFileString.Length;
-
-                        string element = decryptBytes(algorithm, data_frag, crypt_key, crypt_iv);
-
-                        readableFileString.Append(element, 0, element.Length);
-                    }
                     
-                    FileReadable = readableFileString.ToString();
 
                     switch (fileTypeIdentifier)
                     {
                         case FF_PAZWORD:
-                            return ParsePazwordFile(FileReadable);
+                            return parsePazwordFile(FileReadable);
                         case FF_BLAST01:
                             return JsonSerializer.Deserialize<BlastDocument>(FileReadable);
                         default:
@@ -186,7 +149,7 @@ namespace Blast.Model.DataFile
         }
 
         #region PAZWORD FILE FORMAT READER
-        private static BlastDocument ParsePazwordFile(string file)
+        private BlastDocument parsePazwordFile(string file)
         {
             var xdoc = XDocument.Parse(file);
 
@@ -261,11 +224,65 @@ namespace Blast.Model.DataFile
 
             return pf;
         }
+        private string decryptPazwordFile(MemoryStream encryptedFileInMemory, string fileTypeIdentifier, BinaryReader br)
+        {
+            TripleDES algorithm = TripleDES.Create();
+
+            byte[] crypt_key; // public key for encrypted doc
+            byte[] crypt_iv;  // init vector for encrypted doc
+
+            crypt_key = new byte[algorithm.Key.Length];
+            crypt_iv = new byte[algorithm.IV.Length];
+
+            // use password as crypto KEY 
+            int i;
+            for (i = 0; i < Password.Length && i < algorithm.Key.Length; i++)
+                crypt_key[i] = (byte)(Password[i] & 0xFF);
+
+            byte[] data = new byte[encryptedFileInMemory.Length - (fileTypeIdentifier.Length + 1) - (algorithm.Key.Length - i) - algorithm.IV.Length];
+
+            // read remaining crypto key
+            for (; i < algorithm.Key.Length; i++)
+                crypt_key[i] = br.ReadByte();
+
+            // read crypt-iv
+            br.Read(crypt_iv, 0, algorithm.IV.Length);
+
+            // read encrypted VerifyText
+            byte[] data_test = new byte[C_VERIFYTEXT.Length * 2 + 16];
+            br.Read(data_test, 0, C_VERIFYTEXT.Length * 2 + 16);
+
+            string decrypted = decryptBytes(algorithm, data_test, crypt_key, crypt_iv);
+            string verifyText = C_VERIFYTEXT;
+
+            StringBuilder readableFileString = new StringBuilder(10000);
+
+            int compare = decrypted.CompareTo(verifyText);
+            if (compare != 0)
+            {
+                throw new Exceptions.BlastFileWrongPasswordException();
+            }
+
+            // password is correct, returning readable file
+            byte[] data_frag = new byte[C_BLOCKSIZE * 2 + 16];
+            int realSize;
+
+            while ((realSize = br.Read(data_frag, 0, C_BLOCKSIZE * 2 + 16)) > 0)
+            {
+                int olds = readableFileString.Length;
+
+                string element = decryptBytes(algorithm, data_frag, crypt_key, crypt_iv);
+
+                readableFileString.Append(element, 0, element.Length);
+            }
+
+            FileReadable = readableFileString.ToString();
+
+            return FileReadable;
+        }
         #endregion
 
         #region ENCRYPTION-DECRIPTION STUFF
-        private const int C_KEYSIZE = 24;
-        private const int C_IVSIZE = 8;
         private const int C_BLOCKSIZE = 2000;
         private const string C_HEX = "0123456789ABCDEF";
 
