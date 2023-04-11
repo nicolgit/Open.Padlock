@@ -55,22 +55,8 @@ namespace Blast.Model.DataFile
                         default:
                             throw new Exceptions.BlastFileFormatException();
                     }
-
-
-
-                    if (fileFormats.Where(a => a == fileTypeIdentifier).FirstOrDefault() == null) throw new Exceptions.BlastFileFormatException();
-
                     
-
-                    switch (fileTypeIdentifier)
-                    {
-                        case FF_PAZWORD:
-                            return parsePazwordFile(FileReadable);
-                        case FF_BLAST01:
-                            return JsonSerializer.Deserialize<BlastDocument>(FileReadable);
-                        default:
-                            throw new NotImplementedException();
-                    }
+                    return JsonSerializer.Deserialize<BlastDocument>(FileReadable);
                 }
             }
         }
@@ -284,8 +270,6 @@ namespace Blast.Model.DataFile
 
         #region ENCRYPTION-DECRIPTION STUFF
         private const int C_BLOCKSIZE = 2000;
-        private const string C_HEX = "0123456789ABCDEF";
-
         private const string C_VERIFYTEXT = "Era invevitabile: l'odore delle mandorle amare gli ricordava sempre il destino degli amori contrastati. Il dottor Juvenal Urbino lo sentì appena entrato nella casa ancora in penombra, dove era accorso d'urgenza per occuparsi di un caso che per lui aveva cessato di essere urgente da molti anni. Il rifugiato antillano Jeremiah de Saint-Amour, invalido di guerra, foto- grafo di bambini e il suo avversario di scacchi più pietoso, si era messo in salvo dai tormenti della memoria con un suffumigio di cianuro di oro.";
 
         private static byte[] encryptString(SymmetricAlgorithm algorithm, string source, byte[] fullKey, byte[] iv)
