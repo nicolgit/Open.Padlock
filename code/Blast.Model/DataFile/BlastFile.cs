@@ -34,17 +34,19 @@ namespace Blast.Model.DataFile
         /// </summary>
         public BlastDocument GetBlastDocument()
         {
-            byte[] crypt_key; // public key for encrypted doc
-            byte[] crypt_iv;  // init vector for encrypted doc
-
-            crypt_key = new byte[C_KEYSIZE];
-            crypt_iv = new byte[C_IVSIZE];
-
             using (MemoryStream encryptedFileInMemory = new MemoryStream(FileEncrypted))
             {
                 // Use the encryptedFileInMemory stream in a binary reader.
                 using (BinaryReader br = new BinaryReader(encryptedFileInMemory, Encoding.UTF8))
                 {
+                    TripleDES algorithm = TripleDES.Create();
+                    
+                    byte[] crypt_key; // public key for encrypted doc
+                    byte[] crypt_iv;  // init vector for encrypted doc
+
+                    crypt_key = new byte[C_KEYSIZE];
+                    crypt_iv = new byte[C_IVSIZE];
+
                     string fileTypeIdentifier;
 
                     // read 'PASSWORD-'
@@ -71,7 +73,7 @@ namespace Blast.Model.DataFile
                     byte[] data_test = new byte[C_VERIFYTEXT.Length * 2 + 16];
                     br.Read(data_test, 0, C_VERIFYTEXT.Length * 2 + 16);
 
-                    string decrypted = decryptBytes(data_test, crypt_key, crypt_iv);
+                    string decrypted = decryptBytes(algorithm, data_test, crypt_key, crypt_iv);
                     string verifyText = C_VERIFYTEXT;
 
                     StringBuilder readableFileString = new StringBuilder(10000);
@@ -90,7 +92,7 @@ namespace Blast.Model.DataFile
                     {
                         int olds = readableFileString.Length;
 
-                        string element = decryptBytes(data_frag, crypt_key, crypt_iv);
+                        string element = decryptBytes(algorithm, data_frag, crypt_key, crypt_iv);
 
                         readableFileString.Append(element, 0, element.Length);
                     }
@@ -110,6 +112,11 @@ namespace Blast.Model.DataFile
             }
         }
 
+        private BlastDocument GetPazwordDocument()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// encrypt document using FilePassword
         /// 
@@ -121,6 +128,7 @@ namespace Blast.Model.DataFile
         /// <returns>raise an exception in case of failure</returns>
         public void PutBlastDocument(BlastDocument document)
         {
+            /*
             int item;
 
             this.FileReadable = JsonSerializer.Serialize(document);
@@ -174,6 +182,7 @@ namespace Blast.Model.DataFile
             outputWriter.Close();
             this.FileEncrypted = outputStream.ToArray();
             outputStream.Close();
+            */
         }
 
         #region PAZWORD FILE FORMAT READER
@@ -261,9 +270,8 @@ namespace Blast.Model.DataFile
         private const string C_HEX = "0123456789ABCDEF";
 
         private const string C_VERIFYTEXT = "Era invevitabile: l'odore delle mandorle amare gli ricordava sempre il destino degli amori contrastati. Il dottor Juvenal Urbino lo sentì appena entrato nella casa ancora in penombra, dove era accorso d'urgenza per occuparsi di un caso che per lui aveva cessato di essere urgente da molti anni. Il rifugiato antillano Jeremiah de Saint-Amour, invalido di guerra, foto- grafo di bambini e il suo avversario di scacchi più pietoso, si era messo in salvo dai tormenti della memoria con un suffumigio di cianuro di oro.";
-        private static TripleDES tripleDESAlgorithm = TripleDES.Create();
 
-        private static byte[] encryptString(string source, byte[] fullKey, byte[] iv)
+        private static byte[] encryptString(SymmetricAlgorithm algorithm, string source, byte[] fullKey, byte[] iv)
         {
             byte[] bin = new byte[2 * source.Length + 16];
             byte[] bout = new byte[2 * source.Length + 16];
@@ -282,12 +290,13 @@ namespace Blast.Model.DataFile
                 bin[j + 1] = (byte)(source[i] >> 8 & 0xFF);
             }
 
-            CryptoStream encStream = new CryptoStream(memoryStream, tripleDESAlgorithm.CreateEncryptor(fullKey, iv), CryptoStreamMode.Write);
+            CryptoStream encStream = new CryptoStream(memoryStream, algorithm.CreateEncryptor(fullKey, iv), CryptoStreamMode.Write);
             encStream.Write(bin, 0, bin.Length);
 
             return bout;
         }
-        private static string decryptBytes(byte[] source, byte[] fullKey, byte[] iv)
+
+        private static string decryptBytes(SymmetricAlgorithm algorithm, byte[] source, byte[] fullKey, byte[] iv)
         {
             byte[] bout = new byte[source.Length];
             MemoryStream memoryStream = new MemoryStream(bout, 0, source.Length, true, true);
@@ -296,7 +305,7 @@ namespace Blast.Model.DataFile
             fullKey = (byte[])fullKey.Clone();
             iv = (byte[])iv.Clone();
 
-            CryptoStream decStream = new CryptoStream(memoryStream, tripleDESAlgorithm.CreateDecryptor(fullKey, iv), CryptoStreamMode.Write);
+            CryptoStream decStream = new CryptoStream(memoryStream, algorithm.CreateDecryptor(fullKey, iv), CryptoStreamMode.Write);
 
             decStream.Write(source, 0, source.Length);
 
@@ -312,10 +321,9 @@ namespace Blast.Model.DataFile
             //return output;
             return output.Substring(0, output.IndexOf('\0'));
         }
-        private static byte hex2Byte(string sin)
-        {
-            return (byte)(C_HEX.LastIndexOf(sin[0]) * 16 + C_HEX.LastIndexOf(sin[1]));
-        }
+
+
+
         #endregion
     }
 
