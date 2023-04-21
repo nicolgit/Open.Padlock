@@ -15,7 +15,7 @@ namespace Blast.Model.DataFile
     public class BlastFile
     {
         private const string FF_PAZWORD = "PASSWORD-";
-        private const string FF_BLAST01 = "BLAST01-";
+        private const string FF_BLAST01 = "BLAST01";
         private static string[] fileFormats = { FF_PAZWORD, FF_BLAST01 };
 
         public string Password { get; set; }
@@ -39,8 +39,6 @@ namespace Blast.Model.DataFile
                 // Use the encryptedFileInMemory stream in a binary reader.
                 using (BinaryReader br = new BinaryReader(encryptedFileInMemory, Encoding.UTF8))
                 {
-                    
-
                     string fileTypeIdentifier;
 
                     // read 'PASSWORD-'
@@ -51,19 +49,46 @@ namespace Blast.Model.DataFile
                         case FF_PAZWORD:
                             return parsePazwordFile(decryptPazwordFile (encryptedFileInMemory, fileTypeIdentifier, br));
                         case FF_BLAST01:
-                            break;
+                            var salt = br.ReadBytes(8);
+                            var iterations = br.ReadInt32();
+                            var IV = br.ReadBytes(16);
+                            var encryptedLoremLength = br.ReadInt32();
+                            var encryptedLorem = br.ReadBytes(encryptedLoremLength);
+
+                            var k1 = new Rfc2898DeriveBytes(this.Password, salt, iterations, HashAlgorithmName.SHA256);
+                            var algorithm = Aes.Create();
+                            algorithm.Key = k1.GetBytes(16);
+                            algorithm.IV = IV;
+                            algorithm.Mode = CipherMode.CBC;
+
+                            string decryptedLorem = decryptBytes (algorithm, encryptedLorem);
+
+                            // check if password is OK before
+                            int compare = decryptedLorem.CompareTo(LOREM_TEXT);
+                            if (compare != 0)
+                            {
+                                throw new Exceptions.BlastFileWrongPasswordException();
+                            }
+
+                            StringBuilder jsonStringBuilder = new StringBuilder();
+                            do
+                            {
+                                var encryptedBlockLength = br.ReadInt32 ();
+                                var encryptedBlock = br.ReadBytes (encryptedBlockLength);
+
+                                string decryptedBlock = decryptBytes(algorithm, encryptedBlock);
+
+                                jsonStringBuilder.Append (decryptedBlock);
+                            } while (br.BaseStream.Position != br.BaseStream.Length);
+
+                            this.FileReadable = jsonStringBuilder.ToString ();
+
+                            return JsonSerializer.Deserialize<BlastDocument>(FileReadable);
                         default:
                             throw new Exceptions.BlastFileFormatException();
                     }
-                    
-                    return JsonSerializer.Deserialize<BlastDocument>(FileReadable);
                 }
             }
-        }
-
-        private BlastDocument GetPazwordDocument()
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -77,27 +102,27 @@ namespace Blast.Model.DataFile
         /// <returns>raise an exception in case of failure</returns>
         public void PutBlastDocument(BlastDocument document)
         {
-            /*
-            int item;
-
             this.FileReadable = JsonSerializer.Serialize(document);
 
-            byte[] crypt_key; // public key for encrypted doc
-            byte[] crypt_iv;  // init vector for encrypted doc
+            //https://stackoverflow.com/questions/75988087/how-can-i-verify-that-the-key-and-iv-i-am-using-are-the-correct-ones
+            //https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rfc2898derivebytes?view=net-7.0
 
-            crypt_key = new byte[C_KEYSIZE];
-            crypt_iv = new byte[C_IVSIZE];
 
-            // generate random crypt_key and crypt_iv
-            var rand = new Random();
-            for (item = 0; item < C_KEYSIZE; item++)
-                crypt_key[item] = (byte)rand.Next(255);
-            for (item = 0; item < C_IVSIZE; item++)
-                crypt_iv[item] = (byte)rand.Next(255);
+            // Create a random salt.
+            var salt = new byte[8];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
 
-            // use password as crypto KEY 
-            for (item = 0; item < Password.Length && item < C_KEYSIZE; item++)
-                crypt_key[item] = (byte)(Password[item] & 0xFF);
+            // Generate Key and IV
+            int iterations = 1000;
+            var k1 = new Rfc2898DeriveBytes(this.Password, salt, iterations, HashAlgorithmName.SHA256);
+            
+            var algorithm = Aes.Create();
+            algorithm.Key = k1.GetBytes(16);
+            algorithm.GenerateIV();
+            algorithm.Mode = CipherMode.CBC;
 
             System.IO.MemoryStream outputStream = new System.IO.MemoryStream();
             System.IO.BinaryWriter outputWriter = new System.IO.BinaryWriter(outputStream, System.Text.Encoding.UTF8);
@@ -105,33 +130,35 @@ namespace Blast.Model.DataFile
             // writes file type identifier
             outputWriter.Write(FF_BLAST01);
 
-            // writes the crypto_key bytes that are not the password in the file
-            for (item = this.Password.Length; item < C_KEYSIZE; item++)
-                outputWriter.Write(crypt_key[item]);
-
             // writes the crypt_iv in the file
-            outputWriter.Write(crypt_iv);
+            outputWriter.Write(salt);
+            outputWriter.Write(iterations);
+            outputWriter.Write(algorithm.IV);
 
-            //writes the encrypted version of VERIFYTEXT
-            outputWriter.Write(encryptString(C_VERIFYTEXT, crypt_key, crypt_iv));
+            var encryptedString = encryptString(algorithm, LOREM_TEXT);
 
-            // writes the encrypted version of FileReadable
-            for (item = 0; item < FileReadable.Length; item += C_BLOCKSIZE)
+            outputWriter.Write(encryptedString.Length);
+            outputWriter.Write(encryptedString);
+
+            for (int i = 0; i < FileReadable.Length; i += BLOCK_SIZE)
             {
-                if (item + C_BLOCKSIZE <= FileReadable.Length)
+                if (i + BLOCK_SIZE <= FileReadable.Length)
                 {
-                    outputWriter.Write(encryptString(FileReadable.Substring(item, C_BLOCKSIZE), crypt_key, crypt_iv));
+                    encryptedString = encryptString(algorithm, FileReadable.Substring(i, BLOCK_SIZE));
+                    outputWriter.Write(encryptedString.Length);
+                    outputWriter.Write(encryptedString);
                 }
                 else
                 {
-                    outputWriter.Write(encryptString(FileReadable.Substring(item), crypt_key, crypt_iv));
+                    encryptedString = encryptString(algorithm, FileReadable.Substring(i));
+                    outputWriter.Write(encryptedString.Length);
+                    outputWriter.Write(encryptedString);
                 }
             }
 
             outputWriter.Close();
             this.FileEncrypted = outputStream.ToArray();
             outputStream.Close();
-            */
         }
 
         #region PAZWORD FILE FORMAT READER
@@ -235,11 +262,11 @@ namespace Blast.Model.DataFile
             br.Read(crypt_iv, 0, algorithm.IV.Length);
 
             // read encrypted VerifyText
-            byte[] data_test = new byte[C_VERIFYTEXT.Length * 2 + 16];
-            br.Read(data_test, 0, C_VERIFYTEXT.Length * 2 + 16);
+            byte[] data_test = new byte[C_VERIFYTEXT_LEGACY.Length * 2 + 16];
+            br.Read(data_test, 0, C_VERIFYTEXT_LEGACY.Length * 2 + 16);
 
-            string decrypted = decryptBytes(algorithm, data_test, crypt_key, crypt_iv);
-            string verifyText = C_VERIFYTEXT;
+            string decrypted = decryptBytesLegacy(algorithm, data_test, crypt_key, crypt_iv);
+            string verifyText = C_VERIFYTEXT_LEGACY;
 
             StringBuilder readableFileString = new StringBuilder(10000);
 
@@ -250,14 +277,14 @@ namespace Blast.Model.DataFile
             }
 
             // password is correct, returning readable file
-            byte[] data_frag = new byte[C_BLOCKSIZE * 2 + 16];
+            byte[] data_frag = new byte[C_BLOCKSIZE_LEGACY * 2 + 16];
             int realSize;
 
-            while ((realSize = br.Read(data_frag, 0, C_BLOCKSIZE * 2 + 16)) > 0)
+            while ((realSize = br.Read(data_frag, 0, C_BLOCKSIZE_LEGACY * 2 + 16)) > 0)
             {
                 int olds = readableFileString.Length;
 
-                string element = decryptBytes(algorithm, data_frag, crypt_key, crypt_iv);
+                string element = decryptBytesLegacy(algorithm, data_frag, crypt_key, crypt_iv);
 
                 readableFileString.Append(element, 0, element.Length);
             }
@@ -269,35 +296,27 @@ namespace Blast.Model.DataFile
         #endregion
 
         #region ENCRYPTION-DECRIPTION STUFF
-        private const int C_BLOCKSIZE = 2000;
-        private const string C_VERIFYTEXT = "Era invevitabile: l'odore delle mandorle amare gli ricordava sempre il destino degli amori contrastati. Il dottor Juvenal Urbino lo sentì appena entrato nella casa ancora in penombra, dove era accorso d'urgenza per occuparsi di un caso che per lui aveva cessato di essere urgente da molti anni. Il rifugiato antillano Jeremiah de Saint-Amour, invalido di guerra, foto- grafo di bambini e il suo avversario di scacchi più pietoso, si era messo in salvo dai tormenti della memoria con un suffumigio di cianuro di oro.";
+        private const int C_BLOCKSIZE_LEGACY = 2000;
+        private const string C_VERIFYTEXT_LEGACY = "Era invevitabile: l'odore delle mandorle amare gli ricordava sempre il destino degli amori contrastati. Il dottor Juvenal Urbino lo sentì appena entrato nella casa ancora in penombra, dove era accorso d'urgenza per occuparsi di un caso che per lui aveva cessato di essere urgente da molti anni. Il rifugiato antillano Jeremiah de Saint-Amour, invalido di guerra, foto- grafo di bambini e il suo avversario di scacchi più pietoso, si era messo in salvo dai tormenti della memoria con un suffumigio di cianuro di oro.";
 
-        private static byte[] encryptString(SymmetricAlgorithm algorithm, string source, byte[] fullKey, byte[] iv)
+        private const int BLOCK_SIZE = 100; //4000;
+        private const string LOREM_TEXT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+        private static byte[] encryptString(SymmetricAlgorithm algorithm, string stringToEncrypt)
         {
-            byte[] bin = new byte[2 * source.Length + 16];
-            byte[] bout = new byte[2 * source.Length + 16];
-            MemoryStream memoryStream = new MemoryStream(bout, 0, source.Length * 2 + 16, true, true);
-            int i, j;
-
-            fullKey = (byte[])fullKey.Clone();
-            iv = (byte[])iv.Clone();
-
-            // TEST (UNICODE): source="鯡鯢鯤鯥";
-
-            // convert string to byte array
-            for (i = j = 0; i < source.Length; i++, j += 2)
-            {
-                bin[j] = (byte)(source[i] & 0xFF);
-                bin[j + 1] = (byte)(source[i] >> 8 & 0xFF);
-            }
-
-            CryptoStream encStream = new CryptoStream(memoryStream, algorithm.CreateEncryptor(fullKey, iv), CryptoStreamMode.Write);
-            encStream.Write(bin, 0, bin.Length);
-
-            return bout;
+            byte[] utf = new System.Text.UTF8Encoding(false).GetBytes(stringToEncrypt);
+            var encrypted = algorithm.EncryptCbc(utf, algorithm.IV);
+            return encrypted;
         }
 
-        private static string decryptBytes(SymmetricAlgorithm algorithm, byte[] source, byte[] fullKey, byte[] iv)
+        private string decryptBytes (SymmetricAlgorithm algorithm, byte[] bytesToDecrypt) 
+        {
+            var decrypted = algorithm.DecryptCbc(bytesToDecrypt, algorithm.IV);
+            string decryptedString = new UTF8Encoding(false).GetString(decrypted);
+            return decryptedString;
+        }
+
+        private static string decryptBytesLegacy(SymmetricAlgorithm algorithm, byte[] source, byte[] fullKey, byte[] iv)
         {
             byte[] bout = new byte[source.Length];
             MemoryStream memoryStream = new MemoryStream(bout, 0, source.Length, true, true);
@@ -322,9 +341,6 @@ namespace Blast.Model.DataFile
             //return output;
             return output.Substring(0, output.IndexOf('\0'));
         }
-
-
-
         #endregion
     }
 
