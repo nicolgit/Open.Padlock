@@ -17,7 +17,7 @@ namespace Blast.Model.Services.Storage
         readonly private string File = "data.pz";
         readonly private int BufferSize = 1024 * 1024; // 1Mbyte
 
-        // the same clied ID must present in AndroidManifest.xml FILE
+        // the same client ID must present in AndroidManifest.xml FILE
         // for reference: <data android:scheme="msal4926943b-ab46-4176-a639-ef6438ceb351" android:host="auth" />
         readonly private string ClientID = "4926943b-ab46-4176-a639-ef6438ceb351"; // tenant nicoladelfinooutlook.onmicrosoft.com (dac2b1d5-5420-4fad-889e-1280ffdc8003)
         readonly private string[] Scopes = { "Files.ReadWrite.All" };
@@ -114,6 +114,11 @@ namespace Blast.Model.Services.Storage
         public Task WriteFileAsync(string fileName, byte[] data)
         {
             //TODO implement
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetFileURI(string fileName)
+        {
             throw new NotImplementedException();
         }
     }

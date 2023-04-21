@@ -23,11 +23,15 @@ namespace Blast.ViewModel
             password = errorMessage = "";            
         }
 
-        internal void Initialize()
+        internal async void Initialize()
         {
             Password = "";
-            FileURI = $"{settings.StorageType.ToString()} - {settings.FileName}"; 
+            StorageType = settings.StorageType.ToString();
+            FileURI = await current.CloudStorage.GetFileURI(settings.FileName); 
         }
+
+        [ObservableProperty]
+        private string storageType;
 
         [ObservableProperty]
         private string fileURI;

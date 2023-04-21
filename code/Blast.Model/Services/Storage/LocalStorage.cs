@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Maui.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -53,6 +54,11 @@ namespace Blast.Model.Services.Storage
             string fullPath = Path.Combine(FileSystem.Current.AppDataDirectory, fileName);
             await System.IO.File.WriteAllBytesAsync(fullPath, data);
             return;
+        }
+
+        Task<string> IBlastStorage.GetFileURI(string fileName)
+        {
+            return Task.FromResult(Path.Combine(FileSystem.Current.AppDataDirectory, fileName));
         }
     }
 }

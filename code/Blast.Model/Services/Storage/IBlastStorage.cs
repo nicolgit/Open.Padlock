@@ -13,8 +13,8 @@ namespace Blast.Model.Services.Storage
         public Task<bool> SignOutAsync();
         public Task<byte[]> ReadFileAsync(string fileName);
         public Task WriteFileAsync(string fileName, byte[] data);
-
         public Task<bool> FileExistsAsync(string fileName);
+        public Task<string> GetFileURI(string fileName);
         object ParentWindow { get; set; }
 
     }
