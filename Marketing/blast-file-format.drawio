@@ -1,32 +1,31 @@
-<mxfile host="Electron" modified="2023-04-21T16:06:57.740Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="wnrf9SwXwh5Y7ix10eL8" version="21.1.2" type="device">
+<mxfile host="Electron" modified="2023-04-24T13:07:01.150Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="xTFg_dHxc_moIXwgcI-a" version="21.2.1" type="device">
   <diagram name="Page-1" id="aDaRlhhd4qUKt5GhqVCY">
-    <mxGraphModel dx="1416" dy="853" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="523" dy="390" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="OFQUt3sSmWvzci1TPOAl-1" value="&lt;font face=&quot;Courier New&quot;&gt;BLAST01&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="80" y="230" width="60" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="OFQUt3sSmWvzci1TPOAl-2" value="&lt;font face=&quot;Courier New&quot;&gt;0x00&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="150" y="230" width="40" height="20" as="geometry" />
+        <mxCell id="a31n6v0AFF-439C_S_nv-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="OFQUt3sSmWvzci1TPOAl-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="240" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="OFQUt3sSmWvzci1TPOAl-4" value="&lt;br&gt;" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;size=0.5;" parent="1" vertex="1">
-          <mxGeometry x="200" y="225" width="20" height="30" as="geometry" />
+          <mxGeometry x="400" y="225" width="20" height="30" as="geometry" />
         </mxCell>
         <mxCell id="OFQUt3sSmWvzci1TPOAl-5" value="UTF-8 string" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="210" y="225" width="90" height="30" as="geometry" />
+          <mxGeometry x="420" y="225" width="90" height="30" as="geometry" />
         </mxCell>
         <mxCell id="OFQUt3sSmWvzci1TPOAl-6" value="&lt;font face=&quot;Courier New&quot;&gt;IV - bytes[16]&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="80" y="320" width="280" height="20" as="geometry" />
         </mxCell>
         <mxCell id="OFQUt3sSmWvzci1TPOAl-7" value="&lt;font face=&quot;Courier New&quot;&gt;LOREMTEXT - bytes[len0]&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
-          <mxGeometry x="239" y="350" width="340" height="20" as="geometry" />
+          <mxGeometry x="239" y="350" width="271" height="20" as="geometry" />
         </mxCell>
         <mxCell id="OFQUt3sSmWvzci1TPOAl-8" value="&lt;br&gt;" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;size=0.5;" parent="1" vertex="1">
-          <mxGeometry x="600" y="340" width="20" height="40" as="geometry" />
+          <mxGeometry x="530" y="340" width="20" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="OFQUt3sSmWvzci1TPOAl-9" value="encrypted UTF8 encoded LOREMTEXT&amp;nbsp; &lt;br&gt;(445 chars)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="630" y="340" width="240" height="40" as="geometry" />
+        <mxCell id="OFQUt3sSmWvzci1TPOAl-9" value="encrypted UTF8 encoded LOREMTEXT&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="540" y="345" width="240" height="30" as="geometry" />
         </mxCell>
         <mxCell id="OFQUt3sSmWvzci1TPOAl-10" value="&lt;font face=&quot;Courier New&quot;&gt;Block01 bytes[len1]&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="239" y="380" width="230" height="20" as="geometry" />
@@ -44,7 +43,7 @@
           <mxGeometry x="479" y="380" width="20" height="150" as="geometry" />
         </mxCell>
         <mxCell id="OFQUt3sSmWvzci1TPOAl-15" value="encrypted version of&lt;br&gt;&amp;nbsp;UTF8 encoded JSON serialized&lt;br&gt;Blast Document&lt;br&gt;&lt;br&gt;each block of 4000 characters&lt;br&gt;is encrypted separately" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="514" y="400" width="200" height="100" as="geometry" />
+          <mxGeometry x="490" y="400" width="200" height="100" as="geometry" />
         </mxCell>
         <mxCell id="OFQUt3sSmWvzci1TPOAl-16" value="LOREMTEXT[445] = &quot;&lt;font face=&quot;Courier New&quot;&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/font&gt;&quot;;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="90" y="650" width="580" height="30" as="geometry" />
@@ -69,6 +68,33 @@
         </mxCell>
         <mxCell id="-FGNjURSMcfOHDu5cxDl-5" value="&lt;font face=&quot;Courier New&quot;&gt;len&lt;i&gt;n&lt;/i&gt; - integer 32&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="80" y="510" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a31n6v0AFF-439C_S_nv-8" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="80" y="230" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="OFQUt3sSmWvzci1TPOAl-2" value="&lt;font face=&quot;Courier New&quot;&gt;0x00&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="a31n6v0AFF-439C_S_nv-8" vertex="1">
+          <mxGeometry x="140" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a31n6v0AFF-439C_S_nv-1" value="&lt;font face=&quot;Courier New&quot;&gt;B&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="a31n6v0AFF-439C_S_nv-8">
+          <mxGeometry width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a31n6v0AFF-439C_S_nv-2" value="&lt;font face=&quot;Courier New&quot;&gt;L&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="a31n6v0AFF-439C_S_nv-8">
+          <mxGeometry x="20" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a31n6v0AFF-439C_S_nv-3" value="&lt;font face=&quot;Courier New&quot;&gt;A&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="a31n6v0AFF-439C_S_nv-8">
+          <mxGeometry x="40" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a31n6v0AFF-439C_S_nv-4" value="&lt;font face=&quot;Courier New&quot;&gt;S&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="a31n6v0AFF-439C_S_nv-8">
+          <mxGeometry x="60" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a31n6v0AFF-439C_S_nv-5" value="&lt;font face=&quot;Courier New&quot;&gt;T&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="a31n6v0AFF-439C_S_nv-8">
+          <mxGeometry x="80" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a31n6v0AFF-439C_S_nv-6" value="&lt;font face=&quot;Courier New&quot;&gt;0&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="a31n6v0AFF-439C_S_nv-8">
+          <mxGeometry x="100" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="a31n6v0AFF-439C_S_nv-7" value="&lt;font face=&quot;Courier New&quot;&gt;1&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="a31n6v0AFF-439C_S_nv-8">
+          <mxGeometry x="120" width="20" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

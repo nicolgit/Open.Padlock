@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -71,6 +72,13 @@ namespace Blast.ViewModel
             current.File = new Model.DataFile.BlastFile();
 
             await navigationService.GoToViewModelAsync(nameof(WelcomeSelectStorageViewModel));
+        }
+
+        [RelayCommand]
+        async Task CopyFileURI()
+        {
+            await Clipboard.Default.SetTextAsync(FileURI);
+            await Snackbar.Make("FileURI copied to clipboard!", duration: new TimeSpan(1000)).Show();
         }
     }
 }
