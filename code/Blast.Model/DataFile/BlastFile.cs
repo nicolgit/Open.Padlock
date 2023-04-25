@@ -64,8 +64,7 @@ namespace Blast.Model.DataFile
                             string decryptedLorem = decryptBytes (algorithm, encryptedLorem);
 
                             // check if password is OK before
-                            int compare = decryptedLorem.CompareTo(LOREM_TEXT);
-                            if (compare != 0)
+                            if (decryptedLorem == null || decryptedLorem.CompareTo(LOREM_TEXT) != 0)
                             {
                                 throw new Exceptions.BlastFileWrongPasswordException();
                             }
@@ -106,7 +105,6 @@ namespace Blast.Model.DataFile
 
             //https://stackoverflow.com/questions/75988087/how-can-i-verify-that-the-key-and-iv-i-am-using-are-the-correct-ones
             //https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.rfc2898derivebytes?view=net-7.0
-
 
             // Create a random salt.
             var salt = new byte[8];
@@ -299,7 +297,7 @@ namespace Blast.Model.DataFile
         private const int C_BLOCKSIZE_LEGACY = 2000;
         private const string C_VERIFYTEXT_LEGACY = "Era invevitabile: l'odore delle mandorle amare gli ricordava sempre il destino degli amori contrastati. Il dottor Juvenal Urbino lo sentì appena entrato nella casa ancora in penombra, dove era accorso d'urgenza per occuparsi di un caso che per lui aveva cessato di essere urgente da molti anni. Il rifugiato antillano Jeremiah de Saint-Amour, invalido di guerra, foto- grafo di bambini e il suo avversario di scacchi più pietoso, si era messo in salvo dai tormenti della memoria con un suffumigio di cianuro di oro.";
 
-        private const int BLOCK_SIZE = 100; //4000;
+        private const int BLOCK_SIZE = 12000;
         private const string LOREM_TEXT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
         private static byte[] encryptString(SymmetricAlgorithm algorithm, string stringToEncrypt)
@@ -312,6 +310,9 @@ namespace Blast.Model.DataFile
         private string decryptBytes (SymmetricAlgorithm algorithm, byte[] bytesToDecrypt) 
         {
             var decrypted = algorithm.DecryptCbc(bytesToDecrypt, algorithm.IV);
+
+            if (decrypted == null) return null;
+
             string decryptedString = new UTF8Encoding(false).GetString(decrypted);
             return decryptedString;
         }

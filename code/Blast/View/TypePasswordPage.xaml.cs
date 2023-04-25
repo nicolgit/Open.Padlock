@@ -20,6 +20,13 @@ public partial class TypePasswordPage : ContentPage
     }
 
     private async void Password_Completed(object sender, EventArgs e) {
+        EntryPassword.Focus();
+
         await viewmodel.OpenFile();
+    }
+
+    void Password_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
+    {
+        viewmodel.ErrorMessage = "";
     }
 }

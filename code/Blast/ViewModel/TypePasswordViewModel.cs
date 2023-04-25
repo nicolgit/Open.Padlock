@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,11 +55,15 @@ namespace Blast.ViewModel
                 settings.SaveAll();
                 await Shell.Current.GoToAsync($"//{nameof(View.MainPage)}");
             }
-            catch (Model.Exceptions.BlastFileWrongPasswordException)
+            catch (Exception e) when ( e is CryptographicException ||
+                                       e is Model.Exceptions.BlastFileWrongPasswordException )
             {
                 ErrorMessage = "WRONG Password";
             }
-            
+            catch (Exception e)
+            {
+                ErrorMessage = $"Unexpected Exception {e.GetType().ToString()} {e.Message}";
+            }
         }
 
         [RelayCommand]
