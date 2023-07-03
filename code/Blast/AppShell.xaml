@@ -20,4 +20,6 @@
     </FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" ><ShellContent Title="Settings" Route="SettingsPage4" ContentTemplate="{DataTemplate view:SettingsPage}" /></FlyoutItem>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" ><ShellContent Title="About Blast" Route="SettingsPage5" ContentTemplate="{DataTemplate view:SettingsPage}" /></FlyoutItem>
+
+    <ShellContent Route="CardViewPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:CardViewPage}"/>
 </Shell>

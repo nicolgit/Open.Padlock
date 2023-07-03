@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             xmlns:helper="clr-namespace:Blast.Helper"
+             
+             x:Class="Blast.View.CardViewPage"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Sign out" Command="{Binding CloseCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Close}" FontFamily="MaterialIcons" Size="36" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding Title}" 
+            HorizontalOptions="Center" />
+        <Label 
+            Text="{Binding Notes}" LineBreakMode="WordWrap"
+        />
+    </VerticalStackLayout>
+</ContentPage>

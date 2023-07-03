@@ -10,7 +10,7 @@
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
-    <ListView ItemsSource="{Binding Rows}" >
+    <ListView ItemsSource="{Binding Rows}" ItemSelected="ListView_ItemSelected" >
         <ListView.ItemTemplate>
             <DataTemplate>
                 <ViewCell>
@@ -28,7 +28,7 @@
 
                             <Image WidthRequest="36" HeightRequest="36" Margin="5" AnchorX="-1">
                                 <Image.Source>
-                                    <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Summarize}" FontFamily="MaterialIcons" Size="100" Color="red" />    
+                                    <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Chrome_reader_mode}" FontFamily="MaterialIcons" Size="48" Color="{DynamicResource Primary}" />    
                                 </Image.Source>
                             </Image>
 

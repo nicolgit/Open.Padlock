@@ -12,6 +12,7 @@ namespace Blast.Model.Services
         {
         }
 
+        public Model.DataFile.Card Card { get; set; }
         public Model.DataFile.BlastDocument Document { get; set; }
         public Model.DataFile.BlastFile File { get; set; }
         public IBlastStorage CloudStorage;

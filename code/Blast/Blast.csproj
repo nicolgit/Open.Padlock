@@ -61,5 +61,11 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Blast.Model\Blast.Model.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="UIServices\View\CardViewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
 	
 </Project>

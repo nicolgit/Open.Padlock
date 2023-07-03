@@ -49,5 +49,12 @@ namespace Blast.ViewModel
             
             await navigationService.GoToViewModelAsync(nameof(WelcomeSelectStorageViewModel));
         }
+
+        [RelayCommand]
+        async Task Open(Blast.Model.DataFile.Card selectedRow)
+        {
+            current.Card = selectedRow;
+            await navigationService.GoToViewModelAsync(nameof(CardViewViewModel));
+        }
     }
 }

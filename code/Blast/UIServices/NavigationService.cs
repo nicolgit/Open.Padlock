@@ -17,10 +17,10 @@ namespace Blast.UIServices
     {
         public Task GoToAsync (ShellNavigationState navigationState)
         {
+            // Code to run on the main thread
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                // Code to run on the main thread
-                Shell.Current.GoToAsync(navigationState);
+                Shell.Current.GoToAsync(navigationState);   
             });
             return Task.CompletedTask;
         }

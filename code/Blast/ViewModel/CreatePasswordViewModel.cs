@@ -46,7 +46,7 @@ namespace Blast.ViewModel
             get
             {
                 if (Complexity < 1000000000)
-                    return "less than a bilion iterations";
+                    return "less than a billion iterations";
                 else
                     return $"{Complexity.ToString("#,##0,,,B", CultureInfo.InvariantCulture)} (Billions) iterations";
             }

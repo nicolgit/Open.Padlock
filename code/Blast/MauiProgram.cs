@@ -25,6 +25,7 @@ public static class MauiProgram
         builder.Services.AddTransient<Blast.View.CreatePasswordPage>();
 		builder.Services.AddTransient<Blast.View.TypePasswordPage>();
         builder.Services.AddTransient<Blast.View.SettingsPage>();
+		builder.Services.AddTransient<Blast.View.CardViewPage>();
 
 		// UI Services
 		builder.Services.AddSingleton<Blast.UIServices.IDialogService>(new Blast.UIServices.DialogService());
@@ -38,6 +39,7 @@ public static class MauiProgram
         builder.Services.AddTransient<Blast.ViewModel.CreatePasswordViewModel>();
 		builder.Services.AddTransient<Blast.ViewModel.TypePasswordViewModel>();
         builder.Services.AddTransient<Blast.ViewModel.SettingsViewModel>();
+		builder.Services.AddTransient<Blast.ViewModel.CardViewViewModel>();
 
 		// models
 		builder.Services.AddSingleton<Model.Services.Settings>();
