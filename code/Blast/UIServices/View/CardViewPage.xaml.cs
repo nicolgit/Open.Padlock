@@ -11,4 +11,12 @@ public partial class CardViewPage : ContentPage
 		InitializeComponent();
         BindingContext = viewModel = vm;
     }
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+
+        viewModel.Initialize();
+    }
+
 }

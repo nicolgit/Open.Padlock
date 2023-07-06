@@ -24,6 +24,14 @@ namespace Blast.ViewModel
             navigationService = n;
         }
 
+        internal void Initialize()
+        {
+            OnPropertyChanged(nameof(Title));
+            OnPropertyChanged(nameof(Notes));
+            OnPropertyChanged(nameof(Attributes));
+        }
+
+
         [RelayCommand]
         async Task Close()
         {
