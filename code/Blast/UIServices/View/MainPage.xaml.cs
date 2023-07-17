@@ -23,7 +23,7 @@ public partial class MainPage : ContentPage
     {
         if (e.SelectedItem != null)
         {
-            viewModel.OpenCommand.Execute( (Model.DataFile.Card)e.SelectedItem);
+            viewModel.OpenCommand.Execute(( Blast.ViewModel.Row.MainViewModelItem)e.SelectedItem);
         }
     }
 }

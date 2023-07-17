@@ -9,4 +9,23 @@
         <Setter Property="Spacing" Value="12"/>
     </Style>
 
+    <Style x:Key="LabelTitle" TargetType="Label">
+        <Setter Property="FontSize" Value="48"></Setter>
+        <Setter Property="FontAttributes" Value="Bold"></Setter>
+    </Style>
+
+    <Style x:Key="LabelRowText" TargetType="Label">
+        <Setter Property="FontSize" Value="24"></Setter>
+        <Setter Property="FontAttributes" Value="Bold"></Setter>
+    </Style>
+    <Style x:Key="LabelRowUpperText" TargetType="Label">
+        
+    </Style>
+
+    <Style x:Key="LabelNotesField" TargetType="Label">
+        <Setter Property="LineBreakMode" Value="WordWrap"></Setter>
+        <Setter Property="FontAttributes" Value="Italic"></Setter>
+    </Style>
+
+    <x:Int32 x:Key="MarginDefault">12</x:Int32>
 </ResourceDictionary>

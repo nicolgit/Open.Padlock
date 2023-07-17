@@ -52,7 +52,7 @@
 
                                     <Label 
                                         LineBreakMode="NoWrap"
-                                        Text="{Binding Description}"
+                                        Text="{Binding Text01}"
                                         FontSize="{OnPlatform Android={OnIdiom Phone=10, Tablet=14}, iOS={OnIdiom Phone=12, Tablet=14}, MacCatalyst=14, WinUI={OnIdiom Phone=12, Tablet=12, Desktop=12}}" />
                                     <Label 
                                         Margin="0,0,10,0"

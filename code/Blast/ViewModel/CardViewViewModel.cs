@@ -15,7 +15,7 @@ namespace Blast.ViewModel
 
         public string Title => current.Card.Title;
         public string Notes => current.Card.Notes;
-        public List<BlastItem> Attributes {get;set;}
+        public List<Row.CardViewViewModelItem> Attributes {get;set;}
 
         public CardViewViewModel(Model.Services.Current c, Model.Services.Settings s, UIServices.INavigationService n)
         {
@@ -26,6 +26,12 @@ namespace Blast.ViewModel
 
         internal void Initialize()
         {
+            Attributes = new List<Row.CardViewViewModelItem>();
+            foreach(var a in current.Card.Rows)
+            {
+                Attributes.Add(new Row.CardViewViewModelItem(a));
+            }
+
             OnPropertyChanged(nameof(Title));
             OnPropertyChanged(nameof(Notes));
             OnPropertyChanged(nameof(Attributes));
