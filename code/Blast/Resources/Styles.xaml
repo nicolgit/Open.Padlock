@@ -7,11 +7,14 @@
     <Color x:Key="Primary">#512BD4</Color>
     <Color x:Key="Light">#DFD8F7</Color>
     <Color x:Key="Dark">#2B0B98</Color>
-    <Color x:Key="White">White</Color>
-    <Color x:Key="Black">Black</Color>
+    <Color x:Key="RealWhite">White</Color>
+    <Color x:Key="White">#DDDDDD</Color>
+    <Color x:Key="RealBlack">Black</Color>
+    <Color x:Key="Black">#222222</Color>
     <Color x:Key="LightGray">#E5E5E1</Color>
     <Color x:Key="MidGray">#969696</Color>
     <Color x:Key="DarkGray">#505050</Color>
+
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="LightBrush" Color="{StaticResource Light}"/>
     <SolidColorBrush x:Key="DarkBrush" Color="{StaticResource Dark}"/>
@@ -30,7 +33,7 @@
     <Color x:Key="Blue100Accent">#3E8EED</Color>
     <Color x:Key="Blue200Accent">#72ACF1</Color>
     <Color x:Key="Blue300Accent">#A7CBF6</Color>
-    
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>
@@ -452,4 +455,5 @@
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource DarkGray}, Dark={StaticResource LightGray}}" />
     </Style>
+
 </ResourceDictionary>

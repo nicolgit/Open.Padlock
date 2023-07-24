@@ -4,36 +4,57 @@
              
              xmlns:helper="clr-namespace:Blast.Helper"
              
+             x:Name="MyCardViewPage"
              x:Class="Blast.View.CardViewPage"
              Title="{Binding Title}">
+    <ContentPage.Resources>
+      
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="close" Command="{Binding CloseCommand}">
             <ToolbarItem.IconImageSource>
-                <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Close}" FontFamily="MaterialIcons" Size="36" />
+                <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Close}" FontFamily="MaterialIcons" Size="72"/>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ScrollView>
         <VerticalStackLayout>
-            <Image Source="https://nicolgit.github.io/assets/images/bio-photo.jpg" WidthRequest="64" HeightRequest="64"/>
+            <Image Source="https://www.pngall.com/wp-content/uploads/5/Albert-Einstein.png" WidthRequest="64" HeightRequest="64"/>
             <Label Text="{Binding Title}" Style="{StaticResource LabelTitle}" Margin="{StaticResource MarginDefault}"/>
             <Label Text="{Binding Notes}" Style="{StaticResource LabelNotesField}" Margin="{StaticResource MarginDefault}"/>
-            <ListView ItemsSource="{Binding Attributes}" >
-                <ListView.ItemTemplate>
+            <StackLayout Orientation="Vertical"
+                BindableLayout.ItemsSource="{Binding Attributes}"
+                >
+                <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Grid RowSpacing="0" ColumnSpacing="0" Margin="{StaticResource MarginDefault}">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Label Grid.Row="0" Text="{Binding UpperText}" Style="{StaticResource LabelRowUpperText}" />
-                                <Label Grid.Row="1" Text="{Binding MainText}" Style="{StaticResource LabelRowText}"/>
-                            </Grid>
-                        </ViewCell>
+                        <Grid RowSpacing="0" ColumnSpacing="0" Margin="{StaticResource MarginDefault}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Text="{Binding UpperText}" Style="{StaticResource LabelRowUpperText}" />
+                            <Label Grid.Row="1" Text="{Binding MainText}" Style="{StaticResource LabelRowText}"/>
+                            <HorizontalStackLayout Grid.Row="1" Grid.Column="1">
+                                <ImageButton WidthRequest="32" HeightRequest="32" ToolTipProperties.Text="show/hide" IsVisible="{Binding IsPassword}" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.ToggleShowPasswordCommand}" CommandParameter="{Binding .}" >
+                                    <ImageButton.Source>
+                                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Remove_red_eye}" FontFamily="MaterialIcons" Size="32" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+                                    </ImageButton.Source>
+                                </ImageButton>
+                                <ImageButton WidthRequest="32" HeightRequest="32" ToolTipProperties.Text="copy" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.CopyTextCommand}" CommandParameter="{Binding .}">
+                                    <ImageButton.Source>
+                                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Content_copy}" FontFamily="MaterialIcons" Size="32" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
+                                    </ImageButton.Source>
+                                </ImageButton>
+                                <Button Text="prova" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.CloseCommand}"/>
+                            </HorizontalStackLayout>
+                        </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
         </VerticalStackLayout>
     </ScrollView>
    

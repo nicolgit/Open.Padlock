@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace Blast.ViewModel.Row
 {
-    public class CardViewViewModelItem
+    public partial class CardViewViewModelItem: ObservableObject
     {
         public CardViewViewModelItem(Blast.Model.DataFile.Attribute item)
         {
+            PasswordIsVisible = false;
             Model = item;
         }
 
@@ -25,12 +28,15 @@ namespace Blast.ViewModel.Row
                 }
                 else
                 {
-                    return Model.Type == Blast.Model.DataFile.AttributeType.TYPE_PASSWORD ? "******" : Model.Value;
+                    return Model.Type == Blast.Model.DataFile.AttributeType.TYPE_PASSWORD && !PasswordIsVisible ? "******" : Model.Value;
                 }
             }
         }
 
-        public Blast.Model.DataFile.Attribute Model { get; set;}
+        public bool IsPassword => Model.Type == Blast.Model.DataFile.AttributeType.TYPE_PASSWORD;
 
+        public bool PasswordIsVisible { get; set; }
+
+        public Blast.Model.DataFile.Attribute Model { get; set;}
     }
 }
