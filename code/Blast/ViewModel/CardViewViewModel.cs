@@ -53,7 +53,6 @@ namespace Blast.ViewModel
         void ToggleShowPassword(Row.CardViewViewModelItem item)
         {
             item.PasswordIsVisible = !item.PasswordIsVisible;
-            //Attributes.Add(new Row.CardViewViewModelItem(new Model.DataFile.Attribute() { Name="pippo", Value="pluto", Type=Model.DataFile.AttributeType.TYPE_STRING}))
         }
 
         [RelayCommand]
@@ -61,7 +60,7 @@ namespace Blast.ViewModel
         {
             await Clipboard.Default.SetTextAsync(item.Model.Value);
 
-            await dialogService.DisplayAlertAsync("", $"text:{item.MainText} copied to clipboard", "OK");
+            await dialogService.DisplayAlertAsync("", $"[{item.MainText}] copied to clipboard", "OK");
         }
     }
 

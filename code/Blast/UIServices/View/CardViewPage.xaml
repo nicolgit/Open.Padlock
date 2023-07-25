@@ -34,22 +34,25 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Text="{Binding UpperText}" Style="{StaticResource LabelRowUpperText}" />
-                            <Label Grid.Row="1" Text="{Binding MainText}" Style="{StaticResource LabelRowText}"/>
-                            <HorizontalStackLayout Grid.Row="1" Grid.Column="1">
-                                <ImageButton WidthRequest="32" HeightRequest="32" ToolTipProperties.Text="show/hide" IsVisible="{Binding IsPassword}" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.ToggleShowPasswordCommand}" CommandParameter="{Binding .}" >
+                            <HorizontalStackLayout Grid.Row="1">
+                                <Label Grid.Row="1" Text="{Binding MainText}" Style="{StaticResource LabelRowText}" Margin="0,0,12,0"/>
+                                <ImageButton WidthRequest="24" HeightRequest="32" ToolTipProperties.Text="show/hide" IsVisible="{Binding PasswordIsVisible}" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.ToggleShowPasswordCommand}" CommandParameter="{Binding .}" >
                                     <ImageButton.Source>
-                                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Remove_red_eye}" FontFamily="MaterialIcons" Size="32" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+                                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Visibility}" FontFamily="MaterialIcons" Size="24" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
                                     </ImageButton.Source>
                                 </ImageButton>
-                                <ImageButton WidthRequest="32" HeightRequest="32" ToolTipProperties.Text="copy" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.CopyTextCommand}" CommandParameter="{Binding .}">
+                                <ImageButton WidthRequest="24" HeightRequest="32" ToolTipProperties.Text="show/hide" IsVisible="{Binding PasswordIsNotVisible}" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.ToggleShowPasswordCommand}" CommandParameter="{Binding .}" >
                                     <ImageButton.Source>
-                                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Content_copy}" FontFamily="MaterialIcons" Size="32" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
+                                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Visibility_off}" FontFamily="MaterialIcons" Size="24" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
                                     </ImageButton.Source>
                                 </ImageButton>
-                                <Button Text="prova" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.CloseCommand}"/>
+                                <ImageButton WidthRequest="24" HeightRequest="32" ToolTipProperties.Text="copy" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.CopyTextCommand}" CommandParameter="{Binding .}">
+                                    <ImageButton.Source>
+                                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Content_copy}" FontFamily="MaterialIcons" Size="24" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
+                                    </ImageButton.Source>
+                                </ImageButton>
                             </HorizontalStackLayout>
                         </Grid>
                     </DataTemplate>

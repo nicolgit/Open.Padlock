@@ -35,7 +35,25 @@ namespace Blast.ViewModel.Row
 
         public bool IsPassword => Model.Type == Blast.Model.DataFile.AttributeType.TYPE_PASSWORD;
 
-        public bool PasswordIsVisible { get; set; }
+        private bool passwordIsVisible;
+        public bool PasswordIsVisible { 
+            get
+            {
+                return passwordIsVisible;
+            }
+            set
+            {
+                if (passwordIsVisible != value)
+                {
+                    passwordIsVisible = value;
+                    OnPropertyChanged(nameof(PasswordIsVisible));
+                    OnPropertyChanged(nameof(PasswordIsNotVisible));
+                    OnPropertyChanged(nameof(MainText));
+                }
+            }
+        }
+
+        public bool PasswordIsNotVisible => !passwordIsVisible && IsPassword;
 
         public Blast.Model.DataFile.Attribute Model { get; set;}
     }
