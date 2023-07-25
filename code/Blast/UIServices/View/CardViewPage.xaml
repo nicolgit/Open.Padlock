@@ -22,12 +22,10 @@
             <Image Source="https://www.pngall.com/wp-content/uploads/5/Albert-Einstein.png" WidthRequest="64" HeightRequest="64"/>
             <Label Text="{Binding Title}" Style="{StaticResource LabelTitle}" Margin="{StaticResource MarginDefault}"/>
             <Label Text="{Binding Notes}" Style="{StaticResource LabelNotesField}" Margin="{StaticResource MarginDefault}"/>
-            <StackLayout Orientation="Vertical"
-                BindableLayout.ItemsSource="{Binding Attributes}"
-                >
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Attributes}" >
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <Grid RowSpacing="0" ColumnSpacing="0" Margin="{StaticResource MarginDefault}">
+                        <Grid RowSpacing="0" ColumnSpacing="0" Padding="{StaticResource MarginDefault}" Style="{StaticResource GridWithHoverEffect}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
@@ -57,7 +55,7 @@
                         </Grid>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
-            </StackLayout>
+            </VerticalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
    
