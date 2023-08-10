@@ -18,6 +18,11 @@ public partial class MainPage : ContentPage
 
 		viewModel.Initialize();
     }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        MessagingCenter.Subscribe<MainViewModel, string>(viewModel, viewModel.MESSAGE_OPENSEARCH, OnSearchOpen);
+    }
 
     private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
@@ -25,6 +30,26 @@ public partial class MainPage : ContentPage
         {
             viewModel.OpenCommand.Execute(( Blast.ViewModel.Row.MainViewModelItem)e.SelectedItem);
         }
+    }
+
+    private void OnSearchOpen(MainViewModel arg1, string arg2)
+    {
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            // https://github.com/xamarin/Xamarin.Forms/issues/2094
+            await System.Threading.Tasks.Task.Delay(250);
+            searchBar.Focus();
+        });
+    }
+
+    private void searchBar_SearchButtonPressed(object sender, EventArgs e)
+    {
+
+    }
+
+    private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+
     }
 }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Graph;
 
@@ -16,6 +17,8 @@ namespace Blast.ViewModel
         private UIServices.INavigationService navigationService;
 
         private List<Row.MainViewModelItem> rows;
+
+        public string MESSAGE_OPENSEARCH = "OpenSearch";
 
         public MainViewModel(Model.Services.Current c, Model.Services.Settings s, UIServices.INavigationService n)
         {
@@ -32,6 +35,12 @@ namespace Blast.ViewModel
         //public List<Blast.Model.DataFile.Card> Rows => current.Document.Cards;
         //public IEnumerator<Blast.Model.DataFile.Card> Rows => current.Document.Cards;
         public List<Row.MainViewModelItem> Rows => rows;
+
+        [ObservableProperty]
+        private bool searchBarIsVisible;
+
+        [ObservableProperty]
+        private string searchBarText;
 
         private void loadCards()
         {
@@ -63,6 +72,16 @@ namespace Blast.ViewModel
         {
             current.Card = selectedRow.model;
             await navigationService.GoToViewModelAsync(nameof(CardViewViewModel));
+        }
+
+        [RelayCommand]
+        void ToggleSearchBar()
+        {
+            SearchBarIsVisible = !SearchBarIsVisible;
+
+            if (SearchBarIsVisible)
+                MessagingCenter.Send(this, this.MESSAGE_OPENSEARCH, "");
+
         }
     }
 }
