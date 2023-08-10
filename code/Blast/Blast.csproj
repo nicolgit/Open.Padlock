@@ -93,7 +93,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="UIServices\View\CardViewPage.xaml">
+	  <MauiXaml Update="View\CardViewPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
