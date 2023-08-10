@@ -17,11 +17,11 @@ public partial class TypePasswordPage : ContentPage
         base.OnNavigatedTo(args);
 
         viewmodel.Initialize();
+
+        EntryPassword.Focus();
     }
 
     private async void Password_Completed(object sender, EventArgs e) {
-        EntryPassword.Focus();
-
         await viewmodel.OpenFile();
     }
 
