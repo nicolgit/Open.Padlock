@@ -1,4 +1,5 @@
 ﻿using Blast.ViewModel;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Blast.View;
 
@@ -21,7 +22,20 @@ public partial class MainPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        MessagingCenter.Subscribe<MainViewModel, string>(viewModel, viewModel.MESSAGE_OPENSEARCH, OnSearchOpen);
+
+        WeakReferenceMessenger.Default.Register<MainViewModel.OpenSearchBarMessage>(this, (r, m) =>
+        {
+            // if I am showing the searchBar, set also the focus on it
+            if(m.Value == true)
+            {
+                MainThread.BeginInvokeOnMainThread(async () =>
+                {
+                    // https://github.com/xamarin/Xamarin.Forms/issues/2094
+                    await System.Threading.Tasks.Task.Delay(250);
+                    searchBar.Focus();
+                });
+            }
+        });
     }
 
     private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -30,16 +44,6 @@ public partial class MainPage : ContentPage
         {
             viewModel.OpenCommand.Execute(( Blast.ViewModel.Row.MainViewModelItem)e.SelectedItem);
         }
-    }
-
-    private void OnSearchOpen(MainViewModel arg1, string arg2)
-    {
-        MainThread.BeginInvokeOnMainThread(async () =>
-        {
-            // https://github.com/xamarin/Xamarin.Forms/issues/2094
-            await System.Threading.Tasks.Task.Delay(250);
-            searchBar.Focus();
-        });
     }
 
     private void searchBar_SearchButtonPressed(object sender, EventArgs e)

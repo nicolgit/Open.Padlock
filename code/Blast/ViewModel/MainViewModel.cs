@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Graph;
 
 namespace Blast.ViewModel
@@ -18,7 +20,12 @@ namespace Blast.ViewModel
 
         private List<Row.MainViewModelItem> rows;
 
-        public string MESSAGE_OPENSEARCH = "OpenSearch";
+        public class OpenSearchBarMessage: ValueChangedMessage<bool>
+        {
+            public OpenSearchBarMessage(bool isVisible): base (isVisible)
+            {
+            }
+        }
 
         public MainViewModel(Model.Services.Current c, Model.Services.Settings s, UIServices.INavigationService n)
         {
@@ -79,9 +86,7 @@ namespace Blast.ViewModel
         {
             SearchBarIsVisible = !SearchBarIsVisible;
 
-            if (SearchBarIsVisible)
-                MessagingCenter.Send(this, this.MESSAGE_OPENSEARCH, "");
-
+            WeakReferenceMessenger.Default.Send(new OpenSearchBarMessage(SearchBarIsVisible));
         }
     }
 }
