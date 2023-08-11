@@ -179,7 +179,7 @@ namespace Blast.Model.DataFile
 
                     card.Id = Guid.Parse(node.Attribute("guid").Value);
                     card.Title = node.Attribute("title").Value;
-                    card.IsFavotire = node.Attribute("favorite") != null ? node.Attribute("favorite").Value.Equals("1") : false;
+                    card.IsFavorite = node.Attribute("favorite") != null ? node.Attribute("favorite").Value.Equals("1") : false;
                     card.UsedCounter = node.Attribute("usedcounter") != null ? int.Parse(node.Attribute("usedcounter").Value) : 0;
                     card.Notes = "";
 

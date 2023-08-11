@@ -23,7 +23,7 @@
 
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
-      <uap:VisualElements  DisplayName="blast">
+      <uap:VisualElements  DisplayName="blast" Description="lorem ipsut dixit amen blast">
         <uap:DefaultTile/>
       </uap:VisualElements >
     </Application>

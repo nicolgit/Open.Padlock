@@ -32,7 +32,6 @@
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<Title></Title>
 		<SignAssembly>False</SignAssembly>
-		<WindowsPackageType>MSIX</WindowsPackageType>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">

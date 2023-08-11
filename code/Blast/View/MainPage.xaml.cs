@@ -38,6 +38,12 @@ public partial class MainPage : ContentPage
         });
     }
 
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        WeakReferenceMessenger.Default.Unregister<MainViewModel.OpenSearchBarMessage>(this);
+    }
+
     private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         if (e.SelectedItem != null)
@@ -53,7 +59,7 @@ public partial class MainPage : ContentPage
 
     private void searchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-
+        viewModel.LoadCardsCommand.Execute(null);
     }
 }
 

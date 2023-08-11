@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Blast.Model.DataFile
 {
@@ -17,7 +18,7 @@ namespace Blast.Model.DataFile
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Notes { get; set; }
-        public bool IsFavotire { get; set; }
+        public bool IsFavorite { get; set; }
         public DateTime LastUpdateDateTime { get; set; }
         public DateTime LastOpenedDateTime { get; set; }
         public int UsedCounter { get; set; }
@@ -62,12 +63,50 @@ namespace Blast.Model.DataFile
             return sb.ToString();
         }
 
-        public bool AdvancedCompare(string s)
-        {
-            var me = RemoveDiacritics(this.ToString()).ToLower();
-            s = RemoveDiacritics(s).ToLower();
+        public enum AdvancedSearchResult { NotFound, InTitle, InBody };
 
-            return me.Contains(s);
+        public AdvancedSearchResult AdvancedSearch (string text)
+        {
+            var words = text.Split(" ");
+            var result = AdvancedSearchResult.NotFound;
+
+            foreach (var word in words)
+            {
+                if (word.Length > 0)
+                {
+                    var tempResult = this.ContainsWord(word);
+
+                    if (tempResult == AdvancedSearchResult.NotFound)
+                    {
+                        return AdvancedSearchResult.NotFound;
+                    }
+
+                    if (tempResult == AdvancedSearchResult.InTitle || result == AdvancedSearchResult.InTitle)
+                    {
+                        result = AdvancedSearchResult.InTitle;
+                    }
+                    else
+                    {
+                        result = AdvancedSearchResult.InBody;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public AdvancedSearchResult ContainsWord(string s)
+        {
+            s = RemoveDiacritics(s);
+
+            if (this.Title != null)
+            {
+                if (RemoveDiacritics(this.Title).Contains(s, StringComparison.InvariantCultureIgnoreCase))
+                    return AdvancedSearchResult.InTitle;
+            }
+
+            var me = RemoveDiacritics(this.ToString());
+            return me.Contains(s, StringComparison.InvariantCultureIgnoreCase) ? AdvancedSearchResult.InBody : AdvancedSearchResult.NotFound;
         }
 
         // https://stackoverflow.com/questions/249087/how-do-i-remove-diacritics-accents-from-a-string-in-net

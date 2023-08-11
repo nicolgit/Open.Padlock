@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Blast.Model.DataFile;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Graph;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Blast.ViewModel
 {
@@ -36,11 +38,9 @@ namespace Blast.ViewModel
 
         internal void Initialize()
         {
-            loadCards();
+            LoadCards();
         }
 
-        //public List<Blast.Model.DataFile.Card> Rows => current.Document.Cards;
-        //public IEnumerator<Blast.Model.DataFile.Card> Rows => current.Document.Cards;
         public List<Row.MainViewModelItem> Rows => rows;
 
         [ObservableProperty]
@@ -49,12 +49,31 @@ namespace Blast.ViewModel
         [ObservableProperty]
         private string searchBarText;
 
-        private void loadCards()
+        [RelayCommand]
+        void LoadCards()
         {
             rows = new List<Row.MainViewModelItem>();
-            foreach (var r in current.Document.Cards)
+
+            foreach (var card in current.Document.Cards)
             {
-                rows.Add(new Row.MainViewModelItem(r));
+                if (!SearchBarIsVisible || string.IsNullOrWhiteSpace(SearchBarText))
+                {
+                    rows.Add(new Row.MainViewModelItem(card));
+                }
+                else
+                {
+                    switch (card.AdvancedSearch(SearchBarText))
+                    {
+                        case Card.AdvancedSearchResult.InBody:
+                            rows.Add(new Row.MainViewModelItem(card));
+                            break;
+                        case Card.AdvancedSearchResult.InTitle:
+                            rows.Insert(0, new Row.MainViewModelItem(card));
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
 
             OnPropertyChanged(nameof(Rows));

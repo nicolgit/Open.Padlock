@@ -10,7 +10,7 @@ public partial class WelcomeNewOrExistingPage : ContentPage
         BindingContext = vm;
 	}
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
