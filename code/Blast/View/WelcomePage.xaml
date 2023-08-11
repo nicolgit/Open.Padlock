@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Blast.ViewModel"
+             xmlns:helper="clr-namespace:Blast.Helper"
+             x:Class="Blast.View.WelcomePage"
+             Title="Welcome"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             Loaded="ContentPage_Loaded"
+             >
+
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Style="{StaticResource VericalStackContent}">
+                <Image Source="dotnet_bot.png" WidthRequest="148" HeightRequest="148"/>
+
+                <Image WidthRequest="80" HeightRequest="80">
+                    <Image.Source>
+                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Home}" FontFamily="MaterialIcons" Size="36" />
+                    </Image.Source>
+                </Image>
+                
+                <ActivityIndicator IsRunning="true" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

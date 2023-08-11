@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Blast.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:view="clr-namespace:Blast.View"
+    >
+
+    <!-- fitst shell content is the default page shown on start-->
+    <ShellContent Route="WelcomePage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:WelcomePage}"/>
+    <ShellContent Route="WelcomeSelectStoragePage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:WelcomeSelectStoragePage}"/>
+    <ShellContent Route="WelcomeNewOrExistingPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:WelcomeNewOrExistingPage}"/>
+    
+    <ShellContent Route="CreatePasswordPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:CreatePasswordPage}"/>
+    <ShellContent Route="TypePasswordPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:TypePasswordPage}"/>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+        <ShellContent Route="MainPage" Title="Blast" ContentTemplate="{DataTemplate view:MainPage}" />
+        <ShellContent Title="Generate Password" Route="SettingsPage" ContentTemplate="{DataTemplate view:SettingsPage}" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" ><ShellContent Title="Settings" Route="SettingsPage4" ContentTemplate="{DataTemplate view:SettingsPage}" /></FlyoutItem>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" ><ShellContent Title="About Blast" Route="SettingsPage5" ContentTemplate="{DataTemplate view:SettingsPage}" /></FlyoutItem>
+
+    <ShellContent Route="CardViewPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate view:CardViewPage}"/>
+</Shell>

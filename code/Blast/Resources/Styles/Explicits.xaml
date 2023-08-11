@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    
+    <Style x:Key="VericalStackContent"  TargetType="VerticalStackLayout">
+        <Setter Property="Margin" Value="12"/>
+        <Setter Property="Spacing" Value="12"/>
+    </Style>
+
+    <Style x:Key="LabelTitle" TargetType="Label">
+        <Setter Property="FontSize" Value="48"></Setter>
+        <Setter Property="FontAttributes" Value="Bold"></Setter>
+    </Style>
+
+    <Style x:Key="LabelRowText" TargetType="Label">
+        <Setter Property="FontSize" Value="24"></Setter>
+        <Setter Property="FontAttributes" Value="Bold"></Setter>
+    </Style>
+    <Style x:Key="LabelRowUpperText" TargetType="Label">
+        
+    </Style>
+
+    <Style x:Key="LabelNotesField" TargetType="Label">
+        <Setter Property="LineBreakMode" Value="WordWrap"></Setter>
+        <Setter Property="FontAttributes" Value="Italic"></Setter>
+    </Style>
+
+
+    <Style x:Key="GridWithHoverEffect" TargetType="Grid">
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#00000000" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="LightGray" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+
+    <x:Int32 x:Key="MarginDefault">12</x:Int32>
+</ResourceDictionary>

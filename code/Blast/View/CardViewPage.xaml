@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             xmlns:helper="clr-namespace:Blast.Helper"
+             
+             x:Name="MyCardViewPage"
+             x:Class="Blast.View.CardViewPage"
+             Title="{Binding Title}">
+    <ContentPage.Resources>
+      
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="close" Command="{Binding CloseCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Close}" FontFamily="MaterialIcons" Size="72"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Image Source="https://www.pngall.com/wp-content/uploads/5/Albert-Einstein.png" WidthRequest="64" HeightRequest="64"/>
+            <Label Text="{Binding Title}" Style="{StaticResource LabelTitle}" Margin="{StaticResource MarginDefault}"/>
+            <Label Text="{Binding Notes}" Style="{StaticResource LabelNotesField}" Margin="{StaticResource MarginDefault}"/>
+            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Attributes}" >
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowSpacing="0" ColumnSpacing="0" Padding="{StaticResource MarginDefault}" Style="{StaticResource GridWithHoverEffect}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Text="{Binding UpperText}" Style="{StaticResource LabelRowUpperText}" />
+                            <HorizontalStackLayout Grid.Row="1">
+                                <Label Grid.Row="1" Text="{Binding MainText}" Style="{StaticResource LabelRowText}" Margin="0,0,12,0"/>
+                                <ImageButton WidthRequest="24" HeightRequest="32" ToolTipProperties.Text="show/hide" IsVisible="{Binding PasswordIsVisible}" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.ToggleShowPasswordCommand}" CommandParameter="{Binding .}" >
+                                    <ImageButton.Source>
+                                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Visibility}" FontFamily="MaterialIcons" Size="24" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+                                    </ImageButton.Source>
+                                </ImageButton>
+                                <ImageButton WidthRequest="24" HeightRequest="32" ToolTipProperties.Text="show/hide" IsVisible="{Binding PasswordIsNotVisible}" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.ToggleShowPasswordCommand}" CommandParameter="{Binding .}" >
+                                    <ImageButton.Source>
+                                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Visibility_off}" FontFamily="MaterialIcons" Size="24" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+                                    </ImageButton.Source>
+                                </ImageButton>
+                                <ImageButton WidthRequest="24" HeightRequest="32" ToolTipProperties.Text="copy" Command="{Binding Source={x:Reference MyCardViewPage}, Path=BindingContext.CopyTextCommand}" CommandParameter="{Binding .}">
+                                    <ImageButton.Source>
+                                        <FontImageSource Glyph="{x:Static helper:MaterialFontHelper.Content_copy}" FontFamily="MaterialIcons" Size="24" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
+                                    </ImageButton.Source>
+                                </ImageButton>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+   
+</ContentPage>

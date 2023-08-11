@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:Blast.ViewModel"
+             xmlns:helper="clr-namespace:Blast.Helper"
+             x:Class="Blast.View.WelcomeNewOrExistingPage"
+             Title="New or existing file"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Style="{StaticResource VericalStackContent}">
+                
+                <Label Text="Do you have a Blast vault or do you want to create a new one?" HorizontalOptions="Center" />
+                <Button Text="Create a new VAULT" Command="{Binding NewCommand}"/>
+                <Button Text="I want to open an existing VAULT" Command="{Binding ExistingCommand}"/>
+
+         
+                <Label FontFamily="MaterialIcons" Text="{x:Static helper:MaterialFontHelper.Houseboat}" FontSize="48" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

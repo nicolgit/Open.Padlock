@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Blast.View.SettingsPage"
+             Title="Settings"
+             >
+    <StackLayout>
+        <Label Text="UI Theme"/>
+        <Picker x:Name="picker" 
+                ItemsSource="{Binding Themes}"
+                ItemDisplayBinding="{Binding Title}"
+                SelectedItem="{Binding SelectedTheme}" 
+                SelectedIndexChanged="Theme_Changed"
+                Title="UI Theme"
+                >
+
+        </Picker>
+    </StackLayout>
+</ContentPage>
