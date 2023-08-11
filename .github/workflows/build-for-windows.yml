@@ -1,5 +1,6 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+# Information on how to build this action
+# https://www.andreasnesheim.no/setting-up-ci-for-your-net-maui-windows-app-with-github-actions/
+# https://www.youtube.com/watch?v=8lvdLa0v8zY
 
 name: build for Windows
 
@@ -23,6 +24,15 @@ jobs:
         dotnet-version: 7.0.x
     - name: Install MAUI workload
       run: dotnet workload install maui
+    
+    - name: Decrypt PFX File
+      run: |
+        echo "${{ secrets.WINDOWS_PFX_FILE }}" > cert.pfx.asc
+        certutil -decode cert.pfx.asc cert.pfx
+    - name: Add Cert to Store
+      run: certutil -user -q -p ${{ secrets.WINDOWS_PFX_PASSWORD }} -importpfx cert.pfx NoRoot
+      
     - name: Build
-      run: dotnet build code/Blast/Blast.sln -c Release -f:net7.0-windows10.0.19041.0
+      run: dotnet publish -c Release -f:net6.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="${{ secrets.WINDOWS_PFX_THUMBPRINT }}"
+      
     
