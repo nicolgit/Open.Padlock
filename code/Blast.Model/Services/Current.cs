@@ -12,6 +12,8 @@ namespace Blast.Model.Services
         {
         }
 
+        public string ApplicationVersion = "0.0.1"; // DO NOT CHANGE - updated during the build process
+
         public Model.DataFile.Card Card { get; set; }
         public Model.DataFile.BlastDocument Document { get; set; }
         public Model.DataFile.BlastFile File { get; set; }
