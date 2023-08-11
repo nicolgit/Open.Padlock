@@ -38,7 +38,7 @@ jobs:
         sed -i 's/>0.0.1</$1.0.0.{{ env.build_timestamp }})/g'  code\Blast\Blast.csproj 
         cat code\Blast\Blast.csproj
         sed -i 's/>0.0.1</$1.0.0.{{ env.build_timestamp }})/g'  code\Blast.Model\Services\Current.cs 
-        cat code\Blast\Blast.csproj
+        cat code\Blast.Model\Services\Current.cs
         
     - name: Build
       run: dotnet publish code/Blast/Blast.sln -c Release -f:net7.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="${{ secrets.WINDOWS_PFX_THUMBPRINT }}"
