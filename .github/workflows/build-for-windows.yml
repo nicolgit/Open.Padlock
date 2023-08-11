@@ -35,9 +35,9 @@ jobs:
     - name: Update software version
       run: |
         echo "using this build number as minor version: ${{ github.run_number }}"
-        sed -i 's/>0.0.1</1.0.0.${{ env.build_timestamp }})/g'  code\Blast\Blast.csproj 
+        sed -i 's/>0.0.1</>1.0.0.${{ github.run_number }}</g'  code\Blast\Blast.csproj 
         cat code\Blast\Blast.csproj
-        sed -i 's/>0.0.1</1.0.0.${{ env.build_timestamp }})/g'  code\Blast.Model\Services\Current.cs 
+        sed -i 's/0.0.1</1.0.0.${{ github.run_number }}/g'  code\Blast.Model\Services\Current.cs 
         cat code\Blast.Model\Services\Current.cs
         
     - name: Build
