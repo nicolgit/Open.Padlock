@@ -1,15 +1,12 @@
 # Information on how to build this action
 # https://www.andreasnesheim.no/setting-up-ci-for-your-net-maui-windows-app-with-github-actions/
 # https://www.youtube.com/watch?v=8lvdLa0v8zY
+# https://github.com/dotnet/maui/issues/16696
 
 name: build for Windows
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "build-for-windows" ]
-  pull_request:
-    branches: [ "build-for-windows" ]
 
 jobs:
   build:
@@ -35,14 +32,22 @@ jobs:
     - name: Update software version
       run: |
         echo "using this build number as minor version: ${{ github.run_number }}"
-        sed -i 's/>0.0.1</>1.0.0.${{ github.run_number }}</g'  code\Blast\Blast.csproj 
+
+        echo "*******************************"
+        sed -i 's/>0.0.1</>${{ vars.APP_VERSION }}${{ github.run_number }}</g'  code\Blast\Blast.csproj 
         cat code\Blast\Blast.csproj
-        sed -i 's/0.0.1</1.0.0.${{ github.run_number }}/g'  code\Blast.Model\Services\Current.cs 
+
+        echo "*******************************"
+        sed -i 's/0.0.1/${{ vars.APP_VERSION }}${{ github.run_number }}/g'  code\Blast.Model\Services\Current.cs 
         cat code\Blast.Model\Services\Current.cs
+
+        echo "*******************************"
+        sed -i 's/1.0.0.0/${{ vars.APP_VERSION }}${{ github.run_number }}/g'  code\Blast\Platforms\Windows\Package.appxmanifest
+        code\Blast\Platforms\Windows\Package.appxmanifest
         
     - name: Build
       #run: dotnet publish code/Blast/Blast.sln -c Release -f:net7.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="${{ secrets.WINDOWS_PFX_THUMBPRINT }}"
-      run: dotnet publish code/Blast/Blast.csproj -c Release -f:net7.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="${{ secrets.WINDOWS_PFX_THUMBPRINT }}"
+      run: dotnet publish code/Blast/Blast.csproj -c Release -f:net7.0-windows10.0.19041.0 /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="${{ secrets.WINDOWS_PFX_THUMBPRINT }}"
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3.1.0
       with:
