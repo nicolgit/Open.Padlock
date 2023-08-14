@@ -42,7 +42,7 @@ jobs:
         cat code\Blast.Model\Services\Current.cs
 
         echo "*******************************"
-        sed -i 's/0.0.1/${{ variables.APP_VERSION }}${{ github.run_number }}/g'  code\Blast\Platforms\Windows\Package.appxmanifest
+        sed -i 's/1.0.0.0/${{ variables.APP_VERSION }}${{ github.run_number }}/g'  code\Blast\Platforms\Windows\Package.appxmanifest
         code\Blast\Platforms\Windows\Package.appxmanifest
         
     - name: Build
