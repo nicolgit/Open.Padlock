@@ -43,7 +43,7 @@ jobs:
 
         echo "*******************************"
         sed -i 's/1.0.0.0/${{ vars.APP_VERSION }}${{ github.run_number }}/g'  code\Blast\Platforms\Windows\Package.appxmanifest
-        code\Blast\Platforms\Windows\Package.appxmanifest
+        cat code\Blast\Platforms\Windows\Package.appxmanifest
         
     - name: Build
       #run: dotnet publish code/Blast/Blast.sln -c Release -f:net7.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="${{ secrets.WINDOWS_PFX_THUMBPRINT }}"
