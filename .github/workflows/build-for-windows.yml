@@ -34,15 +34,15 @@ jobs:
         echo "using this build number as minor version: ${{ github.run_number }}"
 
         echo "*******************************"
-        sed -i 's/>0.0.1</>${{ variables.APP_VERSION }}${{ github.run_number }}</g'  code\Blast\Blast.csproj 
+        sed -i 's/>0.0.1</>${{ vars.APP_VERSION }}${{ github.run_number }}</g'  code\Blast\Blast.csproj 
         cat code\Blast\Blast.csproj
 
         echo "*******************************"
-        sed -i 's/0.0.1/${{ variables.APP_VERSION }}${{ github.run_number }}/g'  code\Blast.Model\Services\Current.cs 
+        sed -i 's/0.0.1/${{ vars.APP_VERSION }}${{ github.run_number }}/g'  code\Blast.Model\Services\Current.cs 
         cat code\Blast.Model\Services\Current.cs
 
         echo "*******************************"
-        sed -i 's/1.0.0.0/${{ variables.APP_VERSION }}${{ github.run_number }}/g'  code\Blast\Platforms\Windows\Package.appxmanifest
+        sed -i 's/1.0.0.0/${{ vars.APP_VERSION }}${{ github.run_number }}/g'  code\Blast\Platforms\Windows\Package.appxmanifest
         code\Blast\Platforms\Windows\Package.appxmanifest
         
     - name: Build
