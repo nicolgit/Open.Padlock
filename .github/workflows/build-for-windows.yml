@@ -1,6 +1,7 @@
 # Information on how to build this action
 # https://www.andreasnesheim.no/setting-up-ci-for-your-net-maui-windows-app-with-github-actions/
 # https://www.youtube.com/watch?v=8lvdLa0v8zY
+# https://github.com/dotnet/maui/issues/16696
 
 name: build for Windows
 
