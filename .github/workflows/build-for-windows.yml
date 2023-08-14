@@ -6,10 +6,6 @@ name: build for Windows
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "build-for-windows" ]
-  pull_request:
-    branches: [ "build-for-windows" ]
 
 jobs:
   build:
